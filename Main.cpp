@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 struct Restrictions
 // extensions indique si l'option "-e" est demandee.
@@ -17,7 +18,7 @@ int main ( int argc, char *argv[])
 	string source ( argv [argc--]);
 	string graphviz;
 	
-  // Lecture des arguments
+	// Lecture des arguments
 	for (int i=1; i<argc; i++)
 	{
 		if (argv [i] == "-e")
@@ -59,6 +60,25 @@ int main ( int argc, char *argv[])
 		} else
 		{
 			cerr << "Erreur, option invalide." << endl;
+		}
+	}
+			   
+	// Verification des droits sur les fichiers.		   
+	{
+		ifstream ifs (source.c_str());
+		if ( ! ifs )
+		{
+			cerr << "Echec de lecture du fichier log !" << endl;
+		}
+		
+		if ( ! graphviz.empty () )
+		{
+			ofstream ofs (graphviz.c_str(), ios_base::app);
+			if ( ! ofs )
+			{
+				cerr << "Echec d'ouverture du fichier " << graphviz << '.' << endl;
+				exit (1);
+			}
 		}
 	}
 	return 0;
