@@ -69,6 +69,7 @@ int main ( int argc, char *argv[])
 		if ( ! ifs )
 		{
 			cerr << "Echec de lecture du fichier log !" << endl;
+			exit (2);
 		}
 		
 		if ( ! graphviz.empty () )
@@ -77,7 +78,7 @@ int main ( int argc, char *argv[])
 			if ( ! ofs )
 			{
 				cerr << "Echec d'ouverture du fichier " << graphviz << '.' << endl;
-				exit (1);
+				exit (2);
 			}
 		}
 	}
