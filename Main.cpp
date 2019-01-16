@@ -82,5 +82,17 @@ int main ( int argc, char *argv[])
 			}
 		}
 	}
+			   
+	// Lecture du fichier d'entree
+	
+	// Production de la sortie
+	if (graphviz.empty())
+	{
+		AfficheTop10();
+	}
+	else
+	{
+		GenererGraphe();
+	}
 	return 0;
 }
