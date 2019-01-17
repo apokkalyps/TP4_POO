@@ -39,6 +39,15 @@ static void LectureArguments ( char ** args, int nbr_args)
 // Contrat : 
 //	restr a été construit par défaut, nbr_args est compatible avec args.
 {
+	source = args[--nbr_args];
+	if ( nbr_args < 2 || nbr_args > 7 || source[0] == '-')
+	{
+		cerr << "Syntaxe d'appel incorrecte. Verifiez votre syntaxe avec";
+		cerr << " le manuel." << endl;
+		exit (1);
+	}
+
+
 	for (int i=1; i<nbr_args; i++)
 	{
 		if ( ! strcmp(args [i], "-e"))
@@ -111,13 +120,12 @@ static void VerificationDroits (ifstream * ifs, ofstream * ofs)
 
 static void AfficheTop10 ()
 {
-
 } //----- Fin de AfficheTop10.
 
 static void GenererGraphe ()
 {
-
 } //----- Fin de GenererGraphe.
+
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
@@ -128,13 +136,15 @@ int main ( int argc, char *argv[])
     AfficheArgs(argv, argc);
 #endif // MAP
 
-	// Definitions prealables
+   // Definitions prealables
 	restr = Restrictions (false, -1);
-	source = string ( argv [--argc]);
-	graphviz = string ( "" );
 
 	// Lecture des arguments
 	LectureArguments (argv, argc);
+#ifdef MAP
+	cout << "Restrictions : " << restr << endl;
+	cout << "Source: " << source << ", export vers: " << graphviz << endl;
+#endif
 
 	// Verification des droits sur les fichiers.
 	ifstream * ifs_p = nullptr;

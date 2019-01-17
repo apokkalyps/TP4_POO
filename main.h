@@ -26,15 +26,15 @@
 
 //------------------------------------------------------------------ Types
 struct Restrictions
-// Structure encapsulant (en public) les requêtes de l'utilisateurs
-// en matière de restrictions dans la lecture du fichier.
+// Structure encapsulant (en public) les requêtes de l'utilisateur
+// en matière de restrictions dans la lecture du fichier source.
 // > extensions indique si l'option "-e" est demandee.
 // > heure indique l'heure demandee par l'utilisateur. 
 // 		-1 signifie pas d'heure demandee.
 {
 	bool extensions;
 	unsigned char heure;
-	Restrictions (bool e = false, unsigned char h = -1); // Constructeur
+	explicit Restrictions (bool e = false, unsigned char h = -1); // Constr
 };
 
 //////////////////////////////////////////////////////////////////  PUBLIC
