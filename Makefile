@@ -1,6 +1,6 @@
 COMPIL=g++
 EXT_SRC=cpp
-CFLAGS=-Wall -g #-Werror 
+CFLAGS=-Wall -g -D MAP
 LDFLAGS=-lm
 SRC=$(wildcard *.$(EXT_SRC))
 OBJ_FOLDER=./obj
@@ -18,7 +18,7 @@ $(EXEC) : $(OBJ_FOLDER) $(O_FILES)
 	$(COMPIL) -o $(EXEC) $(O_FILES) $(LDFLAGS)
 
 ### --- COMPILATION SEPAREE --- ###
-%.o : ../%.$(EXT_SRC)
+%.o : ../%.$(EXT_SRC) ../%.h
 	@ echo "Compilation de <$@>"
 	@ $(COMPIL) $(CFLAGS) -o $@ -c $<
 
