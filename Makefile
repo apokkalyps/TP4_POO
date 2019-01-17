@@ -31,12 +31,13 @@ clean:
 	echo Nettoyage ...
 	rm -f $(O_FILES) $(EXEC)
 
-cleanfull: clean
+cleanfull:
+	echo Nettoyage complet...
+	rm -f $(O_FILES) $(EXEC)
 	rm ./obj/* -f
 	rmdir obj
 
-CLEAN_ON_VALGRIND=make clean; make $(EXEC)
-valgrind: clean $(EXEC)
+valgrind: $(EXEC)
 	echo Lancement de Valgrind ...
 	valgrind --leak-check=full ./$(EXEC)
 
