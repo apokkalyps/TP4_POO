@@ -39,18 +39,12 @@ struct Restrictions
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-int main ( int argc, char *argv[]);
+int main ( int argc, char * argv [] );
 // Mode d'emploi :
-//	Fonction Main, la seule appellable depuis l'extérieur.
+//	Fonction Main, porte d'entrée vers le programme depuis l'extérieur.
 // 	Toutes les autres fonctionnalités sont encapsulées.
 // Contrat :
 //	Aucun !
-
-std::ostream & operator << (ostream & os, const Restrictions & res);
-// Mode d'emploi :
-//  Surcharge de l'opérateur d'injection dans un flux.
-// Contrat :
-//  Aucun !
 
 #endif // MAIN_H
 

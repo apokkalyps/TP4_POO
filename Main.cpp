@@ -131,6 +131,7 @@ static void GenererGraphe ()
 //---------------------------------------------------- Fonctions publiques
 int main ( int argc, char *argv[])
 {
+	
 #ifdef MAP
     cout << "Appel du main avec les parametres suivants : " << endl;
     AfficheArgs(argv, argc);
@@ -171,9 +172,3 @@ Restrictions :: Restrictions (bool e, unsigned char h) :
 {
 } // ----- fin du constructeur de Restrictions.
 
-std::ostream & operator << (ostream & os, const Restrictions & res)
-{
-    os << boolalpha << "[ext=" << res.extensions << ", heure=";
-    os << ((res.heure > 23) ? string("?") : to_string(res.heure)) << ']';
-    return os;
-} //----- fin de Operator<< pour Restrictions.
