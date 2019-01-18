@@ -21,16 +21,21 @@ using namespace std;
 
 //------------------------------------------------------------------ Types
 
-//---------------------------------------------------- Variables statiques
-
 //------------------------------------------------------ Fonctions privées
 
+//---------------------------------------------------- Variables statiques
+void (*proceduresDeTests[]) () = 
+// Tableau de pointeurs de fonctions facilitant l'accès aux procédures.
+{
+    nullptr // Inutile donc indispensable
+};
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
 void AfficheArgs ( char * * args, int nbr_args )
 {
+    cout << "Affichage des " << nbr_args << "arguments : " << endl;
     for (int i=0; i<nbr_args; ++i)
     {
         cout << i << " : " << args[i] << endl;
@@ -43,3 +48,18 @@ std::ostream & operator << (ostream & os, const Restrictions & res)
     os << ((res.heure > 23) ? string("?") : to_string(res.heure)) << ']';
     return os;
 } //----- fin de Operator<< pour Restrictions.
+
+void LanceTest (unsigned short numTest = -1)
+{
+    if (numTest == -1)
+    {
+        int i = 0;
+        while (proceduresDeTests[i] != nullptr)
+        {
+            proceduresDeTests[i]();
+        }
+    } else
+    {
+        proceduresDeTests[numTest]();
+    }
+}

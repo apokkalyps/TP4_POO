@@ -38,4 +38,11 @@ std::ostream & operator << (ostream & os, const Restrictions & res);
 // Contrat :
 //  Aucun !
 
+void LanceTest (unsigned short numTest);
+// Mode d'emploi :
+//	Lance le test indexé par numTest.
+//	Si numTest n'est pas spécifié, exécute tous les tests.
+// Contrat :
+//	Aucun.
+
 #endif // TESTS_H
