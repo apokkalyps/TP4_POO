@@ -38,10 +38,12 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-void LectureLogs ( const Historique* h, string fname, options.. )
+void LectureLogs (string fname, struct Restrictions r)
 // Algorithme :
 //
 {
+  regle = r;
+  file_Name = fname;
 
   Parcours();
 } //----- fin de Nom
@@ -96,7 +98,7 @@ void Parcours()
 
 
       //Validation et ajout
-      if(valideOption(nvx)) historique->ajouterElement(URL_cible, URL_source);
+      // if(valideOption(nvx))
 
     }
 
@@ -108,7 +110,7 @@ void Parcours()
 
 }
 
-bool valideOption(struct Requete r, struct Restrictions re)
+bool valideOption(struct Requete r)
 {
   if (r == null)
     {   return false;
@@ -117,7 +119,7 @@ bool valideOption(struct Requete r, struct Restrictions re)
   bool e_valide = false;
   bool t_valide = false;
   // -e
-  if(re.extensions)
+  if(regle.extensions)
   {
     string ext = getExtension(r.URL_cible);
     for(int i = 0; i < restrictedFormats.length(); i++)
@@ -127,16 +129,16 @@ bool valideOption(struct Requete r, struct Restrictions re)
   }
 
   // -t
-  if(re.heure != -1)
+  if(regle.heure != -1)
   {
-    r.heure.compare(re.heure) ? t_valide = true;
+    r.heure.compare(regle.heure) ? t_valide = true;
   }
 
-  if(re.extensions && re.heure != -1)
+  if(regle.extensions && regle.heure != -1)
     return e_valide && t_valide;
-  else if(re.extensions)
+  else if(regle.extensions)
     return e_valide;
-  else if(re.heure != -1)
+  else if(regle.heure != -1)
     return t_valide;
   else
     return true;

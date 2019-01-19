@@ -18,7 +18,7 @@
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
-#include "Historique.h"
+#include "CountingMap.h"
 #include <string>
 
 using namespace std;
@@ -61,7 +61,7 @@ struct Restrictions
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-void LectureLogs(const Historique* h, string fname, options..);
+void LectureLogs(string fname, struct Restrictions r);
 // Mode d'emploi :
 //
 // Contrat :
@@ -90,9 +90,9 @@ string getExtension(string c);
 //------------------------------------------------------------------ PROTEGE
 //------------------------------------------------------- Methodes protegees --
 //----------------------------------------------------- Attributs protégés
-  Historique* historique;
+  //Historique* historique;
   string file_Name;
-
+  struct Restrictions regle;
   string restrictedFormats[7] = {TIFF, JPEG, GIF, PNG, RAW, CSS, JS};
 
 #endif // LECTURE_H
