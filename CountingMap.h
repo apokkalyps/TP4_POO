@@ -50,15 +50,20 @@ public:
     // Contrat :
     //  Aucun.
 
-    void Exporter ( ostream & os ) const;
+    void Exporter ( ostream & os = cout ) const;
     // Mode d'emploi :
-    //  Exporte sous forme texte brut le contenu du CountingMap.
+    //  Exporte sous forme texte brut le contenu du CountingMap sur le flux os.
     //  L'opérateur << doit être surchargé pour le type de données.
-    //  Bien sûr, on peut lui fournir l'objet cout.
+    //  Bien sûr, on peut lui fournir l'objet cout (par défaut).
     // Contrat :
     //  Le flux est valide.
 
     Top10 <Donnee> GetTop10 () const;
+    // Mode d'emploi :
+    //  Renvoie une structure Top10 listant les dix (ou moins) éléments
+    //  les plus décomptés.
+    // Contrat :
+    //  Aucun.
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -103,7 +108,7 @@ protected:
 template <typename Donnee, class HashF, class EqualF>
 unsigned int CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
 {
-    map_type::const_iterator iter = find (data); // Recherche de l'element.
+    typename map_type::const_iterator iter = find (data); // Recherche de l'element.
     unsigned int quantite = 0; // Valeur associee a la data.
 
     if (iter != map.end())
@@ -112,8 +117,28 @@ unsigned int CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
         erase (data);
     }
 
-    insert (data, quantite+1);
+    insert (data, ++quantite);
+
+    return quantite;
 }
+
+template <typename Donnee, class HashF, class EqualF>
+void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
+{
+    os << "CountingMap : " << map.size() << " éléments." << endl;
+    typename map_type :: const_iterator debut (map.begin()), fin (map.end());
+
+    while (debut != fin)
+    {
+        os << *debut << endl;
+        ++debut;
+    }
+}
+
+template <typename Donnee, class HashF, class EqualF>
+Top10 <Donnee> CountingMap <Donnee, HashF, EqualF> :: GetTop10 () const
+{}
+
 
 #endif // COUNTING_MAP_H
 
