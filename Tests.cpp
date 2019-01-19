@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -80,10 +81,24 @@ void Test_CountingMap_String ()
 {
     CountingMap <string, HashF_String, EqualF_String> toto;
     // On déclare une CountingMap de string avec nos hash et égal.
+    cout << "Taille : " << toto.GetTaille() << endl;
+    toto.Exporter (); // cout par défaut
     toto.Ajouter (string("Bonjour"));
     toto.Ajouter (string("Bonjour"));
     toto.Ajouter (string("Au revoir."));
     toto.Exporter (cout);
+    cout << "Combien de \"Bonjour\" ? " << toto.CombienDe("Bonjour") << endl;
+    cout << "Combien de \"aaa\" ? " << toto.CombienDe("aaa") << endl;
+    cout << "Combien de \"\" ? " << toto.CombienDe("") << endl;
+
+    vector <Paire <string> > lesTop (toto.GetTop(toto.GetTaille()));
+    vector<Paire<string>>::const_iterator 
+        debut (lesTop.cbegin()), 
+        fin (lesTop.cend()); 
+    while (debut != fin)
+    {
+        cout << debut->data << ", " << debut->score << '.' << endl;
+    }
 }
 
 //---------------------------------------------------- Variables statiques

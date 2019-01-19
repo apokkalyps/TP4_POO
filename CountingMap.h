@@ -87,7 +87,7 @@ public:
     // Contrat :
     //  Aucun.
 
-    vector<Paire<Donnee>> GetTop (unsigned int nombre = GetTaille()) const;
+    vector<Paire<Donnee>> GetTop (unsigned int nombre) const;
     // Mode d'emploi :
     //  Renvoie un vecteur des nombre éléments les plus décomptés.
     // Contrat :
@@ -177,7 +177,8 @@ nbr_t CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
         map.erase (data);
     }
 
-    map.insert (data, ++quantite);
+    //map.insert (data, ++quantite);
+    map.insert (pair<Donnee, nbr_t> (data, ++quantite));
 
     return quantite;
 } //----- fin de Ajouter
@@ -185,13 +186,21 @@ nbr_t CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
 template <typename Donnee, class HashF, class EqualF>
 void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
 {
-    os << "CountingMap : " << map.size() << " éléments." << endl;
-    typename map_type :: const_iterator debut (map.begin()), fin (map.end());
-
-    while (debut != fin)
+    size_t taille = GetTaille();
+    if (taille == 0)
     {
-        os << *debut << endl;
-        ++debut;
+        os << "CountingMap vide." << endl;
+    }
+    else
+    {
+        os << "CountingMap : " << GetTaille() << " éléments." << endl;
+        typename map_type::const_iterator debut (map.begin()), fin (map.end());
+
+        while (debut != fin)
+        {
+            os << "-> " << debut->first << " | " << debut->second << endl;
+            ++debut;
+        }
     }
 } //----- fin de Exporter
 
@@ -199,7 +208,7 @@ template <typename Donnee, class HashF, class EqualF>
 nbr_t CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
 {
     typename map_type::const_iterator iter = map.find (data);
-    return (iter == map.end()) ? 0 : *iter;
+    return (iter == map.end()) ? 0 : iter->second;
 } //----- fin de CombienDe.
 
 template <typename Donnee, class HashF, class EqualF>
