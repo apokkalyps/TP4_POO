@@ -14,6 +14,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -29,7 +30,7 @@ struct Paire
 {
     const Donnee_ data; // Donnée stockée
     const nbr_t score; // Nombre d'occurences
-    explicit Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); 
+    Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); 
     // Unique constructeur possible + par défaut.
     bool operator < ( const Paire <Donnee_> & p ) const;
     // Surcharge de l'opérateur de comparaison inférieur.
@@ -194,7 +195,7 @@ void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
     else
     {
         os << "CountingMap : " << GetTaille() << " éléments." << endl;
-        typename map_type::const_iterator debut (map.begin()), fin (map.end());
+        typename map_type::const_iterator debut(map.cbegin()), fin(map.cend());
 
         while (debut != fin)
         {
@@ -226,7 +227,7 @@ vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop
 //  On le trie dans l'ordre décroissant et on restreint sa taille.
 //  Enfin on le renvoie.
 {
-    typename map_type::iterator debut (map.begin()), fin (map.end());
+    typename map_type::const_iterator debut (map.cbegin()), fin (map.cend());
     vector <Paire <Donnee>> lesTuples;
     while (debut != fin)
     {
@@ -234,7 +235,11 @@ vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop
         debut++;
     }
     sort (lesTuples.begin(), lesTuples.end());
-    reverse (lesTuples.begin(), lesTuples.end());
+    
+    // reverse (lesTuples.begin(), lesTuples.end());
+    // ne marche pas
+
+    lesTuples = vector<Paire<Donnee>> (lesTuples.rbegin(), lesTuples.rend());
 
     if (lesTuples.size() > nombre)
     {
