@@ -12,20 +12,15 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
+#include "Lecture.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct HashF_CourteRequete
+struct HashF_CourteRequete;
 // Classe-fonction utilisée par CountingMap.
-{
-    size_t operator () (const CourteRequete & cr) const;
-};
 
-struct EqualF_CourteRequete
+struct EqualF_CourteRequete;
 // Classe-fonction utilisée par CountingMap.
-{
-    bool operator () (const CourteRequete & a, const CourteRequete & b) const;
-};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <CourteRequete>
@@ -36,6 +31,8 @@ struct EqualF_CourteRequete
 
 class CourteRequete
 {
+    friend struct HashF_CourteRequete;
+    friend struct EqualF_CourteRequete;
 //----------------------------------------------------------------- PUBLIC
 
 public:
@@ -48,7 +45,7 @@ public:
     // Contrat :
     //  Aucun.
 
-    bool operator == ( const CourteRequete & cr);
+    friend bool operator == (const CourteRequete& a, const CourteRequete& b);
     // Mode d'emploi :
     //  Compare deux la cible et la destination et renvoie true 
     //  ssi égalité pour les deux.
@@ -95,10 +92,22 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     string source; // URL source.
-    string destination; // URL cible.
+    string cible; // URL cible.
 };
 
 //---------------------- Autres définitions dépendantes de <CourteRequete>
+
+struct HashF_CourteRequete
+// Classe-fonction utilisée par CountingMap.
+{
+    size_t operator () (const CourteRequete & cr) const;
+};
+
+struct EqualF_CourteRequete
+// Classe-fonction utilisée par CountingMap.
+{
+    bool operator () (const CourteRequete & a, const CourteRequete & b) const;
+};
 
 #endif // CourteRequete_H
 

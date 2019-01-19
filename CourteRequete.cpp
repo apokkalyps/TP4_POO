@@ -38,7 +38,6 @@ size_t HashF_CourteRequete::operator () (const CourteRequete & cr) const
 
     const char * str2 = cr.cible.c_str();
     size_t hash2 = 5381;
-    int c;
 
     while ((c = *str2++))
     {
@@ -66,6 +65,7 @@ CourteRequete & CourteRequete::operator = ( const CourteRequete & cr )
 {
 	source = cr.source;
 	cible = cr.cible;
+    return *this;
 } //----- Fin de operator =
 
 ostream & operator << (ostream & os, const CourteRequete & cr)
@@ -73,9 +73,9 @@ ostream & operator << (ostream & os, const CourteRequete & cr)
 	return (os << "Requete { " << cr.source << " -> " << cr.cible << " }");
 } //----- Fin de operator<< 
 
-bool CourteRequete::operator == ( const CourteRequete & cr)
+bool operator == (const CourteRequete& a, const CourteRequete& b)
 {
-	return ( ! cible.compare(cr.cible)) && ( ! source.compare(cr.source));
+	return ( ! a.cible.compare(b.cible)) && ( ! a.source.compare(b.source));
 } //------ Fin de operator==
 
 

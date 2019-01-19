@@ -38,7 +38,8 @@ bool Paire<Donnee> :: operator < ( const Paire <Donnee> & p ) const
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Paire::Paire ( const Paire & unePaire ) :
+template <typename Donnee>
+Paire<Donnee>::Paire ( const Paire & unePaire ) :
 	data (unePaire.data),
 	score (unePaire.score)
 {
@@ -58,7 +59,8 @@ Paire<Donnee> :: Paire (Donnee d, nbr_t s) :
 } //----- fin du constructeur de Paire.
 
 
-Paire::~Paire ( )
+template <typename Donnee>
+Paire<Donnee>::~Paire ( )
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Paire>" << endl;

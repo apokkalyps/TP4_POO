@@ -99,7 +99,7 @@ void Test_CountingMap_String ()
         fin (lesTop.cend()); 
     while (debut != fin)
     {
-        cout << debut->data << ", " << debut->score << '.' << endl;
+        cout << *debut << '.' << endl;
         ++debut;
     }
 
@@ -109,7 +109,7 @@ void Test_CountingMap_String ()
     fin  = lesTop.cend(); 
     while (debut != fin)
     {
-        cout << debut->data << ", " << debut->score << '.' << endl;
+        cout << *debut << '.' << endl;
         ++debut;
     }
 }

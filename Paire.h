@@ -11,7 +11,7 @@
 #define PAIRE_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "CountingMap.h"
+typedef unsigned int nbr_t; // Raccourci car beaucoup utilisé.
 
 //------------------------------------------------------------- Constantes
 
