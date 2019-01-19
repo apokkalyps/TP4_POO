@@ -83,14 +83,23 @@ void Test_CountingMap_String ()
     // On déclare une CountingMap de string avec nos hash et égal.
     cout << "Taille : " << toto.GetTaille() << endl;
     toto.Exporter (); // cout par défaut
-    toto.Ajouter (string("Bonjour"));
-    toto.Ajouter (string("Bonjour"));
-    toto.Ajouter (string("Au revoir."));
+    toto.Ajouter (string("Deux"));
+    toto.Ajouter (string("Quatre"));
+    toto.Ajouter (string("Trois"));
+    toto.Ajouter (string("Trois"));
+    toto.Ajouter (string("Deux"));
+    toto.Ajouter (string("Quatre"));
+    toto.Ajouter (string("Quatre"));
+    toto.Ajouter (string("Trois"));
+    toto.Ajouter (string("Un"));
+    toto.Ajouter (string("Quatre"));
+
     toto.Exporter (cout);
-    cout << "Combien de \"Bonjour\" ? " << toto.CombienDe("Bonjour") << endl;
+    cout << "Combien de \"Deux\" ? " << toto.CombienDe("Deux") << endl;
     cout << "Combien de \"aaa\" ? " << toto.CombienDe("aaa") << endl;
     cout << "Combien de \"\" ? " << toto.CombienDe("") << endl;
 
+    cout << "Vecteur trié de tous les éléments : " << endl;
     vector <Paire <string> > lesTop (toto.GetTop(toto.GetTaille()));
     vector<Paire<string>>::const_iterator 
         debut (lesTop.cbegin()), 
@@ -98,6 +107,17 @@ void Test_CountingMap_String ()
     while (debut != fin)
     {
         cout << debut->data << ", " << debut->score << '.' << endl;
+        ++debut;
+    }
+
+    cout << "Vecteur trié des 2 meilleurs éléments : " << endl;
+    lesTop = toto.GetTop(2);
+    debut = lesTop.cbegin();
+    fin  = lesTop.cend(); 
+    while (debut != fin)
+    {
+        cout << debut->data << ", " << debut->score << '.' << endl;
+        ++debut;
     }
 }
 

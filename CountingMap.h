@@ -26,10 +26,9 @@ template <typename Donnee_>
 struct Paire
 // Structure stockant un "tuple" de la CountingMap.
 // Elle est utilisée pour extraire plusieurs trucs à la fois de la CM.
-// Le contenu est en lecture seule après construction.
 {
-    const Donnee_ data; // Donnée stockée
-    const nbr_t score; // Nombre d'occurences
+    Donnee_ data; // Donnée stockée
+    nbr_t score; // Nombre d'occurences
     Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); 
     // Unique constructeur possible + par défaut.
     bool operator < ( const Paire <Donnee_> & p ) const;
@@ -39,7 +38,7 @@ struct Paire
     {
         return ( os << '{' << p.data << ", " << p.score << '}' );
     }
-    
+    Paire <Donnee_> & operator= (const Paire<Donnee_> & src) = default;
 };
 
 //------------------------------------------------------------------------
@@ -150,6 +149,8 @@ bool Paire<Donnee_> :: operator < ( const Paire <Donnee_> & p ) const
     return score < p.score;
 } //----- fin de operator < pour Paire.
 
+
+
 // --- Pour la classe CountingMap
 template <typename Donnee, class HashF, class EqualF>
 CountingMap <Donnee, HashF, EqualF> :: CountingMap ()
@@ -235,11 +236,7 @@ vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop
         debut++;
     }
     sort (lesTuples.begin(), lesTuples.end());
-    
-    // reverse (lesTuples.begin(), lesTuples.end());
-    // ne marche pas
-
-    lesTuples = vector<Paire<Donnee>> (lesTuples.rbegin(), lesTuples.rend());
+    reverse (lesTuples.begin(), lesTuples.end());
 
     if (lesTuples.size() > nombre)
     {
