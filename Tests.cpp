@@ -69,17 +69,10 @@ struct HashF_String
         return hash; 
     }
 };
-struct EqualF_String
-// Structure contenant juste une fonction d'égalité.
-{
-    bool operator () (const string & a, const string & b) const
-    {
-        return !a.compare(b);
-    }
-};
+
 void Test_CountingMap_String ()
 {
-    CountingMap <string, HashF_String, EqualF_String> toto;
+    CountingMap <string, HashF_String> toto;
     // On déclare une CountingMap de string avec nos hash et égal.
     cout << "Taille : " << toto.GetTaille() << endl;
     toto.Exporter (); // cout par défaut

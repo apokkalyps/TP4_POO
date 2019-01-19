@@ -46,14 +46,12 @@ struct Paire
 //  Classe générique qui compte le nombre d'occurences d'un objet donné.
 //  Ses paramètres de template sont :
 //      - Donnee : le type de donnée qu'on devra compter
-//          Opérateurs à surcharger : << pour ostream.
+//          Opérateurs à surcharger : == (égalité), << (ostream).
 //      - HashF : une functor pour obtenir un size_t à partir d'un objet Donnee
-//      - EqualF : une functor pour comparer deux objets Donnee
 //------------------------------------------------------------------------
 
 template <typename Donnee, 
-          class HashF = hash<Donnee>, 
-          class EqualF = equal_to<Donnee>>
+          class HashF = hash<Donnee>>
 class CountingMap
 {
 //----------------------------------------------------------------- PUBLIC
@@ -124,7 +122,7 @@ public:
 //------------------------------------------------------------------ PRIVE
 
 protected:
-    typedef unordered_map <Donnee, nbr_t, HashF, EqualF > map_type;
+    typedef unordered_map <Donnee, nbr_t, HashF> map_type;
     // Type du conteneur des données de la CountingMap.
     
 
@@ -152,16 +150,16 @@ bool Paire<Donnee_> :: operator < ( const Paire <Donnee_> & p ) const
 
 
 // --- Pour la classe CountingMap
-template <typename Donnee, class HashF, class EqualF>
-CountingMap <Donnee, HashF, EqualF> :: CountingMap ()
+template <typename Donnee, class HashF>
+CountingMap <Donnee, HashF> :: CountingMap ()
 {
     #ifdef MAP
     cout << "Création d'une instance de CountingMap." << endl;
     #endif
 } //----- fin du constructeur par défaut
 
-template <typename Donnee, class HashF, class EqualF>
-CountingMap <Donnee, HashF, EqualF> :: ~CountingMap ()
+template <typename Donnee, class HashF>
+CountingMap <Donnee, HashF> :: ~CountingMap ()
 {
     #ifdef MAP
     cout << "Destruction d'une instance de CountingMap." << endl;
@@ -169,8 +167,8 @@ CountingMap <Donnee, HashF, EqualF> :: ~CountingMap ()
 } //----- fin du destructeur
 
 
-template <typename Donnee, class HashF, class EqualF>
-nbr_t CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
+template <typename Donnee, class HashF>
+nbr_t CountingMap <Donnee, HashF> :: Ajouter ( Donnee data )
 {
     nbr_t quantite = CombienDe (data); 
 
@@ -185,8 +183,8 @@ nbr_t CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
     return quantite;
 } //----- fin de Ajouter
 
-template <typename Donnee, class HashF, class EqualF>
-void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
+template <typename Donnee, class HashF>
+void CountingMap <Donnee, HashF> :: Exporter (ostream & os) const
 {
     size_t taille = GetTaille();
     if (taille == 0)
@@ -206,21 +204,21 @@ void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
     }
 } //----- fin de Exporter
 
-template <typename Donnee, class HashF, class EqualF>
-nbr_t CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
+template <typename Donnee, class HashF>
+nbr_t CountingMap <Donnee, HashF> :: CombienDe (Donnee data) const
 {
     typename map_type::const_iterator iter = map.find (data);
     return (iter == map.end()) ? 0 : iter->second;
 } //----- fin de CombienDe.
 
-template <typename Donnee, class HashF, class EqualF>
-size_t CountingMap <Donnee, HashF, EqualF> :: GetTaille () const
+template <typename Donnee, class HashF>
+size_t CountingMap <Donnee, HashF> :: GetTaille () const
 {
     return map.size();
 } //----- fin de GetTaille.
 
-template <typename Donnee, class HashF, class EqualF>
-vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop 
+template <typename Donnee, class HashF>
+vector<Paire<Donnee>> CountingMap <Donnee, HashF> :: GetTop 
     (unsigned int nombre) const
 // Algorithme :
 //  On commence par créer un vector de paires {Donnee, nbr_t}.
