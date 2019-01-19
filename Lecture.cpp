@@ -15,7 +15,9 @@
 #include "Lecture.h"
 #include <iostream>
 #include <fstream>
-
+#include <cstring>
+#include <cstddef>         // std::size_t
+using namespace std;
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
 
@@ -36,7 +38,7 @@
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-void Lecture ( const Historique* h, string fname, options.. )
+void LectureLogs ( const Historique* h, string fname, options.. )
 // Algorithme :
 //
 {
@@ -56,26 +58,29 @@ void Parcours()
       	  	cout << "Lecture d'une ligne " << endl;
       #endif
 
-      struct Requete new;
+      struct Requete nvx;
 
-      getline(monFlux, new.IP, " ");
-      getline(monFlux, new.authenticatedUserName, " ");
-      getline(monFlux, new.jour, " ");
-      getline(monFlux, new.mois, " ");
-      getline(monFlux, new.annee, " ");
-      getline(monFlux, new.heure, " ");
-      getline(monFlux, new.minute, " ");
-      getline(monFlux, new.seconde, " ");
-      getline(monFlux, new.fuseau, " ");
-      getline(monFlux, new.type, " ");
-      getline(monFlux, new.URL_R, " ");
-      getline(monFlux, new.protocole, " ");
-      getline(monFlux, new.status, " ");
-      getline(monFlux, new.data, " ");
-      getline(monFlux, new.URL_r, " ");
-      getline(monFlux, new.navigateur);
+      //Remmplissage de la ligne pour une requete donnée
+      getline(monFlux, nvx.IP, " ");
+      getline(monFlux, nvx.authenticatedUserName, " ");
+      getline(monFlux, nvx.jour, " ");
+      getline(monFlux, nvx.mois, " ");
+      getline(monFlux, nvx.annee, " ");
+      getline(monFlux, nvx.heure, " ");
+      getline(monFlux, nvx.minute, " ");
+      getline(monFlux, nvx.seconde, " ");
+      getline(monFlux, nvx.fuseau, " ");
+      getline(monFlux, nvx.type, " ");
+      getline(monFlux, nvx.URL_cible, " ");
+      getline(monFlux, nvx.protocole, " ");
+      getline(monFlux, nvx.status, " ");
+      getline(monFlux, nvx.data, " ");
+      getline(monFlux, nvx.URL_source, " ");
+      getline(monFlux, nvx.navigateur);
 
-      if(valideOption(new)) historique->ajouterElement(URL_r, URL_r);
+      //Nettoyage des parties intules récupérées
+
+      if(valideOption(nvx)) historique->ajouterElement(URL_cible, URL_source);
 
     }
 
@@ -87,9 +92,44 @@ void Parcours()
 
 }
 
-bool valideOption(struct Requete elmt)
+bool valideOption(struct Requete r, struct Restrictions re)
 {
-  .
+  if (r == null)
+    {   return false;
+    }
+
+  bool e_valide = false;
+  bool t_valide = false;
+  // -e
+  if(re.extensions)
+  {
+    string ext = getExtension(r.URL_cible);
+    for(int i = 0; i < restrictedFormats.length(); i++)
+    {
+      ext.compare(restrictedFormats[i]) == 1 ? e_valide = true, break;
+    }
+  }
+
+  // -t
+  if(re.heure != -1)
+  {
+    r.heure.compare(re.heure) ? t_valide = true;
+  }
+
+  if(re.extensions && re.heure != -1)
+    return e_valide && t_valide;
+  else if(re.extensions)
+    return e_valide;
+  else if(re.heure != -1)
+    return t_valide;
+  else
+    return true;
+}
+
+string getExtension( string s){
+  size_t found = s.find_last_of(".");
+
+  return s.substr(found+1);
 }
 
 
