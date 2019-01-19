@@ -15,31 +15,13 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
+#include "Paire.h"
 using namespace std;
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 typedef unsigned int nbr_t; // Raccourci car beaucoup utilisé.
-
-template <typename Donnee_>
-struct Paire
-// Structure stockant un "tuple" de la CountingMap.
-// Elle est utilisée pour extraire plusieurs trucs à la fois de la CM.
-{
-    Donnee_ data; // Donnée stockée
-    nbr_t score; // Nombre d'occurences
-    Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); 
-    // Unique constructeur possible + par défaut.
-    bool operator < ( const Paire <Donnee_> & p ) const;
-    // Surcharge de l'opérateur de comparaison inférieur.
-    friend ostream & operator << ( ostream & os, const Paire<Donnee_> p)
-    // Surchage de l'opérateur d'injection dans le flux de sortie.
-    {
-        return ( os << '{' << p.data << ", " << p.score << '}' );
-    }
-    Paire <Donnee_> & operator= (const Paire<Donnee_> & src) = default;
-};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <CountingMap>
@@ -133,22 +115,6 @@ protected:
 
 //------------------------------ Autres définitions dépendantes de <CountingMap>
 
-// --- Pour la structure Paire
-template <typename Donnee_>
-Paire<Donnee_> :: Paire (Donnee_ d, nbr_t s) :
-    data (d), score (s)
-{
-} //----- fin du constructeur de Paire.
-
-template <typename Donnee_>
-bool Paire<Donnee_> :: operator < ( const Paire <Donnee_> & p ) const
-{
-    return score < p.score;
-} //----- fin de operator < pour Paire.
-
-
-
-// --- Pour la classe CountingMap
 template <typename Donnee, class HashF>
 CountingMap <Donnee, HashF> :: CountingMap ()
 {

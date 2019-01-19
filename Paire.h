@@ -1,92 +1,84 @@
 /*************************************************************************
-                    CourteRequete  -  requête Web avec source et cible
+                           Paire  -  une donnée + un unsigned int
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//-- Interface de la classe <CourteRequete> (fichier CourteRequete.h) ----
-#if ! defined ( COURTEREQUETE_H )
-#define COURTEREQUETE_H
+//---------- Interface de la classe <Paire> (fichier Paire.h) ----------------
+#if ! defined ( PAIRE_H )
+#define PAIRE_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
+#include "CountingMap.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct HashF_CourteRequete
-// Classe-fonction utilisée par CountingMap.
-{
-    size_t operator () (const CourteRequete & cr) const;
-};
-
-struct EqualF_CourteRequete
-// Classe-fonction utilisée par CountingMap.
-{
-    bool operator () (const CourteRequete & a, const CourteRequete & b) const;
-};
 
 //------------------------------------------------------------------------
-// Rôle de la classe <CourteRequete>
+// Rôle de la classe <Paire>
 //  Version courte et exploitable d'une requête Web
 //  telle que fournie par le système Apache.
 //  Elle est prête à l'emploi avec les autres modules.
 //------------------------------------------------------------------------
 
-class CourteRequete
+template <typename Donnee>
+class Paire
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
 
 //------------------------------------------------- Surcharge d'opérateurs
-    CourteRequete & operator = ( const CourteRequete & cr );
+    Paire & operator = ( const Paire & unPaire ) = default;
     // Mode d'emploi :
-    //  Recopie le contenu.
+    //  Opérateur d'affectation par défaut (car pas d'allocation dynamique).
     // Contrat :
     //  Aucun.
 
-    bool operator == ( const CourteRequete & cr);
+    bool operator < ( const Paire <Donnee> & p ) const;
     // Mode d'emploi :
-    //  Compare deux la cible et la destination et renvoie true 
-    //  ssi égalité pour les deux.
+    //  Surcharge de l'opérateur de comparaison inférieur.
     // Contrat :
     //  Aucun.
 
-    friend ostream & operator<< (ostream & os, const CourteRequete & cr);
+    friend ostream & operator << ( ostream & os, const Paire<Donnee> p)
     // Mode d'emploi :
-    //  Ecrit le contenu de la CourteRequete dans le flux.
+    //  Surchage de l'opérateur d'injection dans le flux de sortie.
     // Contrat :
     //  Aucun.
+    {
+        return ( os << '{' << p.data << ", " << p.score << '}' );
+    }
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    CourteRequete ( const CourteRequete & cr );
+    Paire ( const Paire & unePaire );
     // Mode d'emploi (constructeur de copie) :
-    //  Recopie le contenu.
+    //  Constructeur par copie d'une paire.
     // Contrat :
     //  Aucun.
 
-    CourteRequete ( const Requete & req );
+    Paire (Donnee d = Donnee (), nbr_t s = 0);
     // Mode d'emploi :
-    //  Recopie le contenu de la Requete par extraction des données pertinentes
+    //  Constructeur par défaut d'une paire.
     // Contrat :
     //  Aucun.
 
-    CourteRequete ( );
+    virtual ~Paire ( );
     // Mode d'emploi :
-    //  Constructeur par défaut, CourteRequete avec rien dedans.
+    //  Destruction d'une paire.
     // Contrat :
     //  Aucun.
-
-    virtual ~CourteRequete ( );
-    // Mode d'emploi :
-    //  Détruit la CourteRequête.
-    // Contrat :
-    //  Aucun.
-
 
 //------------------------------------------------------------------ PRIVE
 
@@ -94,11 +86,11 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    string source; // URL source.
-    string destination; // URL cible.
+    Donnee data; // Donnée stockée
+    nbr_t score; // Nombre d'occurences
 };
 
-//---------------------- Autres définitions dépendantes de <CourteRequete>
+//-------------------------------- Autres définitions dépendantes de <Paire>
 
-#endif // CourteRequete_H
+#endif // PAIRE_H
 

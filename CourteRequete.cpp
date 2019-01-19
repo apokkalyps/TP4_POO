@@ -21,6 +21,38 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
+//-------------------------------------------------------Classes-fonctions
+size_t HashF_CourteRequete::operator () (const CourteRequete & cr) const
+// Algorithme : 
+//  Algorithme djb2 issu du site http://www.cse.yorku.ca/~oz/hash.html.
+//  Appliqué deux fois car deux strings.
+{
+    const char * str1 = cr.source.c_str();
+    size_t hash1 = 5381;
+    int c;
+
+    while ((c = *str1++))
+    {
+        hash1 = ((hash1 << 5) + hash1) + c; /* hash1 * 33 + c */
+    }
+
+    const char * str2 = cr.cible.c_str();
+    size_t hash2 = 5381;
+    int c;
+
+    while ((c = *str2++))
+    {
+        hash2 = ((hash2 << 5) + hash2) + c; /* hash2 * 33 + c */
+    }
+    return hash1+hash2;
+}
+
+bool EqualF_CourteRequete::operator () 
+    (const CourteRequete & a, const CourteRequete & b) const
+{
+    return a == b;
+}
+
 //----------------------------------------------------- Méthodes publiques
 // type CourteRequete::Méthode ( liste des paramètres )
 // Algorithme :
