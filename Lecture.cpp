@@ -62,12 +62,13 @@ void Parcours()
 
       //Remmplissage de la ligne pour une requete donnée
       getline(monFlux, nvx.IP, " ");
+      getline(monFlux, nvx.userName, " ");
       getline(monFlux, nvx.authenticatedUserName, " ");
-      getline(monFlux, nvx.jour, " ");
-      getline(monFlux, nvx.mois, " ");
-      getline(monFlux, nvx.annee, " ");
-      getline(monFlux, nvx.heure, " ");
-      getline(monFlux, nvx.minute, " ");
+      getline(monFlux, nvx.jour, "/");
+      getline(monFlux, nvx.mois, "/");
+      getline(monFlux, nvx.annee, ":");
+      getline(monFlux, nvx.heure, ":");
+      getline(monFlux, nvx.minute, ":");
       getline(monFlux, nvx.seconde, " ");
       getline(monFlux, nvx.fuseau, " ");
       getline(monFlux, nvx.type, " ");
@@ -78,8 +79,23 @@ void Parcours()
       getline(monFlux, nvx.URL_source, " ");
       getline(monFlux, nvx.navigateur);
 
-      //Nettoyage des parties intules récupérées
+      //Nettoyage des parties inutiles récupérées (char en trop)
+      nvx.userName = nvx.userName.substr(1);
 
+      nvx.annee = nvx.annee.substr(0,nvx.annee.length()-1);
+      nvx.fuseau = nvx.fuseau.substr(0,nvx.fuseau.length()-1);
+
+      nvx.type = nvx.type.substr(1);
+
+      nvx.protocole = nvx.protocole.substr(0,nvx.protocole.length()-1);
+
+      nvx.URL_source = nvx.URL_source.substr(1,nvx.URL_source.length()-1);
+
+      nvx.navigateur = nvx.navigateur.substr(1,nvx.navigateur.length()-1);
+
+
+
+      //Validation et ajout
       if(valideOption(nvx)) historique->ajouterElement(URL_cible, URL_source);
 
     }
