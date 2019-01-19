@@ -50,8 +50,7 @@ struct Paire
 //      - HashF : une functor pour obtenir un size_t à partir d'un objet Donnee
 //------------------------------------------------------------------------
 
-template <typename Donnee, 
-          class HashF = hash<Donnee>>
+template <typename Donnee, class HashF = hash<Donnee>>
 class CountingMap
 {
 //----------------------------------------------------------------- PUBLIC
