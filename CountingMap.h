@@ -19,11 +19,17 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-template <typename Donnee>
-struct Top10 
+template <typename Donnee_>
+struct Paire
+// Structure stockant un "tuple" de la CountingMap.
 {
-    vector <Donnee> donnees;
-    vector <unsigned int> scores;
+    const Donnee_ data;
+    const unsigned int score;
+    explicit Paire (Donnee_ d, unsigned int s) : data(d), score(s) {}
+    bool operator < ( const Paire & p ) const
+    {
+        return score < p.score;
+    }
 };
 
 
@@ -32,6 +38,7 @@ struct Top10
 //  Classe générique qui compte le nombre d'occurences d'un objet donné.
 //  Ses paramètres de template sont :
 //      - Donnee : le type de donnée qu'on devra compter
+//          Opérateurs à surcharger : << pour ostream.
 //      - HashF : une functor pour obtenir un size_t à partir d'un objet Donnee
 //      - EqualF : une functor pour comparer deux objets Donnee
 //------------------------------------------------------------------------
@@ -45,14 +52,14 @@ public:
 //----------------------------------------------------- Méthodes publiques
     unsigned int Ajouter ( Donnee data );
     // Mode d'emploi :
-    //  Ajoute la donnee fournie a la map et retourne le nombre d'occurences
-    //  apres ajout.
+    //  Ajoute la donnee fournie a la CountingMap.
+    //  Retourne le nombre d'occurences apres ajout.
     // Contrat :
     //  Aucun.
 
     unsigned int CombienDe (Donnee data) const;
     // Mode d'emploi :
-    //  Renvoie le nombre d'occurences associé à la Donnee data.
+    //  Renvoie le nombre d'occurences associé à data.
     // Contrat :
     //  Aucun.
 
@@ -64,7 +71,7 @@ public:
     // Contrat :
     //  Le flux est valide.
 
-    Top10 <Donnee> GetTop10 () const;
+    vector<Paire<Donnee>> GetTop10 () const;
     // Mode d'emploi :
     //  Renvoie une structure Top10 listant les dix (ou moins) éléments
     //  les plus décomptés.
@@ -105,18 +112,7 @@ protected:
     typedef unordered_map <Donnee, unsigned int, HashF, EqualF > map_type;
     // Type du conteneur des données de la CountingMap.
     
-    template <typename Donnee_>
-    struct Paire
-    // Structure utilisée seulement dans la construction d'une struct Top10.
-    {
-        Donnee_ data;
-        unsigned int score;
-        Paire (Donnee_ d, unsigned int s) : data(d), score(s) {}
-        bool operator < ( const Paire & p ) const
-        {
-            return score < p.score;
-        }
-    };
+
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
@@ -156,12 +152,12 @@ void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
 template <typename Donnee, class HashF, class EqualF>
 unsigned int CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
 {
-    typename map_type::const_iterator iter = find (data); // Recherche de l'element.
+    typename map_type::const_iterator iter = find (data);
     return (iter == map.end()) ? 0 : *iter;
 }
 
 template <typename Donnee, class HashF, class EqualF>
-Top10 <Donnee> CountingMap <Donnee, HashF, EqualF> :: GetTop10 () const
+vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop10 () const
 // Algorithme :
 //  On commence par créer un vector de paires {Donnee, uint}.
 //  On remplit ce vector avec tous les éléments de la CountingMap.
