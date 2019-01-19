@@ -50,6 +50,12 @@ public:
     // Contrat :
     //  Aucun.
 
+    unsigned int CombienDe (Donnee data) const;
+    // Mode d'emploi :
+    //  Renvoie le nombre d'occurences associé à la Donnee data.
+    // Contrat :
+    //  Aucun.
+
     void Exporter ( ostream & os = cout ) const;
     // Mode d'emploi :
     //  Exporte sous forme texte brut le contenu du CountingMap sur le flux os.
@@ -97,6 +103,20 @@ public:
 
 protected:
     typedef unordered_map <Donnee, unsigned int, HashF, EqualF > map_type;
+    // Type du conteneur des données de la CountingMap.
+    
+    template <typename Donnee_>
+    struct Paire
+    // Structure utilisée seulement dans la construction d'une struct Top10.
+    {
+        Donnee_ data;
+        unsigned int score;
+        Paire (Donnee_ d, unsigned int s) : data(d), score(s) {}
+        bool operator < ( const Paire & p ) const
+        {
+            return score < p.score;
+        }
+    };
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
@@ -108,19 +128,17 @@ protected:
 template <typename Donnee, class HashF, class EqualF>
 unsigned int CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
 {
-    typename map_type::const_iterator iter = find (data); // Recherche de l'element.
-    unsigned int quantite = 0; // Valeur associee a la data.
+    unsigned int quantite = CombienDe (data); 
 
-    if (iter != map.end())
+    if (data > 0)
     {
-        quantite = *iter;
         erase (data);
     }
 
     insert (data, ++quantite);
 
     return quantite;
-}
+} //----- fin de Ajouter
 
 template <typename Donnee, class HashF, class EqualF>
 void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
@@ -133,11 +151,39 @@ void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
         os << *debut << endl;
         ++debut;
     }
+} //----- fin de Exporter
+
+template <typename Donnee, class HashF, class EqualF>
+unsigned int CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
+{
+    typename map_type::const_iterator iter = find (data); // Recherche de l'element.
+    return (iter == map.end()) ? 0 : *iter;
 }
 
 template <typename Donnee, class HashF, class EqualF>
 Top10 <Donnee> CountingMap <Donnee, HashF, EqualF> :: GetTop10 () const
-{}
+// Algorithme :
+//  On commence par créer un vector de paires {Donnee, uint}.
+//  On remplit ce vector avec tous les éléments de la CountingMap.
+//  On le trie dans l'ordre décroissant et on restreint sa taille.
+//  Enfin on le renvoie.
+{
+    typename map_type::iterator debut (map.begin()), fin (map.end());
+    vector <Paire <Donnee>> lesTuples;
+    while (debut != fin)
+    {
+        lesTuples.push_back (Paire<Donnee>(debut->first, debut->second));
+        debut++;
+    }
+    sort (lesTuples.begin(), lesTuples.end());
+    reverse (lesTuples.begin(), lesTuples.end());
+
+    if (lesTuples.size() > 10)
+    {
+        lesTuples.resize(10);
+    }
+    return lesTuples;
+} //----- fin de GetTop10
 
 
 #endif // COUNTING_MAP_H
