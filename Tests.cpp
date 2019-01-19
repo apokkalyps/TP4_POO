@@ -54,7 +54,7 @@ struct HashF_String
 // Structure contenant juste une fonction de hashage.
 // Source : algorithme djb2 du site http://www.cse.yorku.ca/~oz/hash.html.
 {
-    size_t operator () (const string & s)
+    size_t operator () (const string & s) const
     {
         const char * str = s.c_str();
         size_t hash = 5381;
@@ -68,11 +68,22 @@ struct HashF_String
         return hash; 
     }
 };
+struct EqualF_String
+// Structure contenant juste une fonction d'égalité.
+{
+    bool operator () (const string & a, const string & b) const
+    {
+        return !a.compare(b);
+    }
+};
 void Test_CountingMap_String ()
 {
-    CountingMap <string, HashF_String> eq;
-    // On déclare une CountingMap de string avec notre hash et l'égalité
-    // par défaut.
+    CountingMap <string, HashF_String, EqualF_String> toto;
+    // On déclare une CountingMap de string avec nos hash et égal.
+    toto.Ajouter (string("Bonjour"));
+    toto.Ajouter (string("Bonjour"));
+    toto.Ajouter (string("Au revoir."));
+    toto.Exporter (cout);
 }
 
 //---------------------------------------------------- Variables statiques
@@ -80,6 +91,7 @@ static void (*proceduresDeTests[]) () =
 // Tableau de pointeurs de fonctions facilitant l'accès aux procédures.
 {
     Test_PaireCountingMap,
+    Test_CountingMap_String,
     nullptr // Inutile donc indispensable
 };
 

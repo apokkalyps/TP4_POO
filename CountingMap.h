@@ -103,7 +103,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    explicit CountingMap ( const CountingMap & unCountingMap );
+    explicit CountingMap ( const CountingMap & unCountingMap ) = delete;
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
@@ -151,16 +151,33 @@ bool Paire<Donnee_> :: operator < ( const Paire <Donnee_> & p ) const
 
 // --- Pour la classe CountingMap
 template <typename Donnee, class HashF, class EqualF>
+CountingMap <Donnee, HashF, EqualF> :: CountingMap ()
+{
+    #ifdef MAP
+    cout << "Création d'une instance de CountingMap." << endl;
+    #endif
+} //----- fin du constructeur par défaut
+
+template <typename Donnee, class HashF, class EqualF>
+CountingMap <Donnee, HashF, EqualF> :: ~CountingMap ()
+{
+    #ifdef MAP
+    cout << "Destruction d'une instance de CountingMap." << endl;
+    #endif
+} //----- fin du destructeur
+
+
+template <typename Donnee, class HashF, class EqualF>
 nbr_t CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
 {
     nbr_t quantite = CombienDe (data); 
 
-    if (data > 0)
+    if (quantite > 0)
     {
-        erase (data);
+        map.erase (data);
     }
 
-    insert (data, ++quantite);
+    map.insert (data, ++quantite);
 
     return quantite;
 } //----- fin de Ajouter
@@ -181,7 +198,7 @@ void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
 template <typename Donnee, class HashF, class EqualF>
 nbr_t CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
 {
-    typename map_type::const_iterator iter = find (data);
+    typename map_type::const_iterator iter = map.find (data);
     return (iter == map.end()) ? 0 : *iter;
 } //----- fin de CombienDe.
 
