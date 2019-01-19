@@ -21,6 +21,8 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <iostream>
 #include <string>
+#include "CountingMap.h"
+#include "CourteRequete.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -36,6 +38,9 @@ struct Restrictions
 	unsigned char heure;
 	explicit Restrictions (bool e = false, unsigned char h = -1); // Constr
 };
+
+CountingMap <CourteRequete, HashF_CourteRequete> requetes;
+// Variable globale des courtes requêtes extraites.
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques

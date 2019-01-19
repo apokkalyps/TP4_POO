@@ -112,6 +112,7 @@ static void VerificationDroits (ifstream * ifs, ofstream * ofs)
 	if ( ! *ifs)
 	{
 		cerr << "Echec de lecture du fichier log !" << endl;
+		delete ifs;
 		exit (2);
 	}
 
@@ -121,6 +122,7 @@ static void VerificationDroits (ifstream * ifs, ofstream * ofs)
 		if ( ! *ofs )
 		{
 			cerr << "Echec d'ouverture du fichier " << graphviz << '.' << endl;
+			delete ofs;
 			exit (2);
 		}
 	}
@@ -162,6 +164,7 @@ int main ( int argc, char *argv[])
 	
 
 	// Lecture du fichier d'entree
+	LectureLogs (source, restr, requetes);
 
 	// Production de la sortie
 	if (graphviz.empty())

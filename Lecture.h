@@ -19,6 +19,8 @@
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
 #include "CountingMap.h"
+#include "CourteRequete.h"
+#include "Main.h"
 #include <string>
 
 using namespace std;
@@ -45,23 +47,12 @@ struct Requete{
   string navigateur            ;
 };
 
-struct Restrictions
-// Structure encapsulant (en public) les requêtes de l'utilisateur
-// en matière de restrictions dans la lecture du fichier source.
-// > extensions indique si l'option "-e" est demandee.
-// > heure indique l'heure demandee par l'utilisateur.
-// 		-1 signifie pas d'heure demandee.
-{
-	bool extensions;
-	unsigned char heure;
-	explicit Restrictions (bool e = false, unsigned char h = -1); // Constr
-};
-
-
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-void LectureLogs(string fname, struct Restrictions r);
+template <typename RequeteType, typename HashF>
+void LectureLogs(string fname, struct Restrictions & r, 
+  CountingMap<RequeteType, HashF> & requetes);
 // Mode d'emploi :
 //
 // Contrat :
@@ -74,7 +65,7 @@ bool valideOption ( struct Requete );
 // Contrat :
 //
 
-void Parcours ( void ) const;
+void Parcours ( void );
 // Mode d'emploi :
 //
 // Contrat :

@@ -19,9 +19,6 @@
 struct HashF_CourteRequete;
 // Classe-fonction utilisée par CountingMap.
 
-struct EqualF_CourteRequete;
-// Classe-fonction utilisée par CountingMap.
-
 //------------------------------------------------------------------------
 // Rôle de la classe <CourteRequete>
 //  Version courte et exploitable d'une requête Web
@@ -32,7 +29,6 @@ struct EqualF_CourteRequete;
 class CourteRequete
 {
     friend struct HashF_CourteRequete;
-    friend struct EqualF_CourteRequete;
 //----------------------------------------------------------------- PUBLIC
 
 public:
@@ -101,12 +97,6 @@ struct HashF_CourteRequete
 // Classe-fonction utilisée par CountingMap.
 {
     size_t operator () (const CourteRequete & cr) const;
-};
-
-struct EqualF_CourteRequete
-// Classe-fonction utilisée par CountingMap.
-{
-    bool operator () (const CourteRequete & a, const CourteRequete & b) const;
 };
 
 #endif // CourteRequete_H

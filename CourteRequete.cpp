@@ -46,11 +46,6 @@ size_t HashF_CourteRequete::operator () (const CourteRequete & cr) const
     return hash1+hash2;
 }
 
-bool EqualF_CourteRequete::operator () 
-    (const CourteRequete & a, const CourteRequete & b) const
-{
-    return a == b;
-}
 
 //----------------------------------------------------- Méthodes publiques
 // type CourteRequete::Méthode ( liste des paramètres )

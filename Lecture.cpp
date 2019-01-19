@@ -38,7 +38,9 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-void LectureLogs (string fname, struct Restrictions r)
+template <typename RequeteType, typename HashF>
+void LectureLogs(string fname, struct Restrictions & r, 
+  CountingMap<RequeteType, HashF> & requetes);
 // Algorithme :
 //
 {
