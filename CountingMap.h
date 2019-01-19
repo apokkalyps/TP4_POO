@@ -6,7 +6,7 @@
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface de la classe <CountingMap> (fichier CountingMap.h) ----------------
+//-- Interface de la classe <CountingMap> (fichier CountingMap.h) --------
 #if ! defined ( COUNTING_MAP_H )
 #define COUNTING_MAP_H
 
@@ -29,7 +29,8 @@ struct Paire
 {
     const Donnee_ data; // Donnée stockée
     const nbr_t score; // Nombre d'occurences
-    explicit Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); // Constructeur
+    explicit Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); 
+    // Unique constructeur possible + par défaut.
     bool operator < ( const Paire <Donnee_> & p ) const;
     // Surcharge de l'opérateur de comparaison inférieur.
     friend ostream & operator << ( ostream & os, const Paire<Donnee_> p)
@@ -50,7 +51,9 @@ struct Paire
 //      - EqualF : une functor pour comparer deux objets Donnee
 //------------------------------------------------------------------------
 
-template <typename Donnee, class HashF, class EqualF>
+template <typename Donnee, 
+          class HashF = hash<Donnee>, 
+          class EqualF = equal_to<Donnee>>
 class CountingMap
 {
 //----------------------------------------------------------------- PUBLIC
@@ -92,7 +95,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    CountingMap & operator = ( const CountingMap & unCountingMap );
+    CountingMap & operator = ( const CountingMap & unCountingMap ) = delete;
     // Mode d'emploi :
     //
     // Contrat :
@@ -131,7 +134,7 @@ protected:
     map_type map;
 };
 
-//-------------------------------- Autres définitions dépendantes de <CountingMap>
+//------------------------------ Autres définitions dépendantes de <CountingMap>
 
 // --- Pour la structure Paire
 template <typename Donnee_>

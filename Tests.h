@@ -36,7 +36,7 @@ std::ostream & operator << (ostream & os, const Restrictions & res);
 // Mode d'emploi :
 //  Surcharge de l'opérateur d'injection dans un flux.
 // Contrat :
-//  Aucun !
+//  Aucun.
 
 void LanceTest (unsigned short numTest);
 // Mode d'emploi :

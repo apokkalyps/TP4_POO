@@ -24,7 +24,7 @@ using namespace std;
 
 //------------------------------------------------------ Fonctions privées
 
-void Test_PaireCountingMap ()
+static void Test_PaireCountingMap ()
 // Mode d'emploi :
 //  Effectue des tests pour vérifier le bon fonctionnement de la struct Paire.
 // Contrat :
@@ -43,9 +43,37 @@ void Test_PaireCountingMap ()
     cout << "Paire3 < Paire1 ? " << (paire3 < paire1) << endl;
     cout << "Paire1 < Paire3 ? " << (paire1 < paire3) << endl;
     cout << "Paire4 < Paire1 ? " << (paire4 < paire1) << endl;
+    cout << "Paire2 < Paire2 ? " << (paire2 < paire2) << endl;
 
     cout << noboolalpha;
 } //----- fin de Test_PaireCountingMap
+
+
+// Test de CountingMap avec des String
+struct HashF_String 
+// Structure contenant juste une fonction de hashage.
+// Source : algorithme djb2 du site http://www.cse.yorku.ca/~oz/hash.html.
+{
+    size_t operator () (const string & s)
+    {
+        const char * str = s.c_str();
+        size_t hash = 5381;
+        int c;
+
+        while ((c = *str++))
+        {
+            hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+        }
+
+        return hash; 
+    }
+};
+void Test_CountingMap_String ()
+{
+    CountingMap <string, HashF_String> eq;
+    // On déclare une CountingMap de string avec notre hash et l'égalité
+    // par défaut.
+}
 
 //---------------------------------------------------- Variables statiques
 static void (*proceduresDeTests[]) () = 
