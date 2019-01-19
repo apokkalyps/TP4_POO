@@ -15,6 +15,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Tests.h"
+#include "CountingMap.h"
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -23,10 +24,34 @@ using namespace std;
 
 //------------------------------------------------------ Fonctions privées
 
+void Test_PaireCountingMap ()
+// Mode d'emploi :
+//  Effectue des tests pour vérifier le bon fonctionnement de la struct Paire.
+// Contrat :
+//  Aucun.
+{
+    Paire <string> paire1 ("paire 1", 1);
+    Paire <float> paire2 (3.1415, 2);
+    Paire <string> paire3 ("paire 3", 3);
+    Paire <string> paire4 ("a_paire 4", 4);
+    cout << "Paire 1 : " << paire1 << endl;
+    cout << "Paire 2 : " << paire2 << endl;
+    cout << "Paire 3 : " << paire3 << endl;
+    cout << "Paire 4 : " << paire4 << endl;
+
+    cout << boolalpha;
+    cout << "Paire3 < Paire1 ? " << (paire3 < paire1) << endl;
+    cout << "Paire1 < Paire3 ? " << (paire1 < paire3) << endl;
+    cout << "Paire4 < Paire1 ? " << (paire4 < paire1) << endl;
+
+    cout << noboolalpha;
+} //----- fin de Test_PaireCountingMap
+
 //---------------------------------------------------- Variables statiques
-void (*proceduresDeTests[]) () = 
+static void (*proceduresDeTests[]) () = 
 // Tableau de pointeurs de fonctions facilitant l'accès aux procédures.
 {
+    Test_PaireCountingMap,
     nullptr // Inutile donc indispensable
 };
 
@@ -35,7 +60,7 @@ void (*proceduresDeTests[]) () =
 
 void AfficheArgs ( char * * args, int nbr_args )
 {
-    cout << "Affichage des " << nbr_args << "arguments : " << endl;
+    cout << "Affichage des " << nbr_args << " arguments : " << endl;
     for (int i=0; i<nbr_args; ++i)
     {
         cout << i << " : " << args[i] << endl;
@@ -51,15 +76,31 @@ std::ostream & operator << (ostream & os, const Restrictions & res)
 
 void LanceTest (unsigned short numTest = -1)
 {
+    // Recherche du max des procédures de test :
+    size_t nbr_procedures=0;
+    while (proceduresDeTests[nbr_procedures] != nullptr)
+    {
+        nbr_procedures++;
+    }
+
     if (numTest == -1)
     {
-        int i = 0;
-        while (proceduresDeTests[i] != nullptr)
+        for (unsigned int i=0; i<nbr_procedures; i++)
         {
             proceduresDeTests[i]();
         }
     } else
     {
-        proceduresDeTests[numTest]();
+        if (numTest >= nbr_procedures)
+        {
+            cerr << "Indice de procédure invalide." << endl;
+        }
+        else
+        {
+            proceduresDeTests[numTest]();
+        }
     }
+
+    cout << "Fin des jeux de tests." << endl;
+    exit (0);
 }

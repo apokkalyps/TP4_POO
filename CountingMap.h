@@ -19,19 +19,26 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+typedef unsigned int nbr_t; // Raccourci car beaucoup utilisé.
+
 template <typename Donnee_>
 struct Paire
 // Structure stockant un "tuple" de la CountingMap.
+// Elle est utilisée pour extraire plusieurs trucs à la fois de la CM.
+// Le contenu est en lecture seule après construction.
 {
-    const Donnee_ data;
-    const unsigned int score;
-    explicit Paire (Donnee_ d, unsigned int s) : data(d), score(s) {}
-    bool operator < ( const Paire & p ) const
+    const Donnee_ data; // Donnée stockée
+    const nbr_t score; // Nombre d'occurences
+    explicit Paire (Donnee_ d = Donnee_ (), nbr_t s = 0); // Constructeur
+    bool operator < ( const Paire <Donnee_> & p ) const;
+    // Surcharge de l'opérateur de comparaison inférieur.
+    friend ostream & operator << ( ostream & os, const Paire<Donnee_> p)
+    // Surchage de l'opérateur d'injection dans le flux de sortie.
     {
-        return score < p.score;
+        return ( os << '{' << p.data << ", " << p.score << '}' );
     }
+    
 };
-
 
 //------------------------------------------------------------------------
 // Rôle de la classe <CountingMap>
@@ -50,14 +57,14 @@ class CountingMap
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    unsigned int Ajouter ( Donnee data );
+    nbr_t Ajouter ( Donnee data );
     // Mode d'emploi :
     //  Ajoute la donnee fournie a la CountingMap.
     //  Retourne le nombre d'occurences apres ajout.
     // Contrat :
     //  Aucun.
 
-    unsigned int CombienDe (Donnee data) const;
+    nbr_t CombienDe (Donnee data) const;
     // Mode d'emploi :
     //  Renvoie le nombre d'occurences associé à data.
     // Contrat :
@@ -71,10 +78,15 @@ public:
     // Contrat :
     //  Le flux est valide.
 
-    vector<Paire<Donnee>> GetTop10 () const;
+    size_t GetTaille () const;
     // Mode d'emploi :
-    //  Renvoie une structure Top10 listant les dix (ou moins) éléments
-    //  les plus décomptés.
+    //  Renvoie la taille du CountingMap en nombre d'éléments connus.
+    // Contrat :
+    //  Aucun.
+
+    vector<Paire<Donnee>> GetTop (unsigned int nombre = GetTaille()) const;
+    // Mode d'emploi :
+    //  Renvoie un vecteur des nombre éléments les plus décomptés.
     // Contrat :
     //  Aucun.
 
@@ -109,7 +121,7 @@ public:
 //------------------------------------------------------------------ PRIVE
 
 protected:
-    typedef unordered_map <Donnee, unsigned int, HashF, EqualF > map_type;
+    typedef unordered_map <Donnee, nbr_t, HashF, EqualF > map_type;
     // Type du conteneur des données de la CountingMap.
     
 
@@ -121,10 +133,24 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <CountingMap>
 
-template <typename Donnee, class HashF, class EqualF>
-unsigned int CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
+// --- Pour la structure Paire
+template <typename Donnee_>
+Paire<Donnee_> :: Paire (Donnee_ d, nbr_t s) :
+    data (d), score (s)
 {
-    unsigned int quantite = CombienDe (data); 
+} //----- fin du constructeur de Paire.
+
+template <typename Donnee_>
+bool Paire<Donnee_> :: operator < ( const Paire <Donnee_> & p ) const
+{
+    return score < p.score;
+} //----- fin de operator < pour Paire.
+
+// --- Pour la classe CountingMap
+template <typename Donnee, class HashF, class EqualF>
+nbr_t CountingMap <Donnee, HashF, EqualF> :: Ajouter ( Donnee data )
+{
+    nbr_t quantite = CombienDe (data); 
 
     if (data > 0)
     {
@@ -150,16 +176,23 @@ void CountingMap <Donnee, HashF, EqualF> :: Exporter (ostream & os) const
 } //----- fin de Exporter
 
 template <typename Donnee, class HashF, class EqualF>
-unsigned int CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
+nbr_t CountingMap <Donnee, HashF, EqualF> :: CombienDe (Donnee data) const
 {
     typename map_type::const_iterator iter = find (data);
     return (iter == map.end()) ? 0 : *iter;
-}
+} //----- fin de CombienDe.
 
 template <typename Donnee, class HashF, class EqualF>
-vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop10 () const
+size_t CountingMap <Donnee, HashF, EqualF> :: GetTaille () const
+{
+    return map.size();
+} //----- fin de GetTaille.
+
+template <typename Donnee, class HashF, class EqualF>
+vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop 
+    (unsigned int nombre) const
 // Algorithme :
-//  On commence par créer un vector de paires {Donnee, uint}.
+//  On commence par créer un vector de paires {Donnee, nbr_t}.
 //  On remplit ce vector avec tous les éléments de la CountingMap.
 //  On le trie dans l'ordre décroissant et on restreint sa taille.
 //  Enfin on le renvoie.
@@ -174,12 +207,12 @@ vector<Paire<Donnee>> CountingMap <Donnee, HashF, EqualF> :: GetTop10 () const
     sort (lesTuples.begin(), lesTuples.end());
     reverse (lesTuples.begin(), lesTuples.end());
 
-    if (lesTuples.size() > 10)
+    if (lesTuples.size() > nombre)
     {
-        lesTuples.resize(10);
+        lesTuples.resize(nombre);
     }
     return lesTuples;
-} //----- fin de GetTop10
+} //----- fin de GetTop
 
 
 #endif // COUNTING_MAP_H

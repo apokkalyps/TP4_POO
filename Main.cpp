@@ -48,7 +48,14 @@ static void LectureArguments ( char ** args, int nbr_args)
 		exit (1);
 	}
 
+	// Jeux de tests ?
+	// Si oui, on doit aussi spécifier en option l'indice du test.
+	if ( ! strcmp (args[1], "--tests"))
+	{
+		LanceTest(stoi(string(args[2])));
+	}
 
+	// Sinon analyse des options
 	for (int i=1; i<nbr_args; i++)
 	{
 		if ( ! strcmp(args [i], "-e"))
@@ -144,7 +151,7 @@ int main ( int argc, char *argv[])
 	// Lecture des arguments
 	LectureArguments (argv, argc);
 #ifdef MAP
-	cout << "Restrictions : " << restr << endl;
+	cout << "Restrictions: " << restr << endl;
 	cout << "Source: " << source << ", export vers: " << graphviz << endl;
 #endif
 
