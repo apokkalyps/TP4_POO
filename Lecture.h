@@ -18,11 +18,11 @@
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
+#include "RequeteTools.h"
 #include "CountingMap.h"
 #include "CourteRequete.h"
-#include "Main.h"
-#include "RequeteTools.h"
-#include <string>
+// #include "Main.h"
 
 using namespace std;
 //------------------------------------------------------------- Constantes
@@ -33,7 +33,7 @@ using namespace std;
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 template <typename RequeteType, typename HashF>
-void LectureLogs(string fname, Restrictions & r,
+void LectureLogs(string & fname, Restrictions & r,
   CountingMap<RequeteType, HashF> & liste);
 // Mode d'emploi :
 //

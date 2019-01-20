@@ -17,6 +17,7 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Tests.h"
 #include "CountingMap.h"
+#include "Paire.h"
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -25,7 +26,7 @@ using namespace std;
 
 //------------------------------------------------------ Fonctions privées
 
-static void Test_PaireCountingMap ()
+static void Test_Paire ()
 // Mode d'emploi :
 //  Effectue des tests pour vérifier le bon fonctionnement de la struct Paire.
 // Contrat :
@@ -47,7 +48,7 @@ static void Test_PaireCountingMap ()
     cout << "Paire2 < Paire2 ? " << (paire2 < paire2) << endl;
 
     cout << noboolalpha;
-} //----- fin de Test_PaireCountingMap
+} //----- fin de Test_Paire
 
 
 // Test de CountingMap avec des String
@@ -118,7 +119,7 @@ void Test_CountingMap_String ()
 static void (*proceduresDeTests[]) () = 
 // Tableau de pointeurs de fonctions facilitant l'accès aux procédures.
 {
-    Test_PaireCountingMap,
+    Test_Paire,
     Test_CountingMap_String,
     nullptr // Inutile donc indispensable
 };
