@@ -35,7 +35,7 @@ using namespace std;
 static string graphviz;
 static string source;
 static Restrictions restr;
-static CountingMap <CourteRequete, HashF_CourteRequete> requetes;
+static CountingMap <CourteRequete, HashF_CourteRequete> * requetes;
 
 //------------------------------------------------------ Fonctions privées
 static void LectureArguments ( char ** args, int nbr_args)
@@ -136,10 +136,42 @@ static void VerificationDroits (ifstream * ifs, ofstream * ofs)
 }
 
 static void AfficheTop10 ()
+// Mode d'emploi :
+//	Affiche les dix URL cibles les plus visitées.
+// Contrat :
+//	Le pointeur 'requetes' existe.
+// Algorithme :
+//	On compte d'abord le nombre de cibles avec le nombre de fois qu'elles
+//	ont été atteintes, au travers d'une nouvelle CountingMap.
+//	Ensuite, on affiche les dix meilleures.
 {
+	CountingMap <string> c_cibles; // Compteur des "hit" par cible
+	
+	vector<Paire<CourteRequete>> req = requetes->GetAll();
+	vector<Paire<CourteRequete>>::const_iterator 
+		debut (req.begin()), 
+		fin (req.end());
+	while (debut != fin)
+	{
+		c_cibles.Ajouter (debut->GetData().GetCible(), debut->GetScore());
+	}
+	vector<Paire<string>> dest (c_cibles.GetTop (10));
+	
+	cout << "Liste des " << dest.size() << " cibles les plus visitées :";
+	unsigned int compteur = 1;
+	vector<Paire<string>> :: const_iterator debut2 (dest.begin());
+	vector<Paire<string>> :: const_iterator fin2 (dest.end());
+	while (debut != fin)
+	{
+		cout << compteur << ". \"" << debut2->GetData() << " avec ";
+		cout << debut2->GetScore() << " visites." << endl;
+		++compteur;
+		++debut2;
+	}
+	cout << "Fini." << endl;
 } //----- Fin de AfficheTop10.
 
-static void GenererGraphe ()
+static void GenererGraphe (...)
 {
 } //----- Fin de GenererGraphe.
 
@@ -168,7 +200,7 @@ int main ( int argc, char *argv[])
 	ifstream * ifs_p = nullptr;
 	ofstream * ofs_p = nullptr;
 	VerificationDroits(ifs_p, ofs_p);
-	
+	requetes = new CountingMap <CourteRequete, HashF_CourteRequete>;
 
 	// Lecture du fichier d'entree
 	LectureLogs (source, restr, requetes);
@@ -180,13 +212,9 @@ int main ( int argc, char *argv[])
 	}
 	else
 	{
-		GenererGraphe();
+		GenererGraphe(graphviz, requetes->GetAll());
 	}
+	delete requetes;
 	return 0;
 } //----- fin de Main.
-
-Restrictions :: Restrictions (bool e, unsigned char h) : 
-	extensions (e), heure (h) 
-{
-} // ----- fin du constructeur de Restrictions.
 
