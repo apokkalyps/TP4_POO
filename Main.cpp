@@ -21,6 +21,10 @@ using namespace std;
 #include "Main.h"
 #include "Tests.h"
 #include "CountingMap.h"
+template <typename RequeteType, typename HashF>
+extern void LectureLogs(string fname, struct Restrictions & r,
+  CountingMap<RequeteType, HashF> & requetes);
+
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -31,6 +35,8 @@ using namespace std;
 static string graphviz;
 static string source;
 static Restrictions restr;
+static CountingMap <CourteRequete, HashF_CourteRequete> requetes;
+
 //------------------------------------------------------ Fonctions privées
 static void LectureArguments ( char ** args, int nbr_args)
 // Mode d'emploi :

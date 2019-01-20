@@ -39,14 +39,14 @@ class CountingMap
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    nbr_t Ajouter ( Donnee data );
+    nbr_t Ajouter ( const Donnee & data );
     // Mode d'emploi :
     //  Ajoute la donnee fournie a la CountingMap.
     //  Retourne le nombre d'occurences apres ajout.
     // Contrat :
     //  Aucun.
 
-    nbr_t CombienDe (Donnee data) const;
+    nbr_t CombienDe (const Donnee & data) const;
     // Mode d'emploi :
     //  Renvoie le nombre d'occurences associé à data.
     // Contrat :
@@ -133,7 +133,7 @@ CountingMap <Donnee, HashF> :: ~CountingMap ()
 
 
 template <typename Donnee, class HashF>
-nbr_t CountingMap <Donnee, HashF> :: Ajouter ( Donnee data )
+nbr_t CountingMap <Donnee, HashF> :: Ajouter ( const Donnee & data )
 {
     nbr_t quantite = CombienDe (data); 
 
@@ -170,7 +170,7 @@ void CountingMap <Donnee, HashF> :: Exporter (ostream & os) const
 } //----- fin de Exporter
 
 template <typename Donnee, class HashF>
-nbr_t CountingMap <Donnee, HashF> :: CombienDe (Donnee data) const
+nbr_t CountingMap <Donnee, HashF> :: CombienDe (const Donnee & data) const
 {
     typename map_type::const_iterator iter = map.find (data);
     return (iter == map.end()) ? 0 : iter->second;

@@ -39,8 +39,6 @@ struct Restrictions
 	explicit Restrictions (bool e = false, unsigned char h = -1); // Constr
 };
 
-CountingMap <CourteRequete, HashF_CourteRequete> requetes;
-// Variable globale des courtes requêtes extraites.
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques

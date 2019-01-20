@@ -12,11 +12,12 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
-#include "Lecture.h"
+// #include "Lecture.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct HashF_CourteRequete;
+//struct HashF_CourteRequete;
 // Classe-fonction utilisée par CountingMap.
 
 //------------------------------------------------------------------------
@@ -62,11 +63,11 @@ public:
     // Contrat :
     //  Aucun.
 
-    CourteRequete ( const Requete & req );
+    /*CourteRequete ( const Requete & req );
     // Mode d'emploi :
     //  Recopie le contenu de la Requete par extraction des données pertinentes
     // Contrat :
-    //  Aucun.
+    //  Aucun.*/
 
     CourteRequete ( );
     // Mode d'emploi :

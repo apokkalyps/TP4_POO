@@ -84,6 +84,7 @@ CourteRequete::CourteRequete ( const CourteRequete & cr ) :
 #endif
 } //----- Fin de CourteRequete (constructeur de copie)
 
+/*
  CourteRequete::CourteRequete ( const Requete & req ) :
  	source (req.URL_source),
  	cible (req.URL_cible)
@@ -93,7 +94,7 @@ CourteRequete::CourteRequete ( const CourteRequete & cr ) :
     cout << "d'une Requete entiere." << endl;
 #endif
  } //----- Fin de CourteRequete (constructeur par copie de Requete)
-
+*/
 
 CourteRequete::CourteRequete ( ) :
 	source(),

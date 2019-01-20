@@ -78,12 +78,4 @@ string getExtension(string c);
 //
 
 
-//------------------------------------------------------------------ PROTEGE
-//------------------------------------------------------- Methodes protegees --
-//----------------------------------------------------- Attributs protégés
-  //Historique* historique;
-  string file_Name;
-  struct Restrictions regle;
-  string restrictedFormats[7] = {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"};
-
 #endif // LECTURE_H

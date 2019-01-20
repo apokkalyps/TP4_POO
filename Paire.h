@@ -11,6 +11,7 @@
 #define PAIRE_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <iostream>
 typedef unsigned int nbr_t; // Raccourci car beaucoup utilisé.
 
 //------------------------------------------------------------- Constantes
@@ -51,7 +52,7 @@ public:
     // Contrat :
     //  Aucun.
 
-    friend ostream & operator << ( ostream & os, const Paire<Donnee> p)
+    friend std::ostream & operator << ( std::ostream & os, const Paire<Donnee> p)
     // Mode d'emploi :
     //  Surchage de l'opérateur d'injection dans le flux de sortie.
     // Contrat :
