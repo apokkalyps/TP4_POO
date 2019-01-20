@@ -24,9 +24,6 @@ using namespace std;
 #include "RequeteTools.h"
 #include "Lecture.h"
 
-/*template <typename RequeteType, typename HashF>
-extern void LectureLogs(string fname, struct Restrictions & r,
-  CountingMap<RequeteType, HashF> & requetes);*/
 
 
 ///////////////////////////////////////////////////////////////////  PRIVE
@@ -173,7 +170,7 @@ int main ( int argc, char *argv[])
 	
 
 	// Lecture du fichier d'entree
-	LectureLogs<CourteRequete, HashF_CourteRequete> (source, restr, requetes);
+	LectureLogs (source, restr, requetes);
 
 	// Production de la sortie
 	if (graphviz.empty())
