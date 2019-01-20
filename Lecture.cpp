@@ -17,6 +17,8 @@
 #include <fstream>
 #include <cstring>
 #include <cstddef>         // std::size_t
+#include "CountingMap.h"
+#include "CourteRequete.h"
 using namespace std;
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -46,12 +48,14 @@ string restrictedFormats[nbRF] =
 template <typename RequeteType, typename HashF>
 void LectureLogs(string fname, struct Restrictions & r, 
   CountingMap<RequeteType, HashF> & requetes)
+void LectureLogs(string fname, struct Restrictions & r,
+  CountingMap<RequeteType, HashF> & liste);
 // Algorithme :
 //
 {
   regle = r;
   file_Name = fname;
-
+  requete = liste;
   Parcours();
 } //----- fin de Nom
 
@@ -102,13 +106,13 @@ void Parcours()
 
       nvx.navigateur = nvx.navigateur.substr(1,nvx.navigateur.length()-1);
 
-
-
       //Validation et ajout
-      // if(valideOption(nvx))
+      
+      // On créer une requete courte avec uniquement les elements voulus
+      CourteRequete nvlle(nvx);
 
+      if(valideOption(nvx)) requete.Ajouter(nvlle);
     }
-
   }
   else
 	{

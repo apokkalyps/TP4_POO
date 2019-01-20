@@ -39,11 +39,11 @@ struct Requete{
   string seconde               ;
   string fuseau                ;
   string type                  ;
-  string URL_cible                 ;
+  string URL_cible             ;
   string protocole             ;
   string status                ;
   string data                  ;
-  string URL_source                 ;
+  string URL_source            ;
   string navigateur            ;
 };
 
