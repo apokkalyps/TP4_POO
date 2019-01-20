@@ -47,7 +47,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 //	restr a été construit par défaut, nbr_args est compatible avec args.
 {
 	source = args[--nbr_args];
-	if ( nbr_args < 2 || nbr_args > 7 || source[0] == '-')
+	if ( nbr_args < 1 || nbr_args > 6 || source[0] == '-')
 	{
 		cerr << "Syntaxe d'appel incorrecte. Verifiez votre syntaxe avec";
 		cerr << " le manuel." << endl;
@@ -102,7 +102,8 @@ static void LectureArguments ( char ** args, int nbr_args)
 			restr.heure = h;
 		} else
 		{
-			cerr << "Erreur, option invalide." << endl;
+			cerr << "Erreur, option invalide : \"" << args[i] << "\"." << endl;
+			exit(1);
 		}
 	}
 }
@@ -149,7 +150,6 @@ int main ( int argc, char *argv[])
 {
 	
 #ifdef MAP
-    cout << "Appel du main avec les parametres suivants : " << endl;
     AfficheArgs(argv, argc);
 #endif // MAP
 
@@ -160,7 +160,8 @@ int main ( int argc, char *argv[])
 	LectureArguments (argv, argc);
 #ifdef MAP
 	cout << "Restrictions: " << restr << endl;
-	cout << "Source: " << source << ", export vers: " << graphviz << endl;
+	cout << "Source: " << source << ", export vers: ";
+	cout << (graphviz.empty() ? "(null)" : graphviz) << endl;
 #endif
 
 	// Verification des droits sur les fichiers.
