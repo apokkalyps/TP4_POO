@@ -85,7 +85,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 			++i;
 		} else if ( ! strcmp( args [i], "-t"))
 		{
-			if ( restr.heure != -1 )
+			if ( restr.heure != (unsigned char)(-1) )
 			{
 				cerr << "Trop d'options : \"-t\" deja demande." << endl;
 				exit (1);
