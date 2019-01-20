@@ -61,6 +61,24 @@ public:
         return ( os << '{' << p.data << ", " << p.score << '}' );
     }
 
+    inline Donnee GetData () const
+    // Mode d'emploi :
+    //  Renvoie la donnée contenue.
+    // Contrat :
+    //  Aucun.
+    {
+        return data;
+    }
+
+    inline nbr_t GetScore () const
+    // Mode d'emploi :
+    //  Renvoie le score correspondant.
+    // Contrat :
+    //  Aucun.    
+    {
+        return score;
+    }
+
 
 //-------------------------------------------- Constructeurs - destructeur
     Paire ( const Paire & unePaire );

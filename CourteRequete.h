@@ -55,6 +55,24 @@ public:
     // Contrat :
     //  Aucun.
 
+    inline string GetSource () const 
+    // Mode d'emploi :
+    //  Renvoie la source par copie. Méthode inline car courte.
+    // Contrat :
+    //  Aucun.
+    {
+        return source;
+    }
+
+    inline string GetCible () const
+    // Mode d'emploi :
+    //  Renvoie la cible par copie. Méthode inline car courte.
+    // Contrat ;
+    //  Aucun.
+    {
+        return cible;
+    }
+
 
 //-------------------------------------------- Constructeurs - destructeur
     CourteRequete ( const CourteRequete & cr );
@@ -62,12 +80,6 @@ public:
     //  Recopie le contenu.
     // Contrat :
     //  Aucun.
-
-    /*CourteRequete ( const Requete & req );
-    // Mode d'emploi :
-    //  Recopie le contenu de la Requete par extraction des données pertinentes
-    // Contrat :
-    //  Aucun.*/
 
     CourteRequete ( );
     // Mode d'emploi :

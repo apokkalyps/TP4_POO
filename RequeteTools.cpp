@@ -27,4 +27,7 @@
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-
+Restrictions :: Restrictions (bool e, unsigned char h) : 
+	extensions (e), heure (h) 
+{
+} // ----- fin du constructeur de Restrictions.

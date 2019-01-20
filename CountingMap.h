@@ -39,9 +39,10 @@ class CountingMap
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    nbr_t Ajouter ( const Donnee & data );
+    nbr_t Ajouter ( const Donnee & data, nbr_t score = 1 );
     // Mode d'emploi :
     //  Ajoute la donnee fournie a la CountingMap.
+    //  Le score est le montant à ajouter.
     //  Retourne le nombre d'occurences apres ajout.
     // Contrat :
     //  Aucun.
@@ -69,6 +70,12 @@ public:
     vector<Paire<Donnee>> GetTop (unsigned int nombre) const;
     // Mode d'emploi :
     //  Renvoie un vecteur des nombre éléments les plus décomptés.
+    // Contrat :
+    //  Aucun.
+
+    vector<Paire<Donnee>> GetAll () const;
+    // Mode d'emploi :
+    //  Renvoie un vecteur des nombre éléments sans ordre ni tri.
     // Contrat :
     //  Aucun.
 
@@ -133,7 +140,7 @@ CountingMap <Donnee, HashF> :: ~CountingMap ()
 
 
 template <typename Donnee, class HashF>
-nbr_t CountingMap <Donnee, HashF> :: Ajouter ( const Donnee & data )
+nbr_t CountingMap <Donnee, HashF> :: Ajouter ( const Donnee & data, nbr_t score)
 {
     nbr_t quantite = CombienDe (data); 
 
@@ -143,7 +150,7 @@ nbr_t CountingMap <Donnee, HashF> :: Ajouter ( const Donnee & data )
     }
 
     //map.insert (data, ++quantite);
-    map.insert (pair<Donnee, nbr_t> (data, ++quantite));
+    map.insert (pair<Donnee, nbr_t> (data, quantite + score));
 
     return quantite;
 } //----- fin de Ajouter
@@ -191,13 +198,7 @@ vector<Paire<Donnee>> CountingMap <Donnee, HashF> :: GetTop
 //  On le trie dans l'ordre décroissant et on restreint sa taille.
 //  Enfin on le renvoie.
 {
-    typename map_type::const_iterator debut (map.cbegin()), fin (map.cend());
-    vector <Paire <Donnee>> lesTuples;
-    while (debut != fin)
-    {
-        lesTuples.push_back (Paire<Donnee>(debut->first, debut->second));
-        debut++;
-    }
+    vector <Paire <Donnee>> lesTuples = GetAll();
     sort (lesTuples.begin(), lesTuples.end());
     reverse (lesTuples.begin(), lesTuples.end());
 
@@ -207,6 +208,19 @@ vector<Paire<Donnee>> CountingMap <Donnee, HashF> :: GetTop
     }
     return lesTuples;
 } //----- fin de GetTop
+
+template <typename Donnee, class HashF>
+vector<Paire<Donnee>> CountingMap <Donnee, HashF> :: GetAll () const
+{
+    typename map_type::const_iterator debut (map.cbegin()), fin (map.cend());
+    vector <Paire <Donnee>> lesTuples;
+    while (debut != fin)
+    {
+        lesTuples.push_back (Paire<Donnee>(debut->first, debut->second));
+        debut++;
+    }
+    return lesTuples;
+} //----- fin de GetAll
 
 
 #endif // COUNTING_MAP_H
