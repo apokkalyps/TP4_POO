@@ -62,7 +62,7 @@ string getExtension(string c);
 
 template <typename RequeteType, typename HashF>
 void LectureLogs(string & fname, Restrictions & r,
-  CountingMap<RequeteType, HashF> & liste)
+  CountingMap<RequeteType, HashF> * liste)
 // Mode d'emploi :
 //
 // Contrat :
@@ -70,7 +70,7 @@ void LectureLogs(string & fname, Restrictions & r,
 {
   regle = r;
   file_Name = fname;
-  requete<RequeteType, HashF> = &liste;
+  requete<RequeteType, HashF> = liste;
   Parcours();
 } //----- fin de LectureLogs
 
