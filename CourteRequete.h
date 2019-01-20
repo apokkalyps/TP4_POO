@@ -75,6 +75,12 @@ public:
     // Contrat :
     //  Aucun.
 
+    CourteRequete ( const string & URL_source, const string & URL_cible);
+    // Mode d'emploi :
+    //  Construit une CourteRequete avec une source et une cible.
+    // Contrat :
+    //  Aucun.
+        
     virtual ~CourteRequete ( );
     // Mode d'emploi :
     //  Détruit la CourteRequête.

@@ -32,6 +32,9 @@ const int nbRF = 7; // Nombre de restrictedFormats
 string restrictedFormats[nbRF] = 
   {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
 
+template <typename RequeteType, typename HashF>
+CountingMap <RequeteType, HashF> * requete;
+
 //------------------------------------------------------ Fonctions privées
 //static type nom ( liste de paramètres )
 // Mode d'emploi :
@@ -46,16 +49,14 @@ string restrictedFormats[nbRF] =
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 template <typename RequeteType, typename HashF>
-void LectureLogs(string fname, struct Restrictions & r, 
-  CountingMap<RequeteType, HashF> & requetes)
 void LectureLogs(string fname, struct Restrictions & r,
-  CountingMap<RequeteType, HashF> & liste);
+  CountingMap<RequeteType, HashF> & liste)
 // Algorithme :
 //
 {
   regle = r;
   file_Name = fname;
-  requete = liste;
+  requete<CourteRequete, HashF_CourteRequete> = &liste;
   Parcours();
 } //----- fin de Nom
 
@@ -109,9 +110,12 @@ void Parcours()
       //Validation et ajout
       
       // On créer une requete courte avec uniquement les elements voulus
-      CourteRequete nvlle(nvx);
+      CourteRequete nvlle(nvx.URL_source, nvx.URL_cible);
 
-      if(valideOption(nvx)) requete.Ajouter(nvlle);
+      if(valideOption(nvx)) 
+      {
+        requete<CourteRequete, HashF_CourteRequete>->Ajouter (nvlle);
+      }
     }
   }
   else

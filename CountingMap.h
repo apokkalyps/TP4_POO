@@ -74,7 +74,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    CountingMap & operator = ( const CountingMap & unCountingMap ) = delete;
+    CountingMap & operator = ( const CountingMap & unCountingMap ) = default;
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,7 +82,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    explicit CountingMap ( const CountingMap & unCountingMap ) = delete;
+    explicit CountingMap ( const CountingMap & unCountingMap ) = default;
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
