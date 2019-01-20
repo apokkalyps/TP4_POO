@@ -51,7 +51,7 @@ struct Requete{
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 template <typename RequeteType, typename HashF>
-void LectureLogs(string fname, struct Restrictions & r, 
+void LectureLogs(string fname, struct Restrictions & r,
   CountingMap<RequeteType, HashF> & requetes);
 // Mode d'emploi :
 //
@@ -84,6 +84,6 @@ string getExtension(string c);
   //Historique* historique;
   string file_Name;
   struct Restrictions regle;
-  string restrictedFormats[7] = {TIFF, JPEG, GIF, PNG, RAW, CSS, JS};
+  string restrictedFormats[7] = {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"};
 
 #endif // LECTURE_H
