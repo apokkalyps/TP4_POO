@@ -25,14 +25,7 @@ using namespace std;
 //------------------------------------------------------------------ Types
 
 //---------------------------------------------------- Variables statiques
-static string file_Name; // Nom du fichier de logs en lecture
-static Restrictions regle; // Les restrictions appliquées aux requêtes choisies.
-static const int nbRF = 7; // Nombre de restrictedFormats
-static string restrictedFormats[nbRF] = 
-  {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
 
-template <typename RequeteType, typename HashF>
-static CountingMap <RequeteType, HashF> * requete; // Les requêtes
 
 //------------------------------------------------------ Fonctions privées
 //static type nom ( liste de paramètres )
@@ -47,17 +40,7 @@ static CountingMap <RequeteType, HashF> * requete; // Les requêtes
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-template <typename RequeteType, typename HashF>
-void LectureLogs(string & fname, Restrictions & r,
-  CountingMap<RequeteType, HashF> & liste)
-// Algorithme :
-//
-{
-  regle = r;
-  file_Name = fname;
-  requete<RequeteType, RequeteType> = &liste;
-  Parcours();
-} //----- fin de LectureLogs
+
 
 void Parcours()
 {

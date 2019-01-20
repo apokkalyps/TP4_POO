@@ -93,5 +93,43 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <Paire>
 
+//------------------------------------------------- Surcharge d'opérateurs
+template <typename Donnee>
+bool Paire<Donnee> :: operator < ( const Paire <Donnee> & p ) const
+{
+    return score < p.score;
+} //----- fin de operator < pour Paire.
+
+
+//-------------------------------------------- Constructeurs - destructeur
+template <typename Donnee>
+Paire<Donnee>::Paire ( const Paire & unePaire ) :
+    data (unePaire.data),
+    score (unePaire.score)
+{
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <Paire>" << endl;
+#endif
+} //----- Fin de Paire (constructeur de copie)
+
+
+template <typename Donnee>
+Paire<Donnee> :: Paire (Donnee d, nbr_t s) :
+    data (d), score (s)
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Paire>" << endl;
+#endif
+} //----- fin du constructeur de Paire.
+
+
+template <typename Donnee>
+Paire<Donnee>::~Paire ( )
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <Paire>" << endl;
+#endif
+} //----- Fin de ~Paire
+
 #endif // PAIRE_H
 

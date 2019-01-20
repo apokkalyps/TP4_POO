@@ -26,19 +26,20 @@
 
 using namespace std;
 //------------------------------------------------------------- Constantes
+static string file_Name; // Nom du fichier de logs en lecture
+static Restrictions regle; // Les restrictions appliquées aux requêtes choisies.
+static const int nbRF = 7; // Nombre de restrictedFormats
+static const string restrictedFormats[nbRF] = 
+  {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
+
+template <typename RequeteType, typename HashF>
+static CountingMap <RequeteType, HashF> * requete; // Les requêtes
 
 //------------------------------------------------------------------ Types
 
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-template <typename RequeteType, typename HashF>
-void LectureLogs(string & fname, Restrictions & r,
-  CountingMap<RequeteType, HashF> & liste);
-// Mode d'emploi :
-//
-// Contrat :
-//
 
 
 bool valideOption ( Requete r );
@@ -59,5 +60,18 @@ string getExtension(string c);
 // Contrat :
 //
 
+template <typename RequeteType, typename HashF>
+void LectureLogs(string & fname, Restrictions & r,
+  CountingMap<RequeteType, HashF> & liste)
+// Mode d'emploi :
+//
+// Contrat :
+//
+{
+  regle = r;
+  file_Name = fname;
+  requete<RequeteType, HashF> = &liste;
+  Parcours();
+} //----- fin de LectureLogs
 
 #endif // LECTURE_H

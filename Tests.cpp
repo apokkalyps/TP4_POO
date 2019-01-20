@@ -32,6 +32,7 @@ static void Test_Paire ()
 // Contrat :
 //  Aucun.
 {
+    cout << " >> TEST CHOISI : CLASSE GENERIQUE PAIRE <<" << endl << endl;
     Paire <string> paire1 ("paire 1", 1);
     Paire <float> paire2 (3.1415, 2);
     Paire <string> paire3 ("paire 3", 3);
@@ -73,6 +74,9 @@ struct HashF_String
 
 void Test_CountingMap_String ()
 {
+    cout << " >> TEST CHOISI : CLASSE GENERIQUE COUNTINGMAP AVEC DES STRING <<";
+    cout << endl << endl;
+
     CountingMap <string, HashF_String> toto;
     // On déclare une CountingMap de string avec nos hash et égal.
     cout << "Taille : " << toto.GetTaille() << endl;
@@ -94,7 +98,7 @@ void Test_CountingMap_String ()
     cout << "Combien de \"\" ? " << toto.CombienDe("") << endl;
 
     cout << "Vecteur trié de tous les éléments : " << endl;
-    vector <Paire <string> > lesTop (toto.GetTop(toto.GetTaille()));
+    vector <Paire <string> > lesTop = toto.GetTop(toto.GetTaille());
     vector<Paire<string>>::const_iterator 
         debut (lesTop.cbegin()), 
         fin (lesTop.cend()); 
