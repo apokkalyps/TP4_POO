@@ -21,45 +21,27 @@
 #include "CountingMap.h"
 #include "CourteRequete.h"
 #include "Main.h"
+#include "RequeteTools.h"
 #include <string>
 
 using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct Requete{
-  string IP                    ;
-  string userName              ;
-  string authenticatedUserName ;
-  string jour                  ;
-  string mois                  ;
-  string annee                 ;
-  string heure                 ;
-  string minute                ;
-  string seconde               ;
-  string fuseau                ;
-  string type                  ;
-  string URL_cible             ;
-  string protocole             ;
-  string status                ;
-  string data                  ;
-  string URL_source            ;
-  string navigateur            ;
-};
 
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 template <typename RequeteType, typename HashF>
-void LectureLogs(string fname, struct Restrictions & r,
-  CountingMap<RequeteType, HashF> & requetes);
+void LectureLogs(string fname, Restrictions & r,
+  CountingMap<RequeteType, HashF> & liste);
 // Mode d'emploi :
 //
 // Contrat :
 //
 
 
-bool valideOption ( struct Requete );
+bool valideOption ( Requete r );
 // Mode d'emploi :
 //
 // Contrat :

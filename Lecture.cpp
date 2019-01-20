@@ -16,7 +16,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <cstddef>         // std::size_t
 #include "CountingMap.h"
 #include "CourteRequete.h"
 using namespace std;
