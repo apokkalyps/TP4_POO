@@ -39,11 +39,11 @@ struct Requete{
   string seconde               ;
   string fuseau                ;
   string type                  ;
-  string URL_cible                 ;
+  string URL_cible             ;
   string protocole             ;
   string status                ;
   string data                  ;
-  string URL_source                 ;
+  string URL_source            ;
   string navigateur            ;
 };
 
@@ -84,6 +84,7 @@ string getExtension(string c);
   //Historique* historique;
   string file_Name;
   struct Restrictions regle;
-  string restrictedFormats[7] = {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"};
+  string restrictedFormats[7]={"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"};
+  CountingMap<RequeteType, HashF> requetes;
 
 #endif // LECTURE_H
