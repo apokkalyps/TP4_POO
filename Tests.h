@@ -1,5 +1,5 @@
 /*************************************************************************
-                           Tests  -  description
+                           Tests  -  ensemble de tests +/- unitaires
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
@@ -12,7 +12,7 @@
 
 //------------------------------------------------------------------------
 // Rôle du module <Tests>
-//	Fournit un ensemble de fonctions destinées au débogage et aux jeux de tests.
+//	Fournit un ensemble de fonctions destinées au débogage et aux jeux de tests
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
@@ -32,12 +32,6 @@ void AfficheArgs ( char * args [], int nbr_args );
 //	Affiche les arguments fournis au main.
 // Contrat :
 //	Format des données fournies identique au main.
-
-std::ostream & operator << (ostream & os, const Restrictions & res);
-// Mode d'emploi :
-//  Surcharge de l'opérateur d'injection dans un flux.
-// Contrat :
-//  Aucun.
 
 void LanceTest (unsigned short numTest);
 // Mode d'emploi :

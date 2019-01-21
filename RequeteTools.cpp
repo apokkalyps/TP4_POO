@@ -31,3 +31,10 @@ Restrictions :: Restrictions (bool e, unsigned char h) :
 	extensions (e), heure (h) 
 {
 } // ----- fin du constructeur de Restrictions.
+
+std::ostream & operator << (ostream & os, const Restrictions & res)
+{
+    os << boolalpha << "[ext=" << res.extensions << ", heure=";
+    os << ((res.heure > 23) ? string("?") : to_string(res.heure)) << ']';
+    return os;
+} //----- fin de Operator<< pour Restrictions.

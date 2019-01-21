@@ -52,13 +52,13 @@ public:
     // Contrat :
     //  Aucun.
 
-    friend std::ostream & operator << ( std::ostream & os, const Paire<Donnee> p)
+    friend std::ostream& operator<< ( std::ostream& os, const Paire<Donnee> p)
     // Mode d'emploi :
     //  Surchage de l'opérateur d'injection dans le flux de sortie.
     // Contrat :
     //  Aucun.
     {
-        return ( os << '{' << p.data << ", " << p.score << '}' );
+        return os << '{' << p.data << ", " << p.score << '}';
     }
 
     inline Donnee GetData () const
@@ -109,7 +109,7 @@ protected:
     nbr_t score; // Nombre d'occurences
 };
 
-//-------------------------------- Autres définitions dépendantes de <Paire>
+//------------------------------ Autres définitions dépendantes de <Paire>
 
 //------------------------------------------------- Surcharge d'opérateurs
 template <typename Donnee>

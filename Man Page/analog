@@ -1,0 +1,20 @@
+.\" Manpage for analog.
+.TH man 0 "25 January 2019" "1.0" "analog man page"
+.SH NAME
+analog \- extract request graph from Apache log files 
+.SH SYNOPSIS
+analog [OPTIONS] LOGFILENAME
+.SH DESCRIPTION
+analog parses an Apache log file given in input (LOGFILENAME), and produces one of the two following outputs:
+\-> Top visited pages
+\-> .dot file, ready to be converted by GraphViz
+.SH OPTIONS
+\-e : do not take into account target URLs that have an image, CSS or JS extension.
+\-g dotfilename : do not display top visited sites, but instead create a .dot file.
+\-t hour : only consider requests that have taken place in [hour, hour+1[.
+.SH SEE ALSO
+dot(0)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Visit our GitHub repo at https://github.com/apokkalyps/TP4_POO

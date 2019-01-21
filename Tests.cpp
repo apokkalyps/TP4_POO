@@ -140,13 +140,6 @@ void AfficheArgs ( char * * args, int nbr_args )
     }
 } //----- fin de AfficheArgs.
 
-std::ostream & operator << (ostream & os, const Restrictions & res)
-{
-    os << boolalpha << "[ext=" << res.extensions << ", heure=";
-    os << ((res.heure > 23) ? string("?") : to_string(res.heure)) << ']';
-    return os;
-} //----- fin de Operator<< pour Restrictions.
-
 void LanceTest (unsigned short numTest = -1)
 {
     // Recherche du max des procédures de test :
