@@ -18,6 +18,7 @@
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
+#include <iostream>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -26,23 +27,23 @@ using namespace std;
 struct Requete
 // Structure contenant toutes les informations sur une requête.
 {
-  string IP                    ;
-  string userName              ;
-  string authenticatedUserName ;
-  string jour                  ;
-  string mois                  ;
-  string annee                 ;
-  string heure                 ;
-  string minute                ;
-  string seconde               ;
-  string fuseau                ;
-  string type                  ;
-  string URL_cible             ;
-  string protocole             ;
-  string status                ;
-  string data                  ;
-  string URL_source            ;
-  string navigateur            ;
+	string IP                    ;
+	string userName              ;
+	string authenticatedUserName ;
+	string jour                  ;
+	string mois                  ;
+	string annee                 ;
+	string heure                 ;
+	string minute                ;
+	string seconde               ;
+	string fuseau                ;
+	string type                  ;
+	string URL_cible             ;
+	string protocole             ;
+	string status                ;
+	string data                  ;
+	string URL_source            ;
+	string navigateur            ;
 };
 
 struct Restrictions
@@ -55,6 +56,7 @@ struct Restrictions
 	bool extensions;
 	unsigned char heure;
 	explicit Restrictions (bool e = false, unsigned char h = -1); // Constr
+	friend ostream & operator<< (ostream & os, const Restrictions & restr);
 };
 
 //////////////////////////////////////////////////////////////////  PUBLIC

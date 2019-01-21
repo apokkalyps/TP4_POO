@@ -33,12 +33,6 @@ void AfficheArgs ( char * args [], int nbr_args );
 // Contrat :
 //	Format des données fournies identique au main.
 
-std::ostream & operator << (ostream & os, const Restrictions & res);
-// Mode d'emploi :
-//  Surcharge de l'opérateur d'injection dans un flux.
-// Contrat :
-//  Aucun.
-
 void LanceTest (unsigned short numTest);
 // Mode d'emploi :
 //	Lance le test indexé par numTest.
