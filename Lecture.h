@@ -29,7 +29,8 @@ using namespace std;
 static string file_Name; // Nom du fichier de logs en lecture
 static Restrictions regle; // Les restrictions appliquées aux requêtes choisies.
 static const int nbRF = 7; // Nombre de restrictedFormats
-static const string restrictedFormats[nbRF] = 
+static const string localURL = "http://intranet-if.insa-lyon.fr"; //URL locale
+static const string restrictedFormats[nbRF] =
   {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
 
 template <typename RequeteType, typename HashF>
@@ -59,6 +60,13 @@ string getExtension(string c);
 //
 // Contrat :
 //
+
+string checkLocal(string c);
+// Mode d'emploi :
+//
+// Contrat :
+//
+
 
 template <typename RequeteType, typename HashF>
 void LectureLogs(string & fname, Restrictions & r,
