@@ -65,7 +65,7 @@ CourteRequete & CourteRequete::operator = ( const CourteRequete & cr )
 
 ostream & operator << (ostream & os, const CourteRequete & cr)
 {
-	return (os << "Requete { " << cr.source << " -> " << cr.cible << " }");
+	return os << "Requete { " << cr.source << " -> " << cr.cible << " }";
 } //----- Fin de operator<< 
 
 bool operator == (const CourteRequete& a, const CourteRequete& b)

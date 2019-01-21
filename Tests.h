@@ -1,5 +1,5 @@
 /*************************************************************************
-                           Tests  -  description
+                           Tests  -  ensemble de tests +/- unitaires
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
@@ -12,7 +12,7 @@
 
 //------------------------------------------------------------------------
 // Rôle du module <Tests>
-//	Fournit un ensemble de fonctions destinées au débogage et aux jeux de tests.
+//	Fournit un ensemble de fonctions destinées au débogage et aux jeux de tests
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE

@@ -154,13 +154,15 @@ static void AfficheTop10 ()
 	while (debut != fin)
 	{
 		c_cibles.Ajouter (debut->GetData().GetCible(), debut->GetScore());
+		++debut;
 	}
 	vector<Paire<string>> dest (c_cibles.GetTop (10));
 	
 	cout << "Liste des " << dest.size() << " cibles les plus visitées :";
 	unsigned int compteur = 1;
-	vector<Paire<string>> :: const_iterator debut2 (dest.begin());
-	vector<Paire<string>> :: const_iterator fin2 (dest.end());
+	vector<Paire<string>> :: const_iterator
+		debut2 (dest.begin()),
+		fin2 (dest.end());
 	while (debut != fin)
 	{
 		cout << compteur << ". \"" << debut2->GetData() << " avec ";
