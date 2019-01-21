@@ -85,16 +85,16 @@ void Parcours()
 
       nvx.protocole = nvx.protocole.substr(0,nvx.protocole.length()-1);
 
-      nvx.URL_source = nvx.URL_source.substr(1,nvx.URL_source.length()-1);
+      nvx.URL_source = checkLocal(nvx.URL_source.substr(1,nvx.URL_source.length()-1));
 
       nvx.navigateur = nvx.navigateur.substr(1,nvx.navigateur.length()-1);
 
       //Validation et ajout
-      
+
       // On créer une requete courte avec uniquement les elements voulus
       CourteRequete nvlle(nvx.URL_source, nvx.URL_cible);
 
-      if(valideOption(nvx)) 
+      if(valideOption(nvx))
       {
         requete<CourteRequete, HashF_CourteRequete>->Ajouter (nvlle);
       }
@@ -150,10 +150,24 @@ bool valideOption(Requete r)
     return true;
 }
 
-string getExtension( string s){
+string getExtension( string s)
+{
   size_t found = s.find_last_of(".");
 
   return s.substr(found+1);
+}
+
+string checkLocal(string s)
+{
+  // Algorithme de 
+  // https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
+  std::string::size_type i = s.find(localURL);
+	if (i != std::string::npos)
+		s.erase(i, localURL.length());
+
+  return s;
+
+
 }
 
 
