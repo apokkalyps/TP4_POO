@@ -12,48 +12,37 @@
 //-------------------------------------------------------- Include système
 
 //------------------------------------------------------ Include personnel
-#include "Graph.h"
 #include <iostream>
 #include <fstream>
-#include <cstring>
-#include "CountingMap.h"
-#include "CourteRequete.h"
+#include <set>
+#include <iterator>
+#include <algorithm>
+
+#include "Graph.h"
 
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+typedef vector<Paire<CourteRequete>> liste;
 
 //---------------------------------------------------- Variables statiques
 
 //------------------------------------------------------ Fonctions privées
-//static type nom ( liste de paramètres )
-// Mode d'emploi :
-//
-// Contrat :
-//
-// Algorithme :
-//
-//{
-//} //----- fin de nom
-
+/
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-void GenerateGraph ( const CountingMap<RequeteType, HashF> & liste )
-// Algorithme :
-//
+void GenerateGraph (const liste & req, const string & nomFichier)
 {
   //Déclaration d'un flux permettant d'écrire dans un fichier.
   ofstream monFlux(nomFichier.c_str());
 
   if(monFlux)
   {
-    vector<Paire<CourteRequete>> req = liste->GetAll();
     set <string, greater <string> > nodes;
-
     //Recuperation des nodes uniques
-    vector<Paire<CourteRequete>>::const_iterator
+    liste::const_iterator
     d (req.begin()),
     f (req.end());
   	while (d != f)
@@ -61,27 +50,28 @@ void GenerateGraph ( const CountingMap<RequeteType, HashF> & liste )
       nodes.insert(debut->GetData().GetSource());
       nodes.insert(debut->GetData().GetCible());
   	}
+
+    //ecriture des nodes
     set <string, greater <string> > :: iterator itr;
-    for (itr = nodes.begin(); itr != nodes.end(); ++itr)
+    for (itr = nodes.begin(); (itr != nodes.end()) && monFlux.good(); ++itr)
     {
         monFlux << *itr << ";" << endl;
     }
 
-    //Affichage des relations et de leru label
-    vector<Paire<CourteRequete>>::const_iterator
-    debut (req.begin()),
-    fin (req.end());
-  	while (debut != fin)
+    //ecriture des relations entre nodes et de leur cardinalité
+    d=req.begin());
+    f=req.end());
+  	while ((d != f) && monFlux.good())
   	{
   		monFlux << debut->GetData().GetSource() << " -> " ;
       monFlux << debut->GetData().GetCible()  << " [label=\"" ;
-      monFlux << debut->GetData().GetScore()  << "\"];" << endl;
+      monFlux << debut->GetScore()  << "\"];" << endl;
   	}
-
   }
   else
   {
-     cerr << "ERREUR: Impossible d'ouvrir le fichier." << endl;
+    cerr << "Echec d'ouverture du fichier " << nomFichier << '.' << endl;
+    exit (2);
   }
 
 } //----- fin de GenerateGraph
