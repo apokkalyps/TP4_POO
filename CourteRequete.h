@@ -12,6 +12,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
+#include <iostream>
+using namespace std;
 // #include "Lecture.h"
 
 //------------------------------------------------------------- Constantes

@@ -30,7 +30,7 @@ typedef vector<Paire<CourteRequete>> liste;
 //---------------------------------------------------- Variables statiques
 
 //------------------------------------------------------ Fonctions privées
-/
+
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 void GenerateGraph (const liste & req, const string & nomFichier)
@@ -47,8 +47,9 @@ void GenerateGraph (const liste & req, const string & nomFichier)
     f (req.end());
   	while (d != f)
   	{
-      nodes.insert(debut->GetData().GetSource());
-      nodes.insert(debut->GetData().GetCible());
+      nodes.insert(d->GetData().GetSource());
+      nodes.insert(d->GetData().GetCible());
+      ++d;
   	}
 
     //ecriture des nodes
@@ -59,13 +60,13 @@ void GenerateGraph (const liste & req, const string & nomFichier)
     }
 
     //ecriture des relations entre nodes et de leur cardinalité
-    d=req.begin());
-    f=req.end());
+    d=req.begin();
+    f=req.end();
   	while ((d != f) && monFlux.good())
   	{
-  		monFlux << debut->GetData().GetSource() << " -> " ;
-      monFlux << debut->GetData().GetCible()  << " [label=\"" ;
-      monFlux << debut->GetScore()  << "\"];" << endl;
+  		monFlux << d->GetData().GetSource() << " -> " ;
+      monFlux << d->GetData().GetCible()  << " [label=\"" ;
+      monFlux << d->GetScore()  << "\"];" << endl;
   	}
   }
   else

@@ -34,7 +34,7 @@ using namespace std;
 //---------------------------------------------------- Variables statiques
 static string graphviz;
 static string source;
-static Restrictions restr;
+static RestrictionList restr;
 static CountingMap <CourteRequete, HashF_CourteRequete> * requetes;
 
 //------------------------------------------------------ Fonctions privées
@@ -66,13 +66,8 @@ static void LectureArguments ( char ** args, int nbr_args)
 	{
 		if ( ! strcmp(args [i], "-e"))
 		{
-			if (restr.extensions == true)
-			{
-				cerr << "Trop d'options : \"-e\" deja demande." << endl;
-				exit (1);
-			}
-
-			restr.extensions = true;
+			Restriction_Extension re;
+			restr.liste.push_front(new Restriction_Extension(re));
 		} else if ( ! strcmp( args [i], "-g"))
 		{
 			if ( ! graphviz.empty () )
@@ -85,12 +80,6 @@ static void LectureArguments ( char ** args, int nbr_args)
 			++i;
 		} else if ( ! strcmp( args [i], "-t"))
 		{
-			if ( restr.heure != (unsigned char)(-1) )
-			{
-				cerr << "Trop d'options : \"-t\" deja demande." << endl;
-				exit (1);
-			}
-
 			++i;
 			unsigned int h = (unsigned int) stoi (args[i]);
 			if (h > 23)
@@ -98,8 +87,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 				cerr << "Heure demandee invalide." << endl;
 				exit (1);
 			}
-
-			restr.heure = h;
+			restr.liste.push_front(new Restriction_Heure (h));
 		} else
 		{
 			cerr << "Erreur, option invalide : \"" << args[i] << "\"." << endl;
@@ -108,28 +96,26 @@ static void LectureArguments ( char ** args, int nbr_args)
 	}
 }
 
-static void VerificationDroits (ifstream * ifs, ofstream * ofs)
+static void VerificationDroits ()
 // Mode d'emploi :
 //	Vérifie les droits d'accès aux fichiers.
 //	Crée aussi les flux si besoin.
 // Contrat :
 //	Aucun !
 {
-	ifs = new ifstream(source.c_str());
-	if ( ! *ifs)
+	ifstream ifs (source.c_str());
+	if ( ! ifs)
 	{
 		cerr << "Echec de lecture du fichier log !" << endl;
-		delete ifs;
 		exit (2);
 	}
 
 	if ( ! graphviz.empty () )
 	{
-		ofs = new ofstream (graphviz.c_str(), ios_base::app);
-		if ( ! *ofs )
+		ofstream ofs (graphviz.c_str(), ios_base::app);
+		if ( ! ofs )
 		{
 			cerr << "Echec d'ouverture du fichier " << graphviz << '.' << endl;
-			delete ofs;
 			exit (2);
 		}
 	}
@@ -187,21 +173,16 @@ int main ( int argc, char *argv[])
     AfficheArgs(argv, argc);
 #endif // MAP
 
-   // Definitions prealables
-	restr = Restrictions (false, -1);
-
-	// Lecture des arguments
+   // Lecture des arguments
 	LectureArguments (argv, argc);
 #ifdef MAP
-	cout << "Restrictions: " << restr << endl;
+	cout << restr;
 	cout << "Source: " << source << ", export vers: ";
 	cout << (graphviz.empty() ? "(null)" : graphviz) << endl;
 #endif
 
 	// Verification des droits sur les fichiers.
-	ifstream * ifs_p = nullptr;
-	ofstream * ofs_p = nullptr;
-	VerificationDroits(ifs_p, ofs_p);
+	VerificationDroits();
 	requetes = new CountingMap <CourteRequete, HashF_CourteRequete>;
 
 	// Lecture du fichier d'entree

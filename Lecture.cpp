@@ -107,13 +107,16 @@ void Parcours()
 
 }
 
-bool valideOption(Requete r)
+bool valideOption(const Requete & r)
 {
+  return regle->TesterTout(r);
+}
   /*
   if (r == null)
     {   return false;
     }
 */
+/*
   bool e_valide = false;
   bool t_valide = false;
 
@@ -148,7 +151,7 @@ bool valideOption(Requete r)
     return t_valide;
   else
     return true;
-}
+}*/
 
 string getExtension( string s)
 {

@@ -27,7 +27,7 @@
 using namespace std;
 //------------------------------------------------------------- Constantes
 static string file_Name; // Nom du fichier de logs en lecture
-static Restrictions regle; // Les restrictions appliquées aux requêtes choisies.
+static RestrictionList * regle; // Les restrictions appliquées aux requêtes choisies.
 static const int nbRF = 7; // Nombre de restrictedFormats
 static const string localURL = "http://intranet-if.insa-lyon.fr"; //URL locale
 static const string restrictedFormats[nbRF] =
@@ -43,7 +43,7 @@ static CountingMap <RequeteType, HashF> * requete; // Les requêtes
 //---------------------------------------------------- Fonctions publiques
 
 
-bool valideOption ( Requete r );
+bool valideOption ( const Requete & r );
 // Mode d'emploi :
 //
 // Contrat :
@@ -69,14 +69,14 @@ string checkLocal(string c);
 
 
 template <typename RequeteType, typename HashF>
-void LectureLogs(string & fname, Restrictions & r,
+void LectureLogs(string & fname, RestrictionList & restr,
   CountingMap<RequeteType, HashF> * liste)
 // Mode d'emploi :
 //
 // Contrat :
 //
 {
-  regle = r;
+  regle = &restr;
   file_Name = fname;
   requete<RequeteType, HashF> = liste;
   Parcours();
