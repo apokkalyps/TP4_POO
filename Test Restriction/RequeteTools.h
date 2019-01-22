@@ -73,12 +73,19 @@ struct RestrictionList
 	//	true si et seulement si toutes les restrictions sont validées.
 	// Contrat :
 	//	Aucun.
+	friend ostream & operator << (ostream & os, 
+		const RestrictionList & rl);
+	// Mode d'emploi :
+	//	Affiche toutes les restrictions, une par ligne + un entête.
+	// Contrat :
+	//	Aucun.
 };
 
 struct Restriction_Heure : public Restriction
 // Restriction sur l'heure.
 {
 public:
+	Restriction_Heure (unsigned char h);
 	bool operator () (const Requete & req) const;
 	friend ostream & operator << (ostream & os, 
 		const Restriction_Heure & restr);
@@ -98,7 +105,7 @@ private:
 	string getExtension (const string & nomFichier) const;
 	// Renvoie l'extension du fichier.
 	// Contrat : le fichier a bien une extension.
-	const int nbRF = 7; // Nombre de restrictedFormats
+	const static unsigned int nbRF = 7; // Nombre de restrictedFormats
 	const string restrictedFormats[nbRF] =
   {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
 };

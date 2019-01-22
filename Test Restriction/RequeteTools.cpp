@@ -29,11 +29,11 @@ typedef forward_list<Restriction*>::const_iterator it;
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
-bool RestrictionList::TesterTout (const Restriction & restr)
+bool RestrictionList::TesterTout (const Requete & req)
 {
-	for (it debut (liste.cbegin()); debut<liste.cend(); ++debut)
+	for (it debut (liste.cbegin()); debut!=liste.cend(); ++debut)
 	{
-		if (*debut(restr) == false)
+		if ((**debut)(req) == false)
 		{
 			return false;
 		}
@@ -42,16 +42,21 @@ bool RestrictionList::TesterTout (const Restriction & restr)
 } //----- fin de TesterTout
 
 
+Restriction_Heure::Restriction_Heure (unsigned char h) :
+	heure (h)
+{
+} //----- fin du constructeur de Restriction_Heure
+
 bool Restriction_Heure::operator () (const Requete & req) const
 {
-	return req.heure.compare(heure) == 0;
+	return req.heure.compare(to_string(heure)) == 0;
 } //----- fin de Operator() pour Restriction_Heure
 
 
 ostream & operator << (ostream & os, const Restriction_Heure & restr)
 {
-	os << "{Restriction: heure dans [" << heure << ", ";
-	os << heure+1 << "[}";
+	os << "{Restriction: heure dans [" << restr.heure << ", ";
+	os << restr.heure+1 << "[}";
 	return os;
 } //----- fin de Operator<< pour ostream et Restriction_Heure
 
@@ -71,11 +76,11 @@ bool Restriction_Extension::operator () (const Requete & req) const
 ostream & operator << (ostream & os, const Restriction_Extension & restr)
 {
 	os << "{Restriction: extension pas parmi : ";
-	for (unsigned int i=0; i<nbRF-1; ++i)
+	for (unsigned int i=0; i<restr.nbRF-1; ++i)
 	{
-		os << restrictedFormats[i] << ", ";
+		os << restr.restrictedFormats[i] << ", ";
 	}
-	os << restrictedFormats[nbRF-1];
+	os << restr.restrictedFormats[restr.nbRF-1];
 	return os;
 } //----- fin de Operator<< pour ostream et Restriction_Extension
 
