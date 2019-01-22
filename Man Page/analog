@@ -29,7 +29,7 @@ A .dot file, ready to be converted by GraphViz, that includes all webpages refer
 Do not take into account target URLs that have an image, CSS or JS extension.
 .TP
 .BR \-g " " \fIdotfilename\fR
-Do not display top visited sites, but instead create a .dot file with the given \fIdotfilename\fR. The .dot extension is optional.
+Do not display top visited sites, but instead create a .dot file with the given \fIdotfilename\fR. If omitted, the .dot extension will automatically be set.
 .TP
 .BR \-t " " \fIhour\fR
 Only consider requests that have taken place in [hour, hour+1[.
