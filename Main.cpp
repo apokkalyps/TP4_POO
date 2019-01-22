@@ -23,6 +23,8 @@ using namespace std;
 #include "CountingMap.h"
 #include "RequeteTools.h"
 #include "Lecture.h"
+extern void GenerateGraph (const vector<Paire<CourteRequete>> & 
+	requetes, const string & nomFichier);
 
 
 
@@ -159,10 +161,6 @@ static void AfficheTop10 ()
 	cout << "Fini." << endl;
 } //----- Fin de AfficheTop10.
 
-static void GenererGraphe (...)
-{
-} //----- Fin de GenererGraphe.
-
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
@@ -195,7 +193,7 @@ int main ( int argc, char *argv[])
 	}
 	else
 	{
-		GenererGraphe(graphviz, requetes->GetAll());
+		GenerateGraph(requetes->GetAll(), graphviz);
 	}
 	delete requetes;
 	return 0;
