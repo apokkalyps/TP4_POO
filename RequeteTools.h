@@ -50,6 +50,7 @@ struct Requete
 struct Restriction
 // Structure contenant une simple fonction booléenne qui teste une Requete.
 {
+public:
 	virtual bool operator () (const Requete & req) const = 0;
 	// Mode d'emploi :
 	//	Teste si la requête satisfait la restriction saisie.
@@ -62,6 +63,15 @@ struct Restriction
 	//	Aucun.
 	virtual ~Restriction() = default;
 	// Détruit l'objet courant.
+	const bool unique;
+	// S'il vaut true, on interdit la présence de deux Restrictions 
+	// du même type.
+protected:
+	Restriction (bool uniq);
+	// Mode d'emploi :
+	//	Constructeur protégé qui initialise juste l'attribut uniq.
+	// Contrat :
+	//	Aucun.
 };
 
 struct RestrictionList
@@ -76,6 +86,13 @@ struct RestrictionList
 	//	true si et seulement si toutes les restrictions sont validées.
 	// Contrat :
 	//	Aucun.
+	void Ajouter (Restriction* restr);
+	// Mode d'emploi :
+	//	Ajoute la restriction fournie (pointeur alloc dynamique)
+	//	à la liste courante. Si on ajoute une restriction unique qui
+	//	est déjà présente, arrêt du programme.
+	// Contrat :
+	//	Restriction pas déjà ajoutée si unique.
 	friend ostream & operator << (ostream & os, 
 		const RestrictionList & rl);
 	// Mode d'emploi :
@@ -104,7 +121,7 @@ struct Restriction_Extension : public Restriction
 // Restriction sur l'extension du fichier de l'URL cible.
 {
 public:
-
+	Restriction_Extension ();
 	bool operator () (const Requete & req) const;
 	virtual void Afficher (ostream & os) const;
 private:

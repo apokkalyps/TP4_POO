@@ -29,6 +29,11 @@ typedef forward_list<Restriction*>::const_iterator it;
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
+Restriction::Restriction (bool uniq) :
+	unique (uniq)
+{
+} //----- fin du constructeur de Restriction
+
 bool RestrictionList::TesterTout (const Requete & req)
 {
 	for (it debut (liste.cbegin()); debut!=liste.cend(); ++debut)
@@ -40,6 +45,20 @@ bool RestrictionList::TesterTout (const Requete & req)
 	}
 	return true;
 } //----- fin de TesterTout
+
+void RestrictionList::Ajouter (Restriction* restr)
+{
+	for (it debut (liste.cbegin()); debut!=liste.cend(); ++debut)
+	{
+		if ((*debut)->unique && restr->unique)
+		{
+			cerr << "Erreur : restriction déjà présente : ";
+			(*debut)->Afficher(cerr);
+			cerr << endl;
+			exit(1);
+		}
+	}
+} //----- fin de Ajouter
 
 ostream & operator << (ostream & os, const RestrictionList & rl)
 {
@@ -55,6 +74,7 @@ ostream & operator << (ostream & os, const RestrictionList & rl)
 		{
 			os << " - ";
 			(*debut)->Afficher(os);
+			os << (((*debut)->unique) ? "[u]" : "");
 			os << endl;
 		} 
 		return os;
@@ -71,6 +91,7 @@ RestrictionList::~RestrictionList ()
 } //----- fin du destructeur de RestrictionList.
 
 Restriction_Heure::Restriction_Heure (unsigned char h) :
+	Restriction(true),
 	heure (h)
 {
 } //----- fin du constructeur de Restriction_Heure
@@ -86,6 +107,11 @@ void Restriction_Heure::Afficher (ostream & os) const
 	os << "{Restriction: heure dans [" << int(heure) << ", ";
 	os << heure+1 << "[}";
 } //----- fin de Operator<< pour ostream et Restriction_Heure
+
+Restriction_Extension::Restriction_Extension () :
+	Restriction (false)
+{
+} //----- fin du constructeur de Restriction_Extension
 
 bool Restriction_Extension::operator () (const Requete & req) const
 {
