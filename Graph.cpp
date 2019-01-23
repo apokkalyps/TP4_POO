@@ -52,6 +52,8 @@ void GenerateGraph (const liste & req, const string & nomFichier)
       ++d;
   	}
 
+    monFlux << "diagraph {" << endl;
+
     //ecriture des nodes
     set <string, greater <string> > :: iterator itr;
     for (itr = nodes.begin(); (itr != nodes.end()) && monFlux.good(); ++itr)
@@ -64,10 +66,12 @@ void GenerateGraph (const liste & req, const string & nomFichier)
     f=req.end();
   	while ((d != f) && monFlux.good())
   	{
-  		monFlux << d->GetData().GetSource() << " -> " ;
-      monFlux << d->GetData().GetCible()  << " [label=\"" ;
-      monFlux << d->GetScore()  << "\"];" << endl;
+  		monFlux << "\t" << d->GetData().GetSource() << " -> " ;
+      monFlux << "\t" << d->GetData().GetCible()  << " [label=\"" ;
+      monFlux << "\t" << d->GetScore()  << "\"];" << endl;
   	}
+
+    monFlux << "}" << endl;
   }
   else
   {
