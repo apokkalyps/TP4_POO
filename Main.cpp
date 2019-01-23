@@ -156,8 +156,8 @@ static void AfficheTop10 ()
 	
 	vector<Paire<CourteRequete>> req = requetes->GetAll();
 	vector<Paire<CourteRequete>>::const_iterator 
-		debut (req.begin()), 
-		fin (req.end());
+		debut (req.cbegin()), 
+		fin (req.cend());
 	while (debut != fin)
 	{
 		c_cibles.Ajouter (debut->GetData().GetCible(), debut->GetScore());
@@ -165,14 +165,14 @@ static void AfficheTop10 ()
 	}
 	vector<Paire<string>> dest (c_cibles.GetTop (10));
 	
-	cout << "Liste des " << dest.size() << " cibles les plus visitées :";
+	cout << "Liste des " << dest.size() << " cible(s) les plus visitées :" << endl;
 	unsigned int compteur = 1;
 	vector<Paire<string>> :: const_iterator
-		debut2 (dest.begin()),
-		fin2 (dest.end());
-	while (debut != fin)
+		debut2 (dest.cbegin()),
+		fin2 (dest.cend());
+	while (debut2 != fin2)
 	{
-		cout << compteur << ". \"" << debut2->GetData() << " avec ";
+		cout << compteur << ". \"" << debut2->GetData() << "\" avec ";
 		cout << debut2->GetScore() << " visites." << endl;
 		++compteur;
 		++debut2;

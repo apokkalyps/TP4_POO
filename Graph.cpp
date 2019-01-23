@@ -67,6 +67,7 @@ void GenerateGraph (const liste & req, const string & nomFichier)
   		monFlux << d->GetData().GetSource() << " -> " ;
       monFlux << d->GetData().GetCible()  << " [label=\"" ;
       monFlux << d->GetScore()  << "\"];" << endl;
+      ++d;
   	}
   }
   else
