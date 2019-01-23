@@ -62,11 +62,8 @@ void RestrictionList::Ajouter (Restriction* restr)
 			cerr << endl;
 			exit(1);
 		}
-		else
-		{
-			liste.push_front(restr);
-		}
 	}
+	liste.push_front(restr);
 	++taille;
 } //----- fin de Ajouter
 
@@ -126,6 +123,7 @@ Restriction_Extension::Restriction_Extension () :
 bool Restriction_Extension::operator () (const Requete & req) const
 {
 	string extFichier (getExtension(req.URL_cible));
+	boost::to_upper(extFichier);
 	for (unsigned int i=0; i<nbRF; ++i)
 	{
 		if (extFichier.compare(restrictedFormats[i]) == 0)

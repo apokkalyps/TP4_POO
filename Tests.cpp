@@ -18,6 +18,8 @@ using namespace std;
 #include "Tests.h"
 #include "CountingMap.h"
 #include "Paire.h"
+#include "CourteRequete.h"
+#include "RequeteTools.h"
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -128,7 +130,40 @@ void Test_CountingMap_String ()
 
 static void Test_CourteRequete ()
 {
+	typedef CourteRequete C;
+	C a ;
+	cout << "CourteRequete vide : " << a << endl;
+	C b (string("Source_1"), string("Cible_1"));
+	cout << "CourteRequete : " << b << endl;
+	cout << "Egalite des deux ? " << boolalpha;
+	cout << (a == b) << endl;
+	C c ("Source_1", "Cible_1");
+	cout << "Egalite ? " << (a == c) << endl;
+	cout << "Construction par copie : ";
+	C d (c);
+	cout << ", egalite ? " << (c==d) << endl;
+	cout << "Creation par affectation : " << endl;
+	C e = C();
+}
+
+static void Test_Restriction ()
+{
+	RestrictionList l;
+	cout << "Liste de restrictions vide: " << endl;
+	cout << l << endl;
 	
+	cout << "Ajout d'une restr ext: " << endl;
+	l.Ajouter (new Restriction_Extension);
+	cout << l << endl;
+	cout << "Ajout d'une restr heure: " << endl;
+	l.Ajouter (new Restriction_Heure(2));
+	cout << l << endl;
+	cout << "Ajout d'une restr ext: " << endl;
+	l.Ajouter (new Restriction_Extension);
+	cout << l << endl;
+	cout << "Ajout d'une restr heure (Attention ça va planter) : " << endl;
+	l.Ajouter (new Restriction_Heure(5));
+	cout << l << endl;
 }
 
 //---------------------------------------------------- Variables statiques
@@ -137,6 +172,8 @@ static void (*proceduresDeTests[]) () =
 {
     Test_Paire,
     Test_CountingMap_String,
+    Test_CourteRequete,
+    Test_Restriction,
     nullptr // Inutile donc indispensable
 };
 

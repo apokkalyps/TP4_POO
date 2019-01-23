@@ -19,8 +19,6 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-//struct HashF_CourteRequete;
-// Classe-fonction utilisée par CountingMap.
 
 //------------------------------------------------------------------------
 // Rôle de la classe <CourteRequete>
@@ -36,7 +34,24 @@ class CourteRequete
 
 public:
 //----------------------------------------------------- Méthodes publiques
+    inline string GetSource () const 
+    // Mode d'emploi :
+    //  Renvoie la source par copie. Méthode inline car courte.
+    // Contrat :
+    //  Aucun.
+    {
+        return source;
+    }
 
+    inline string GetCible () const
+    // Mode d'emploi :
+    //  Renvoie la cible par copie. Méthode inline car courte.
+    // Contrat ;
+    //  Aucun.
+    {
+        return cible;
+    }
+    
 //------------------------------------------------- Surcharge d'opérateurs
     CourteRequete & operator = ( const CourteRequete & cr );
     // Mode d'emploi :
@@ -56,25 +71,6 @@ public:
     //  Ecrit le contenu de la CourteRequete dans le flux.
     // Contrat :
     //  Aucun.
-
-    inline string GetSource () const 
-    // Mode d'emploi :
-    //  Renvoie la source par copie. Méthode inline car courte.
-    // Contrat :
-    //  Aucun.
-    {
-        return source;
-    }
-
-    inline string GetCible () const
-    // Mode d'emploi :
-    //  Renvoie la cible par copie. Méthode inline car courte.
-    // Contrat ;
-    //  Aucun.
-    {
-        return cible;
-    }
-
 
 //-------------------------------------------- Constructeurs - destructeur
     CourteRequete ( const CourteRequete & cr );
@@ -113,7 +109,6 @@ protected:
 };
 
 //---------------------- Autres définitions dépendantes de <CourteRequete>
-
 struct HashF_CourteRequete
 // Classe-fonction utilisée par CountingMap.
 {

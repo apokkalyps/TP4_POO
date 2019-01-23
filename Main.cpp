@@ -72,8 +72,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 	{
 		if ( ! strcmp(args [i], "-e"))
 		{
-			Restriction_Extension re;
-			restr.Ajouter(new Restriction_Extension(re));
+			restr.Ajouter(new Restriction_Extension);
 		} else if ( ! strcmp( args [i], "-g"))
 		{
 			if ( ! graphviz.empty () )

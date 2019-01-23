@@ -20,6 +20,7 @@
 #include <string>
 #include <iostream>
 #include <forward_list>
+#include <boost/algorithm/string.hpp>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -105,7 +106,6 @@ public:
 	//	Destructeur car allocation dynamique.
 	// Contrat :
 	//	Aucun.
-	int toto = 4;
 protected:
 	unsigned int taille = 0; // Nombre d'éléments.
 };
@@ -117,7 +117,7 @@ public:
 	Restriction_Heure (unsigned char h);
 	bool operator () (const Requete & req) const;
 	virtual void Afficher (ostream & os) const;
-private:
+protected:
 	unsigned char heure = 0;
 };
 
@@ -128,13 +128,15 @@ public:
 	Restriction_Extension ();
 	bool operator () (const Requete & req) const;
 	virtual void Afficher (ostream & os) const;
-private:
+protected:
 	string getExtension (const string & nomFichier) const;
 	// Renvoie l'extension du fichier.
 	// Contrat : le fichier a bien une extension.
-	const static unsigned int nbRF = 7; // Nombre de restrictedFormats
-	const string restrictedFormats[nbRF] =
-  {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
+	const static unsigned int nbRF = 9; // Nombre de restrictedFormats
+	const  string restrictedFormats[nbRF] = 
+	{
+		"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS",
+		 "JPG", "ICO"}; // Formats interdits.
 };
 
 //////////////////////////////////////////////////////////////////  PUBLIC
