@@ -42,9 +42,10 @@ using namespace std;
 //---------------------------------------------------- Fonctions publiques
 
 
-void Parcours()
+bool Parcours()
 {
-  ifstream monFlux(file_Name.c_str());
+  extern string source;
+  ifstream monFlux(source.c_str());
 
   if(monFlux)
   {
@@ -99,17 +100,18 @@ void Parcours()
         requete<CourteRequete, HashF_CourteRequete>->Ajouter (nvlle);
       }
     }
+    return true;
   }
   else
 	{
-	    cerr << "ERREUR: Impossible d'ouvrir le fichier." << endl;
-	}
 
+	    return false;
+	}
 }
 
 bool valideOption(const Requete & r)
 {
-  return regle->TesterTout(r);
+  return restr.TesterTout(r);
 }
   /*
   if (r == null)
@@ -162,7 +164,7 @@ string getExtension( string s)
 
 string checkLocal(string s)
 {
-  // Algorithme de
+  // Algorithme de 
   // https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
   std::string::size_type i = s.find(localURL);
 	if (i != std::string::npos)

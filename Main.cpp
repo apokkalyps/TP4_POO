@@ -35,8 +35,7 @@ extern void GenerateGraph (const vector<Paire<CourteRequete>> &
 
 //---------------------------------------------------- Variables statiques
 static string graphviz;
-static string source;
-static RestrictionList restr;
+/*static*/ RestrictionList restr;
 static CountingMap <CourteRequete, HashF_CourteRequete> * requetes;
 
 //------------------------------------------------------ Fonctions privées
@@ -48,7 +47,12 @@ static void LectureArguments ( char ** args, int nbr_args)
 // Contrat : 
 //	restr a été construit par défaut, nbr_args est compatible avec args.
 {
+	// Lecture de la source
 	source = args[--nbr_args];
+	if (getExtension(source) != ".log")
+	{
+		source += ".log";
+	}
 	if ( nbr_args < 1 || nbr_args > 6 || source[0] == '-')
 	{
 		cerr << "Syntaxe d'appel incorrecte. Verifiez votre syntaxe avec";
@@ -69,7 +73,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 		if ( ! strcmp(args [i], "-e"))
 		{
 			Restriction_Extension re;
-			restr.liste.push_front(new Restriction_Extension(re));
+			restr.Ajouter(new Restriction_Extension(re));
 		} else if ( ! strcmp( args [i], "-g"))
 		{
 			if ( ! graphviz.empty () )
@@ -89,7 +93,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 				cerr << "Heure demandee invalide." << endl;
 				exit (1);
 			}
-			restr.liste.push_front(new Restriction_Heure (h));
+			restr.Ajouter(new Restriction_Heure (h));
 		} else
 		{
 			cerr << "Erreur, option invalide : \"" << args[i] << "\"." << endl;
@@ -111,6 +115,13 @@ static void VerificationDroits ()
 		cerr << "Echec de lecture du fichier log !" << endl;
 		exit (2);
 	}
+#ifdef MAP
+	else
+	{
+		cout << "Fichier source \"" << source << "\" OK." << endl;
+	}
+	ifs.close();
+#endif // MAP
 
 	if ( ! graphviz.empty () )
 	{
@@ -120,6 +131,14 @@ static void VerificationDroits ()
 			cerr << "Echec d'ouverture du fichier " << graphviz << '.' << endl;
 			exit (2);
 		}
+#ifdef MAP
+		else
+		{
+			cout << "Fichier destination \"" << graphviz;
+			cout << "\" OK." << endl;
+		}
+		ofs.close();
+#endif // MAP
 	}
 }
 
@@ -168,23 +187,23 @@ int main ( int argc, char *argv[])
 {
 	
 #ifdef MAP
-    AfficheArgs(argv, argc);
+	AfficheArgs(argv, argc);
 #endif // MAP
 
-   // Lecture des arguments
+	// Lecture des arguments
 	LectureArguments (argv, argc);
 #ifdef MAP
 	cout << restr;
 	cout << "Source: " << source << ", export vers: ";
 	cout << (graphviz.empty() ? "(null)" : graphviz) << endl;
-#endif
+#endif // MAP
 
 	// Verification des droits sur les fichiers.
 	VerificationDroits();
 	requetes = new CountingMap <CourteRequete, HashF_CourteRequete>;
 
 	// Lecture du fichier d'entree
-	LectureLogs (source, restr, requetes);
+	LectureLogs (/*source, restr, */requetes);
 
 	// Production de la sortie
 	if (graphviz.empty())

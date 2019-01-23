@@ -23,18 +23,21 @@
 #include "CountingMap.h"
 #include "CourteRequete.h"
 // #include "Main.h"
+extern RestrictionList restr;
 
 using namespace std;
 //------------------------------------------------------------- Constantes
-static string file_Name; // Nom du fichier de logs en lecture
+//string * file_Name; // Nom du fichier de logs en lecture
+/*extern RestrictionList restr;
 static RestrictionList * regle; // Les restrictions appliquées aux requêtes choisies.
+*/
 static const int nbRF = 7; // Nombre de restrictedFormats
 static const string localURL = "http://intranet-if.insa-lyon.fr"; //URL locale
 static const string restrictedFormats[nbRF] =
   {"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS"}; // Formats interdits.
 
 template <typename RequeteType, typename HashF>
-static CountingMap <RequeteType, HashF> * requete; // Les requêtes
+CountingMap <RequeteType, HashF> * requete; // Les requêtes
 
 //------------------------------------------------------------------ Types
 
@@ -49,7 +52,7 @@ bool valideOption ( const Requete & r );
 // Contrat :
 //
 
-void Parcours ( void );
+bool Parcours ( void );
 // Mode d'emploi :
 //
 // Contrat :
@@ -69,17 +72,24 @@ string checkLocal(string c);
 
 
 template <typename RequeteType, typename HashF>
-void LectureLogs(string & fname, RestrictionList & restr,
+void LectureLogs(/*string & fname, RestrictionList & restr,*/
   CountingMap<RequeteType, HashF> * liste)
 // Mode d'emploi :
 //
 // Contrat :
 //
 {
-  regle = &restr;
-  file_Name = fname;
+  /*extern RestrictionList restr;
+  regle = &restr;*/
   requete<RequeteType, HashF> = liste;
-  Parcours();
+  if ( ! Parcours() )
+  {
+  	extern string source;
+	cerr << "ERREUR: Impossible d'ouvrir le fichier \"" << source;
+	cerr << "\"." << endl;
+  	delete requete<RequeteType, HashF>;
+  	exit(2);
+  }
 } //----- fin de LectureLogs
 
 #endif // LECTURE_H

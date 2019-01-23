@@ -81,31 +81,31 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    CountingMap & operator = ( const CountingMap & unCountingMap ) = default;
+    CountingMap & operator = ( const CountingMap & cm ) = default;
     // Mode d'emploi :
-    //
+    //	Affectation des valeurs contenues dans cm vers l'instance courante.
     // Contrat :
-    //
+    //	Aucun.
 
 
 //-------------------------------------------- Constructeurs - destructeur
     explicit CountingMap ( const CountingMap & unCountingMap ) = default;
     // Mode d'emploi (constructeur de copie) :
-    //
+    //	Construit une CountingMap par copie des valeurs de celle fournie.
     // Contrat :
-    //
+    //	Aucun.
 
     explicit CountingMap ( );
     // Mode d'emploi :
-    //
+    //	Constructeur par défaut qui initialise tout.
     // Contrat :
-    //
+    //	Aucun.
 
     virtual ~CountingMap ( );
     // Mode d'emploi :
-    //
+    //	Détruit l'instance courante.
     // Contrat :
-    //
+    //	Aucun.
 
 //------------------------------------------------------------------ PRIVE
 
@@ -120,7 +120,7 @@ protected:
     map_type map;
 };
 
-//------------------------------ Autres définitions dépendantes de <CountingMap>
+//------------------------ Autres définitions dépendantes de <CountingMap>
 
 template <typename Donnee, class HashF>
 CountingMap <Donnee, HashF> :: CountingMap ()
@@ -140,7 +140,7 @@ CountingMap <Donnee, HashF> :: ~CountingMap ()
 
 
 template <typename Donnee, class HashF>
-nbr_t CountingMap <Donnee, HashF> :: Ajouter ( const Donnee & data, nbr_t score)
+nbr_t CountingMap <Donnee, HashF> :: Ajouter (const Donnee & data, nbr_t score)
 {
     nbr_t quantite = CombienDe (data); 
 

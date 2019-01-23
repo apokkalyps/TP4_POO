@@ -36,6 +36,11 @@ Restriction::Restriction (bool uniq) :
 
 bool RestrictionList::TesterTout (const Requete & req)
 {
+	if (taille==0) 
+	{
+		return true;
+	}
+	
 	for (it debut (liste.cbegin()); debut!=liste.cend(); ++debut)
 	{
 		if ((**debut)(req) == false)
@@ -57,7 +62,12 @@ void RestrictionList::Ajouter (Restriction* restr)
 			cerr << endl;
 			exit(1);
 		}
+		else
+		{
+			liste.push_front(restr);
+		}
 	}
+	++taille;
 } //----- fin de Ajouter
 
 ostream & operator << (ostream & os, const RestrictionList & rl)

@@ -78,6 +78,7 @@ struct RestrictionList
 // Structure contenant une liste des restrictions de lecture.
 // Contrat d'utilisation : pas de copie.
 {
+public:
 	forward_list<Restriction*> liste; 
 	// Liste simplement chaînée de restrictions en accès libre.
 	bool TesterTout (const Requete & req);
@@ -104,6 +105,9 @@ struct RestrictionList
 	//	Destructeur car allocation dynamique.
 	// Contrat :
 	//	Aucun.
+	int toto = 4;
+protected:
+	unsigned int taille = 0; // Nombre d'éléments.
 };
 
 struct Restriction_Heure : public Restriction
