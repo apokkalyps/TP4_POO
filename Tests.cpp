@@ -47,6 +47,13 @@ static void Test_Paire ()
     cout << "Paire1 < Paire3 ? " << (paire1 < paire3) << endl;
     cout << "Paire4 < Paire1 ? " << (paire4 < paire1) << endl;
     cout << "Paire2 < Paire2 ? " << (paire2 < paire2) << endl;
+    
+    cout << "Paire par copie : ";
+    Paire<string> paire5 (paire1);
+    cout << paire5 << endl;
+    cout << "Paire par affectation : ";
+    paire5 = paire3;
+    cout << paire5 << endl;
 
     cout << noboolalpha;
 } //----- fin de Test_Paire
@@ -97,8 +104,8 @@ void Test_CountingMap_String ()
     cout << "Combien de \"aaa\" ? " << toto.CombienDe("aaa") << endl;
     cout << "Combien de \"\" ? " << toto.CombienDe("") << endl;
 
-    cout << "Vecteur trié de tous les éléments : " << endl;
-    vector <Paire <string> > lesTop = toto.GetTop(toto.GetTaille());
+    cout << "Vecteur de tous les éléments : " << endl;
+    vector <Paire <string> > lesTop = toto.GetAll();
     vector<Paire<string>>::const_iterator 
         debut (lesTop.cbegin()), 
         fin (lesTop.cend()); 
@@ -117,6 +124,11 @@ void Test_CountingMap_String ()
         cout << *debut << '.' << endl;
         ++debut;
     }
+}
+
+static void Test_CourteRequete ()
+{
+	
 }
 
 //---------------------------------------------------- Variables statiques
