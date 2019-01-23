@@ -49,7 +49,7 @@ bool Parcours()
 
   if(monFlux)
   {
-    while(monFlux.good())
+    while( monFlux.good())
     {
       #ifdef MAP
       	  	cout << "Lecture d'une ligne " << endl;
@@ -59,6 +59,10 @@ bool Parcours()
 
       //Remmplissage de la ligne pour une requete donnée
       getline(monFlux, nvx.IP, ' ');
+      if (monFlux.eof())
+      {
+      	return true;
+      }
       getline(monFlux, nvx.userName, ' ');
       getline(monFlux, nvx.authenticatedUserName, ' ');
       getline(monFlux, nvx.jour, '/');
@@ -75,22 +79,13 @@ bool Parcours()
       getline(monFlux, nvx.data, ' ');
       getline(monFlux, nvx.URL_source, ' ');
       getline(monFlux, nvx.navigateur);
-
+      
       //Nettoyage des parties inutiles récupérées (char en trop)
-      nvx.userName = nvx.userName.substr(1);
-
-      nvx.annee = nvx.annee.substr(0,nvx.annee.length()-1);
       nvx.fuseau = nvx.fuseau.substr(0,nvx.fuseau.length()-1);
-
-      nvx.type = nvx.type.substr(1);
-
+      nvx.type = nvx.type.substr(1, nvx.type.length()-1);
       nvx.protocole = nvx.protocole.substr(0,nvx.protocole.length()-1);
-
-      nvx.URL_source = checkLocal(nvx.URL_source.substr(1,nvx.URL_source.length()-1));
-
-      nvx.navigateur = nvx.navigateur.substr(1,nvx.navigateur.length()-1);
-
-      //Validation et ajout
+      nvx.URL_source = checkLocal(nvx.URL_source.substr(1,nvx.URL_source.length()-2));
+      nvx.navigateur = nvx.navigateur.substr(1,nvx.navigateur.length()-2);
 
       // On créer une requete courte avec uniquement les elements voulus
       CourteRequete nvlle(nvx.URL_source, nvx.URL_cible);
@@ -98,7 +93,7 @@ bool Parcours()
       if(valideOption(nvx))
       {
         requete<CourteRequete, HashF_CourteRequete>->Ajouter (nvlle);
-      }
+      } 
     }
     return true;
   }
@@ -163,19 +158,13 @@ string getExtension( string s)
 }
 
 string checkLocal(string s)
+// Algorithme :
+//	https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
 {
-  // Algorithme de 
-  // https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
-  std::string::size_type i = s.find(localURL);
+	std::string::size_type i = s.find(localURL);
 	if (i != std::string::npos)
+	{
 		s.erase(i, localURL.length());
-
-  return s;
-
-
+	}
+	return s;
 }
-
-
-//---------------------------------------------- Surcharge d operateurs --
-
-//----------------------------------------- Constructeurs - Destructeur --

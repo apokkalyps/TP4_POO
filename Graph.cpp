@@ -66,9 +66,16 @@ void GenerateGraph (const liste & req, const string & nomFichier)
     f=req.end();
   	while ((d != f) && monFlux.good())
   	{
+<<<<<<< HEAD
   		monFlux << "\t" << d->GetData().GetSource() << " -> " ;
       monFlux << "\t" << d->GetData().GetCible()  << " [label=\"" ;
       monFlux << "\t" << d->GetScore()  << "\"];" << endl;
+=======
+  		monFlux << d->GetData().GetSource() << " -> " ;
+      monFlux << d->GetData().GetCible()  << " [label=\"" ;
+      monFlux << d->GetScore()  << "\"];" << endl;
+      ++d;
+>>>>>>> a04b6452fb15f7c56dec96d59d6f18db13a1c1ac
   	}
 
     monFlux << "}" << endl;
