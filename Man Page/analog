@@ -2,7 +2,7 @@
 .TH man 0 "25 January 2019" "1.0" "analog man page"
 
 .SH NAME
-analog \- extract request graph from Apache log files 
+analog \- extract requests graph from Apache log files 
 
 .SH SYNOPSIS
 .B analog " "
