@@ -6,7 +6,7 @@
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation du module <Lecture> (fichier Lecture.cpp) ---------------
+//---------- Réalisation du modul e <Lecture> (fichier Lecture.cpp) ---------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
@@ -162,7 +162,7 @@ string getExtension( string s)
 
 string checkLocal(string s)
 {
-  // Algorithme de 
+  // Algorithme de
   // https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
   std::string::size_type i = s.find(localURL);
 	if (i != std::string::npos)
