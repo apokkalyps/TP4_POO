@@ -20,7 +20,7 @@
 #include <string>
 #include <iostream>
 #include <forward_list>
-#include <boost/algorithm/string.hpp>
+//#include <boost/algorithm/string.hpp>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
