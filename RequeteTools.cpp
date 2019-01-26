@@ -35,7 +35,7 @@ Restriction::Restriction (bool uniq) :
 {
 } //----- fin du constructeur de Restriction
 
-bool RestrictionList::TesterTout (const Requete & req)
+bool RestrictionList::TesterTout (const Requete & req) const
 {
 	if (taille==0) 
 	{

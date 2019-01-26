@@ -44,16 +44,10 @@ size_t HashF_CourteRequete::operator () (const CourteRequete & cr) const
         hash2 = ((hash2 << 5) + hash2) + c; /* hash2 * 33 + c */
     }
     return hash1+hash2;
-}
+} // Fin de Operator()
 
 
 //----------------------------------------------------- Méthodes publiques
-// type CourteRequete::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 CourteRequete & CourteRequete::operator = ( const CourteRequete & cr )
@@ -93,6 +87,17 @@ CourteRequete::CourteRequete (  const string & URL_source,
     cout << "Appel au constructeur de <CourteRequete> par deux string" << endl;
 #endif
 }
+
+CourteRequete::CourteRequete ( const Requete & req ) :
+    source (req.URL_source),
+    cible (req.URL_cible)
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <CourteRequete> par copie d'une Requete";
+    cout << endl;
+#endif
+} //----- fin de CourteRequete (C par copie de Requete)
+
 
 
 CourteRequete::CourteRequete ( ) :

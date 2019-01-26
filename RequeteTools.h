@@ -82,7 +82,7 @@ struct RestrictionList
 public:
 	forward_list<Restriction*> liste; 
 	// Liste simplement chaînée de restrictions en accès libre.
-	bool TesterTout (const Requete & req);
+	bool TesterTout (const Requete & req) const;
 	// Mode d'emploi :
 	//	Teste toutes les restrictions sur la requête fournie et renvoie 
 	//	true si et seulement si toutes les restrictions sont validées.
