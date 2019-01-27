@@ -19,13 +19,9 @@
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
-#include "CountingMap.h"
-#include "CourteRequete.h"
 
 //------------------------------------------------------------- Constantes
 
-string source;
 //------------------------------------------------------------------ Types
 
 
@@ -39,4 +35,3 @@ int main ( int argc, char * argv [] );
 //	Aucun !
 
 #endif // MAIN_H
-

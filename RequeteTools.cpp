@@ -13,6 +13,7 @@
 
 //------------------------------------------------------ Include personnel
 #include <string>
+#include <locale>
 #include "RequeteTools.h"
 
 ///////////////////////////////////////////////////////////////////  PRIVE
@@ -34,7 +35,7 @@ Restriction::Restriction (bool uniq) :
 {
 } //----- fin du constructeur de Restriction
 
-bool RestrictionList::TesterTout (const Requete & req)
+bool RestrictionList::TesterTout (const Requete & req) const
 {
 	if (taille==0) 
 	{
@@ -122,8 +123,9 @@ Restriction_Extension::Restriction_Extension () :
 
 bool Restriction_Extension::operator () (const Requete & req) const
 {
-	string extFichier (getExtension(req.URL_cible));
-	boost::to_upper(extFichier);
+	locale loc; // Pour utiliser toupper
+	string extFichier (toupper(getExtension(req.URL_cible), loc));
+	//to_upper(extFichier);
 	for (unsigned int i=0; i<nbRF; ++i)
 	{
 		if (extFichier.compare(restrictedFormats[i]) == 0)

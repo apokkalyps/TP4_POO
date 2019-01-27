@@ -23,9 +23,9 @@ using namespace std;
 #include "CountingMap.h"
 #include "RequeteTools.h"
 #include "Lecture.h"
+#include "CourteRequete.h"
 extern void GenerateGraph (const vector<Paire<CourteRequete>> & 
 	requetes, const string & nomFichier);
-
 
 
 ///////////////////////////////////////////////////////////////////  PRIVE
@@ -35,8 +35,9 @@ extern void GenerateGraph (const vector<Paire<CourteRequete>> &
 
 //---------------------------------------------------- Variables statiques
 static string graphviz;
-/*static*/ RestrictionList restr;
+static RestrictionList restr;
 static CountingMap <CourteRequete, HashF_CourteRequete> * requetes;
+static string source;
 
 //------------------------------------------------------ Fonctions privées
 static void LectureArguments ( char ** args, int nbr_args)
@@ -49,7 +50,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 {
 	// Lecture de la source
 	source = args[--nbr_args];
-	if (getExtension(source) != ".log")
+	if (GetExtension(source) != ".log")
 	{
 		source += ".log";
 	}
@@ -202,7 +203,7 @@ int main ( int argc, char *argv[])
 	requetes = new CountingMap <CourteRequete, HashF_CourteRequete>;
 
 	// Lecture du fichier d'entree
-	LectureLogs (/*source, restr, */requetes);
+	LectureLogs <CourteRequete, HashF_CourteRequete>(requetes, source, restr);
 
 	// Production de la sortie
 	if (graphviz.empty())

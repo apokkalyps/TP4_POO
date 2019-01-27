@@ -13,8 +13,8 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
 #include <iostream>
+#include "RequeteTools.h"
 using namespace std;
-// #include "Lecture.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -88,6 +88,12 @@ public:
     CourteRequete ( const string & URL_source, const string & URL_cible);
     // Mode d'emploi :
     //  Construit une CourteRequete avec une source et une cible.
+    // Contrat :
+    //  Aucun.
+
+    CourteRequete ( const Requete & req );
+    // Mode d'emploi :
+    //  Instantie une CourteRequete par extraction des URL.
     // Contrat :
     //  Aucun.
         
