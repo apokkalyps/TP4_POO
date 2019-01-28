@@ -57,7 +57,7 @@ static void setValues
 } //----- fin de setValues
 
 template <typename RequeteType, typename HashF>
-static void Parcours()
+static void parcours()
 // Mode d'emploi :
 //  Parcourt le fichier et remplit la CountingMap.
 // Contrat :
@@ -116,7 +116,7 @@ static void Parcours()
 			} 
 		}
 	}
-} //----- fin de Parcours
+} //----- fin de parcours
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
@@ -126,7 +126,7 @@ void LectureLogs(CountingMap<RequeteType, HashF> * liste,
 	const RestrictionList & restrictions)
 {
 	setValues <RequeteType, HashF> (liste, source, restrictions);
-	Parcours<RequeteType, HashF>();
+	parcours<RequeteType, HashF>();
 } //----- fin de LectureLogs
 
 
