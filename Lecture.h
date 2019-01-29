@@ -31,6 +31,14 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
+bool LireRequete (ifstream & ifs, Requete * req);
+// Mode d'emploi :
+//	Lit une ligne sur le flux courant et écrit la requête lue
+//	sur le pointeur fourni (doit être alloué et inscriptible).
+//	Renvoie false si la lecture a échoué.
+// Contrat :
+//	Le pointeur est alloué.
+
 bool ValideOption(const RestrictionList * rlist, const Requete & r);
 // Mode d'emploi :
 //  Renvoie true si la requête fournie satisfait toutes les restrictions.
@@ -70,60 +78,24 @@ namespace LectReq
 		// Mode d'emploi :
 		//  Parcourt le fichier et remplit la CountingMap.
 		// Contrat :
-		//	Le fichier a le droit d'être écrit.
+		//	Aucun.
 		{
 			ifstream monFlux(source.c_str());
 
-			if(monFlux)
+			if (monFlux.good())
+			{
+				Requete nvx;
+				while (LireRequete(monFlux, &nvx))
 				{
-				while( monFlux.good())
-				{
-					#ifdef MAP
-					cout << "Lecture d'une ligne " << endl;
-					#endif
-
-					struct Requete nvx;
-
-					//Remmplissage de la ligne pour une requete donnée
-					getline(monFlux, nvx.IP, ' ');
-					if (monFlux.eof())
+					if (ValideOption(restr, nvx))
 					{
-						return;
-					}
-					getline(monFlux, nvx.userName, ' ');
-					getline(monFlux, nvx.authenticatedUserName, ' ');
-					getline(monFlux, nvx.jour, '/');
-					getline(monFlux, nvx.mois, '/');
-					getline(monFlux, nvx.annee, ':');
-					getline(monFlux, nvx.heure, ':');
-					getline(monFlux, nvx.minute, ':');
-					getline(monFlux, nvx.seconde, ' ');
-					getline(monFlux, nvx.fuseau, ' ');
-					getline(monFlux, nvx.type, ' ');
-					getline(monFlux, nvx.URL_cible, ' ');
-					getline(monFlux, nvx.protocole, ' ');
-					getline(monFlux, nvx.status, ' ');
-					getline(monFlux, nvx.data, ' ');
-					getline(monFlux, nvx.URL_source, ' ');
-					getline(monFlux, nvx.navigateur);
-
-					//Nettoyage des parties inutiles récupérées (char en trop)
-					nvx.fuseau = nvx.fuseau.substr(0,nvx.fuseau.length()-1);
-					nvx.type = nvx.type.substr(1, nvx.type.length()-1);
-					nvx.protocole = nvx.protocole.substr(0,nvx.protocole.length()-1);
-					nvx.URL_source = 
-						CheckLocal(nvx.URL_source.substr(1,nvx.URL_source.length()-2));
-					nvx.navigateur = 
-						nvx.navigateur.substr(1,nvx.navigateur.length()-2);
-
-					// On créer une requete courte avec uniquement les elements voulus
-					RequeteType nvlle(nvx);
-
-					if(ValideOption(restr, nvx))
-					{
-						requete<RequeteType, HashF>->Ajouter (nvlle);
+						requete<RequeteType, HashF>->Ajouter (RequeteType(nvx));
 					} 
 				}
+			}
+			else
+			{
+				// Erreur 2
 			}
 		} //----- fin de parcours
 	}
@@ -139,7 +111,6 @@ namespace LectReq
 	//	Parcourt le fichier de Logs et enregistre tout dans la CountingMap.
 	// Contrat :
 	//	Le pointeur de CountingMap est valide.
-	//	Le fichier à écrire peut bien être écrit.
 	{
 		requete<RequeteType, HashF> = liste;
 		source = laSource;
