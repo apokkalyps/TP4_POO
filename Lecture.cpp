@@ -76,9 +76,9 @@ bool LireRequete (ifstream & ifs, Requete * req)
 	return true;
 } //----- fin de LireRequete
 
-bool ValideOption(const RestrictionList * rlist, const Requete & r)
+bool ValideOption(const RestrictionList & rlist, const Requete & r)
 {
-	return rlist->TesterTout(r);
+	return rlist.TesterTout(r);
 } //----- fin de ValideOption
 
 string GetExtension( const string & s)
