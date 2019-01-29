@@ -109,7 +109,6 @@ bool Restriction_Heure::operator () (const Requete & req) const
 	return req.heure.compare(to_string(heure)) == 0;
 } //----- fin de Operator() pour Restriction_Heure
 
-
 void Restriction_Heure::Afficher (ostream & os) const
 {
 	os << "{Restriction: heure dans [" << int(heure) << ", ";
@@ -151,3 +150,8 @@ string Restriction_Extension::getExtension (const string & nomFichier) const
   size_t found = nomFichier.find_last_of(".");
   return nomFichier.substr(found+1);
 } //----- fin de getExtension
+
+istream & operator >> (istream & ifs, Requete & req)
+{
+	return ifs;
+} //----- fin de Operator >> pour Requete.

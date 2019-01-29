@@ -20,7 +20,6 @@
 #include <string>
 #include <iostream>
 #include <forward_list>
-//#include <boost/algorithm/string.hpp>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -141,6 +140,10 @@ protected:
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-
+istream & operator >> (istream & ifs, Requete & req);
+// Mode d'emploi :
+//	Extrait une Requete du flux courant.
+// Contrat :
+//	Aucun.
 
 #endif // REQUETE_TOOLS_H
