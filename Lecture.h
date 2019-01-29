@@ -51,18 +51,20 @@ string CheckLocal(string s);
 //  Aucun.
 
 namespace LectReq
-// Encapsule les fonctions internes liées à la lecture d'un fichier.
+// Encapsule les fonctions internes liées à la lecture d'un fichier
+// pour en extraire les requêtes.
 {
 	namespace
 	// Données et fonctions privées locales	
 	{
-		
+		// ------------------------------------------------- Variables privées.
 		const string localURL = "http://intranet-if.insa-lyon.fr";
 		string source; // Fichier à écrire dedans de lequel pour.
 		template <typename RequeteType, typename HashF>
 		CountingMap <RequeteType, HashF> * requete; // Les requêtes
 		const RestrictionList * restr; // Pointeur de liste de restrictions.
 
+		// ------------------------------------------------- Fonctions privées.
 		template <typename RequeteType, typename HashF>
 		void parcours()
 		// Mode d'emploi :
@@ -125,6 +127,8 @@ namespace LectReq
 			}
 		} //----- fin de parcours
 	}
+
+	// --------------------------------------------------- Fonctions publiques.
 
 	template <typename RequeteType, typename HashF>
 	void LectureLogs(

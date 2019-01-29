@@ -13,11 +13,8 @@
 
 //------------------------------------------------------ Include personnel
 #include "Lecture.h"
-#include <iostream>
-#include <fstream>
-#include <cstring>
-#include "CountingMap.h"
-#include "CourteRequete.h"
+#include "RequeteTools.h"
+#include <string>
 using namespace std;
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -32,6 +29,11 @@ static const string localURL = "http://intranet-if.insa-lyon.fr";
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
+bool ValideOption(const RestrictionList * rlist, const Requete & r)
+{
+	return rlist->TesterTout(r);
+} //----- fin de valideOption
+
 string GetExtension( const string & s)
 {
   size_t found = s.find_last_of(".");
@@ -50,7 +52,3 @@ string CheckLocal(string s)
 	return s;
 } //----- fin de CheckLocal
 
-bool ValideOption(const RestrictionList * rlist, const Requete & r)
-{
-	return rlist->TesterTout(r);
-} //----- fin de valideOption
