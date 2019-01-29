@@ -203,7 +203,7 @@ int main ( int argc, char *argv[])
 	requetes = new CountingMap <CourteRequete, HashF_CourteRequete>;
 
 	// Lecture du fichier d'entree
-	LectureLogs <CourteRequete, HashF_CourteRequete>(requetes, source, restr);
+	LectReq::LectureLogs <CourteRequete, HashF_CourteRequete>(requetes, source, restr);
 
 	// Production de la sortie
 	if (graphviz.empty())
