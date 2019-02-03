@@ -72,14 +72,25 @@ void LectureLogs(
 
 	if (monFlux.good())
 	{
+#ifdef MAP
+		cout << "Flux ouvert. " << endl;
+		unsigned int iLigne = 0;
+#endif // MAP
+
 		Requete nvx;
 		while (LireRequete(monFlux, &nvx))
 		{
+#ifdef MAP
+			cout << "Ligne " << iLigne++ << '.' << endl;
+#endif // MAP
 			if (ValideOption(restr, nvx))
 			{
 				liste->Ajouter (RequeteType(nvx));
 			} 
 		}
+#ifdef MAP
+		cout << "Fin de la lecture, " << iLigne << " lignes lues." << endl;
+#endif // MAP
 	}
 	else
 	{

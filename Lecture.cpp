@@ -1,5 +1,5 @@
 /*************************************************************************
-                           Lecture  -  description
+                           Lecture  -  lecture d'un fichier de Logs Apache
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
