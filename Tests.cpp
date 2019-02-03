@@ -81,7 +81,7 @@ struct HashF_String
     }
 };
 
-void Test_CountingMap_String ()
+static void Test_CountingMap_String ()
 {
     cout << " >> TEST CHOISI : CLASSE GENERIQUE COUNTINGMAP AVEC DES STRING <<";
     cout << endl << endl;
@@ -180,7 +180,7 @@ static void (*proceduresDeTests[]) () =
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
-void AfficheArgs ( char * * args, int nbr_args )
+void AfficheArgs ( char * args [], const int nbr_args )
 {
     cout << "Affichage des " << nbr_args << " arguments : " << endl;
     for (int i=0; i<nbr_args; ++i)
@@ -189,8 +189,10 @@ void AfficheArgs ( char * * args, int nbr_args )
     }
 } //----- fin de AfficheArgs.
 
-void LanceTest (unsigned short numTest = -1)
+void LanceTest (const char * numTestArray)
 {
+
+
     // Recherche du max des procédures de test :
     size_t nbr_procedures=0;
     while (proceduresDeTests[nbr_procedures] != nullptr)
@@ -198,7 +200,21 @@ void LanceTest (unsigned short numTest = -1)
         nbr_procedures++;
     }
 
-    if (numTest == -1)
+    // On verifie si numTestArray est un nombre ou pas.
+    // Algorithme : 
+    // https://stackoverflow.com/questions/4654636/
+    string numTestString (numTestArray);
+    unsigned int numTest;
+    
+    if (!numTestString.empty() && std::find_if(numTestString.begin(), 
+        numTestString.end(), [](char c) { return !std::isdigit(c); }) == numTestString.end())
+    {
+        numTest = stoi (numTestString);
+    }
+    else
+        numTest = -1;
+
+if (numTest == (unsigned int)-1)
     {
         for (unsigned int i=0; i<nbr_procedures; i++)
         {

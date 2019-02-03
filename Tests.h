@@ -31,7 +31,7 @@ void AfficheArgs ( char * args [], int nbr_args );
 // Contrat :
 //	Format des données fournies identique au main.
 
-void LanceTest (unsigned short numTest);
+void LanceTest (const char * numTestArray = "-1");
 // Mode d'emploi :
 //	Lance le test indexé par numTest.
 //	Si numTest n'est pas spécifié, exécute tous les tests.

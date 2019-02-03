@@ -46,11 +46,18 @@ static void LectureArguments ( char ** args, int nbr_args)
 //	args : liste des paramètres tels que fournis lors de l'appel du main.
 // 	nbr_args : nombre de paramètres tel que fourni lors de l'appel du main.
 // Contrat : 
-//	restr a été construit par défaut, nbr_args est compatible avec args.
+//	nbr_args est compatible avec args.
 {
+	// Jeux de tests ?
+	// Si oui, on doit aussi spécifier en option l'indice du test.
+	if ( ! strcmp (args[1], "--tests"))
+	{
+		nbr_args == 2 ? LanceTest() : LanceTest(args[2]);
+	}
+
 	// Lecture de la source
 	source = args[--nbr_args];
-	if (GetExtension(source) != ".log")
+	if (GetExtension(source) != "log")
 	{
 		source += ".log";
 	}
@@ -61,12 +68,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 		exit (1);
 	}
 
-	// Jeux de tests ?
-	// Si oui, on doit aussi spécifier en option l'indice du test.
-	if ( ! strcmp (args[1], "--tests"))
-	{
-		LanceTest(stoi(string(args[2])));
-	}
+
 
 	// Sinon analyse des options
 	for (int i=1; i<nbr_args; i++)

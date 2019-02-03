@@ -1,6 +1,6 @@
 COMPIL=g++
 EXT_SRC=cpp
-CFLAGS=-Wall -g #-D MAP
+CFLAGS=-Wall -g -D MAP
 LDFLAGS=-lm
 SRC=$(wildcard *.$(EXT_SRC))
 OBJ_FOLDER=./obj

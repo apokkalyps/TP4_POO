@@ -82,7 +82,7 @@ ostream & operator << (ostream & os, const RestrictionList & rl)
 		{
 			os << " - ";
 			(*debut)->Afficher(os);
-			os << (((*debut)->unique) ? "[u]" : "");
+			os << (((*debut)->unique) ? " [u]" : "");
 			os << endl;
 		} 
 		return os;
