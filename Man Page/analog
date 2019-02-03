@@ -1,20 +1,23 @@
 .\" Manpage for analog.
-.TH man 0 "25 January 2019" "1.0" "analog man page"
+.TH man 0 "05 Février 2019" "1.0" "analog man page"
 
 .SH NAME
 analog \- extract requests graph from Apache log files 
+synthese des donnees d'un Log Apache.
 
 .SH SYNOPSIS
 .B analog " "
 [
 .B OPTIONS
 ] 
-.I LOGFILENAME
+.I NOMDUFICHIERLOG
 
 .SH DESCRIPTION
 analog parses an Apache log file given in input (
-.I LOGFILENAME
+Le programme analog lit un fichier de Log Apache fourni (
+.I NOMDUFICHIERLOG
 ), and produces one of the two following outputs:
+), et produit une des deux sorties suivantes :
 .B Top visited pages
 .RS 
 Displays on standard output the 10 (or less) webpages that have been visited the most.
