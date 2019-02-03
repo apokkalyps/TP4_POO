@@ -2,8 +2,7 @@
 .TH man 0 "05 Février 2019" "1.0" "analog man page"
 
 .SH NAME
-analog \- extract requests graph from Apache log files 
-synthese des donnees d'un Log Apache.
+analog \- synthese des donnees d'un Log Apache.
 
 .SH SYNOPSIS
 .B analog " "
@@ -13,34 +12,32 @@ synthese des donnees d'un Log Apache.
 .I NOMDUFICHIERLOG
 
 .SH DESCRIPTION
-analog parses an Apache log file given in input (
 Le programme analog lit un fichier de Log Apache fourni (
 .I NOMDUFICHIERLOG
-), and produces one of the two following outputs:
 ), et produit une des deux sorties suivantes :
-.B Top visited pages
+.B Pages les plus visitées
 .RS 
-Displays on standard output the 10 (or less) webpages that have been visited the most.
+Affiche sur la sortie standard les 10 (ou moins) pages Web qui ont été les plus visitées.
 .RE
-.B GraphViz file
+.B Fichier GraphViz
 .RS 
-A .dot file, ready to be converted by GraphViz, that includes all webpages referenced in the log file.
+Un fichier .dot, prêt pour une conversion par GraphViz, qui inclut toutes les pages référencées dans le fichier de Log.
 
 .SH OPTIONS
 .TP
 .BR \-e 
-Do not take into account target URLs that have an image, CSS or JS extension.
+Ignorer les requêtes dont l'URL cible est une image, un fichier .CSS ou .JS.
 .TP
-.BR \-g " " \fIdotfilename\fR
-Do not display top visited sites, but instead create a .dot file with the given \fIdotfilename\fR. If omitted, the .dot extension will automatically be set.
+.BR \-g " " \fINOMDUFICHIERDOT\fR
+Ne pas afficher les pages les plus visitées. À la place créer un fichier .dot avec le \fINOMDUFICHIERDOT\fR indiqué. L'extension .dot est ajoutée automatiquement si besoin.
 .TP
-.BR \-t " " \fIhour\fR
-Only consider requests that have taken place in [hour, hour+1[.
-.I hour 
-must be integer value in [0,23].
+.BR \-t " " \fIHEURE\fR
+Ignorer les requêtes qui n'ont pas eu lieu dans l'intervalle [HEURE, HEURE+1[.
+.I HEURE
+doit être un entier de l'intervalle [0,23].
 
 .SH BUGS
-No known bugs.
+Aucun bug connu, mais voici les codes d'erreur qui peuvent être produits lors de l'exécution :
 
-.SH AUTHOR
-Visit our GitHub repo at https://github.com/apokkalyps/TP4_POO
+.SH AUTEURS
+Visitez notre repo GitHub à l'adresse https://github.com/apokkalyps/TP4_POO
