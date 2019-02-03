@@ -15,12 +15,11 @@ analog \- synthese des donnees d'un Log Apache.
 Le programme analog lit un fichier de Log Apache fourni (
 .I NOMDUFICHIERLOG
 ), et produit une des deux sorties suivantes :
-.B Pages les plus visitées
-.RS 
+.HP
+.B Pages les plus visitées.
 Affiche sur la sortie standard les 10 (ou moins) pages Web qui ont été les plus visitées.
-.RE
-.B Fichier GraphViz
-.RS 
+.HP
+.B Fichier GraphViz.
 Un fichier .dot, prêt pour une conversion par GraphViz, qui inclut toutes les pages référencées dans le fichier de Log.
 
 .SH OPTIONS
@@ -37,7 +36,18 @@ Ignorer les requêtes qui n'ont pas eu lieu dans l'intervalle [HEURE, HEURE+1[.
 doit être un entier de l'intervalle [0,23].
 
 .SH BUGS
-Aucun bug connu, mais voici les codes d'erreur qui peuvent être produits lors de l'exécution :
+Aucun bug connu.
+
+.SH STATUTS DE FIN D'EXÉCUTION
+.TP
+.BR 0 " : programme exécuté avec succès."
+.TP
+.BR 1 " : problème détecté avec les arguments fournis."
+Les problèmes courants sont : un même argument est passé deux fois, ou l'heure fournie est invalide.
+.TP
+.BR 2 " : problème avec le ou les fichiers indiqués."
+Une erreur s'est produite lors de la lecture du fichier de Logs, ou bien lors de l'écriture du fichier .dot. Assurez-vous de disposer des autorisations adéquates. Notez également que l'intégrité du fichier Log n'est pas analysée à l'exécution.
 
 .SH AUTEURS
-Visitez notre repo GitHub à l'adresse https://github.com/apokkalyps/TP4_POO
+Visitez notre repo GitHub à l'adresse 
+.BR https://github.com/apokkalyps/TP4_POO .

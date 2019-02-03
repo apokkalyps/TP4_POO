@@ -1,1 +1,39 @@
 https://www.cyberciti.biz/faq/linux-unix-creating-a-manpage/
+
+.\"
+Commentaire
+
+.TH A B "C" "D" "E"
+En-tête et pied de page : 
+- A : Nom du programme
+- B : Numéro de page de manuel
+- C : Date de dernière édition
+- D : Version du programme
+- E : Texte à afficher en haut et en bas
+
+.SH A
+Section du manuel, avec A le titre du chapitre. Ecrase les paramètres d'indentation précédents.
+
+.B A
+Le texte A est en gras.
+
+.I A
+Le texte A est en italique.
+
+.BR A B
+.IR A B
+Le texte A (un seul mot) est en gras/italique, B est normal. Attention, les deux sont sur la même ligne et l'espace n'est pas imprimé, il est recommandé d'écrire .BR A " B".
+
+.RE
+Réduit l'indentation.
+
+.RS
+Augmente l'indentation.
+
+.RS A
+Augmente l'indentation de A espaces.
+
+.TP A
+B
+C
+Le texte B est à l'indentation actuelle, et C et les lignes suivantes seront à A caractères d'indentation ; si possible B et C sur la même ligne. A est facultatif.
