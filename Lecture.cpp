@@ -68,9 +68,9 @@ bool LireRequete (ifstream & ifs, Requete * req)
 	req->fuseau = req->fuseau.substr(0,req->fuseau.length()-1);
 	req->type = req->type.substr(1, req->type.length()-1);
 	req->protocole = req->protocole.substr(0,req->protocole.length()-1);
-	req->URL_source = 
+	req->URL_source =
 		CheckLocal(req->URL_source.substr(1,req->URL_source.length()-2));
-	req->navigateur = 
+	req->navigateur =
 		req->navigateur.substr(1,req->navigateur.length()-2);
 
 	return true;
@@ -87,15 +87,19 @@ string GetExtension( const string & s)
   return s.substr(found+1);
 } //------ fin de GetExtension
 
-string CheckLocal(string s)
+string CheckURL(string s)
 // Algorithme :
 //	https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
 {
 	std::string::size_type i = s.find(localURL);
+	std::string::size_type j = s.find("google");
 	if (i != std::string::npos)
 	{
 		s.erase(i, localURL.length());
 	}
+	else if(j != std::string::npos)
+	{
+		return "www.google.com";
+	}
 	return s;
 } //----- fin de CheckLocal
-

@@ -52,7 +52,7 @@ string GetExtension( const string & s);
 // Contrat :
 //  Aucun.
 
-string CheckLocal(string s);
+string CheckURL(string s);
 // Mode d'emploi :
 //  Si le fichier décrit une URL locale, on tronque le début.
 // Contrat :
@@ -60,8 +60,8 @@ string CheckLocal(string s);
 
 template <typename RequeteType, typename HashF>
 void LectureLogs(
-	CountingMap<RequeteType, HashF> * liste, 
-	const string & source, 
+	CountingMap<RequeteType, HashF> * liste,
+	const string & source,
 	const RestrictionList & restr)
 // Mode d'emploi :
 //	Parcourt le fichier de Logs et enregistre tout dans la CountingMap.
@@ -86,7 +86,7 @@ void LectureLogs(
 			if (ValideOption(restr, nvx))
 			{
 				liste->Ajouter (RequeteType(nvx));
-			} 
+			}
 		}
 #ifdef MAP
 		cout << "Fin de la lecture, " << iLigne << " lignes lues." << endl;
