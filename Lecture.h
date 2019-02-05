@@ -95,7 +95,7 @@ void LectureLogs(
 	}
 	else
 	{
-		Erreur(FICHIER, "Lecture du Logs.");
+		Erreur(FICHIER, "Lecture du fichier Log.");
 	}
 } //----- fin de LectureLogs
 

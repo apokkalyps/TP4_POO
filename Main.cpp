@@ -134,7 +134,7 @@ static void VerificationDroits ()
 	ifstream ifs (source.c_str());
 	if ( ! ifs)
 	{
-		Erreur (FICHIER, "Lecture du fichier Log");
+		Erreur (FICHIER, "Lecture du fichier Log.");
 	}
 #ifdef MAP
 	else
@@ -149,7 +149,7 @@ static void VerificationDroits ()
 		ofstream ofs (graphviz.c_str(), ios_base::app);
 		if ( ! ofs )
 		{
-			Erreur (FICHIER, "Ecriture impossible du .dot");
+			Erreur (FICHIER, "Ecriture impossible du GraphViz.");
 		}
 #ifdef MAP
 		else
