@@ -69,7 +69,7 @@ bool LireRequete (ifstream & ifs, Requete * req)
 	req->type = req->type.substr(1, req->type.length()-1);
 	req->protocole = req->protocole.substr(0,req->protocole.length()-1);
 	req->URL_source =
-		CheckLocal(req->URL_source.substr(1,req->URL_source.length()-2));
+		CheckURL(req->URL_source.substr(1,req->URL_source.length()-2));
 	req->navigateur =
 		req->navigateur.substr(1,req->navigateur.length()-2);
 
@@ -102,4 +102,4 @@ string CheckURL(string s)
 		return "www.google.com";
 	}
 	return s;
-} //----- fin de CheckLocal
+} //----- fin de CheckURL
