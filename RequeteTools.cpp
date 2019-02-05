@@ -14,6 +14,7 @@
 //------------------------------------------------------ Include personnel
 #include <string>
 #include <locale>
+#include <algorithm>
 #include "RequeteTools.h"
 #include "Main.h"
 
@@ -122,7 +123,10 @@ Restriction_Extension::Restriction_Extension ()
 bool Restriction_Extension::operator () (const Requete & req) const
 {
 	locale loc; // Pour utiliser toupper
-	string extFichier (toupper(getExtension(req.URL_cible), loc));
+	//string extFichier (toupper(getExtension(req.URL_cible), loc));
+	string extFichier (getExtension(req.URL_cible));
+	transform (extFichier.begin(), extFichier.end(), extFichier.begin(), ::toupper);
+
 	//to_upper(extFichier);
 	for (unsigned int i=0; i<nbRF; ++i)
 	{
