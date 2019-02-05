@@ -56,20 +56,22 @@ public:
 	//	Teste si la requête satisfait la restriction saisie.
 	// Contrat :
 	//	Aucun.
-	virtual void Afficher (ostream & os) const = 0;
-	// Mode d'emploi :
-	//	Affiche sur le flux fourni la restriction courante.
-	// Contrat :
-	//	Aucun.
 	virtual ~Restriction() = default;
 	// Détruit l'objet courant.
-	const bool unique;
-	// S'il vaut true, on interdit la présence de deux Restrictions 
-	// du même type.
-protected:
-	Restriction (bool uniq);
+	virtual string ClassToString () const = 0;
 	// Mode d'emploi :
-	//	Constructeur protégé qui initialise juste l'attribut uniq.
+	//	Renvoie une courte chaine indiquant la classe.
+	// Contrat :
+	//	Aucun.
+	friend ostream & operator << (ostream & os, const Restriction & rs);
+	// Mode d'emploi :
+	//	Affiche la restriction courante.
+	// Contrat :
+	//	Aucun.
+protected:
+	virtual ostream & Aff (ostream & os) const = 0;
+	// Mode d'emploi :
+	//	Fonction virtuelle destinée à l'affichage des enfants.
 	// Contrat :
 	//	Aucun.
 };
@@ -90,10 +92,10 @@ public:
 	void Ajouter (Restriction* restr);
 	// Mode d'emploi :
 	//	Ajoute la restriction fournie (pointeur alloc dynamique)
-	//	à la liste courante. Si on ajoute une restriction unique qui
+	//	à la liste courante. Si on ajoute une restriction qui
 	//	est déjà présente, arrêt du programme.
 	// Contrat :
-	//	Restriction pas déjà ajoutée si unique.
+	//	Restriction pas déjà ajoutée.
 	friend ostream & operator << (ostream & os, 
 		const RestrictionList & rl);
 	// Mode d'emploi :
@@ -115,8 +117,9 @@ struct Restriction_Heure : public Restriction
 public:
 	Restriction_Heure (unsigned char h);
 	bool operator () (const Requete & req) const;
-	virtual void Afficher (ostream & os) const;
+	virtual string ClassToString () const;
 protected:
+	ostream & Aff (ostream & os) const;
 	unsigned char heure = 0;
 };
 
@@ -126,8 +129,9 @@ struct Restriction_Extension : public Restriction
 public:
 	Restriction_Extension ();
 	bool operator () (const Requete & req) const;
-	virtual void Afficher (ostream & os) const;
+	string ClassToString () const;
 protected:
+	ostream & Aff (ostream & os) const;
 	string getExtension (const string & nomFichier) const;
 	// Renvoie l'extension du fichier.
 	// Contrat : le fichier a bien une extension.
@@ -140,10 +144,5 @@ protected:
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-istream & operator >> (istream & ifs, Requete & req);
-// Mode d'emploi :
-//	Extrait une Requete du flux courant.
-// Contrat :
-//	Aucun.
 
 #endif // REQUETE_TOOLS_H

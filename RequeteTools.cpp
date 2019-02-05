@@ -15,6 +15,7 @@
 #include <string>
 #include <locale>
 #include "RequeteTools.h"
+#include "Main.h"
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -30,10 +31,10 @@ typedef forward_list<Restriction*>::const_iterator it;
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 
-Restriction::Restriction (bool uniq) :
-	unique (uniq)
+ostream & operator << (ostream & os, const Restriction & rs)
 {
-} //----- fin du constructeur de Restriction
+	return rs.Aff(os);
+}
 
 bool RestrictionList::TesterTout (const Requete & req) const
 {
@@ -56,12 +57,9 @@ void RestrictionList::Ajouter (Restriction* restr)
 {
 	for (it debut (liste.cbegin()); debut!=liste.cend(); ++debut)
 	{
-		if ((*debut)->unique && restr->unique)
+		if (! ((*debut)->ClassToString().compare (restr->ClassToString())))
 		{
-			cerr << "Erreur : restriction déjà présente : ";
-			(*debut)->Afficher(cerr);
-			cerr << endl;
-			exit(1);
+			Erreur (OPTION, "Restriction en double.");
 		}
 	}
 	liste.push_front(restr);
@@ -80,10 +78,7 @@ ostream & operator << (ostream & os, const RestrictionList & rl)
 		os << "Liste de restrictions :" << endl;
 		for (; debut!=fin; ++debut)
 		{
-			os << " - ";
-			(*debut)->Afficher(os);
-			os << (((*debut)->unique) ? " [u]" : "");
-			os << endl;
+			os << " - " << **debut << endl;
 		} 
 		return os;
 	}
@@ -99,7 +94,6 @@ RestrictionList::~RestrictionList ()
 } //----- fin du destructeur de RestrictionList.
 
 Restriction_Heure::Restriction_Heure (unsigned char h) :
-	Restriction(true),
 	heure (h)
 {
 } //----- fin du constructeur de Restriction_Heure
@@ -109,14 +103,19 @@ bool Restriction_Heure::operator () (const Requete & req) const
 	return req.heure.compare(to_string(heure)) == 0;
 } //----- fin de Operator() pour Restriction_Heure
 
-void Restriction_Heure::Afficher (ostream & os) const
+ostream & Restriction_Heure::Aff (ostream & os) const
 {
 	os << "{Restriction: heure dans [" << int(heure) << ", ";
 	os << heure+1 << "[}";
-} //----- fin de Operator<< pour ostream et Restriction_Heure
+	return os;
+} //----- fin de Aff pour ostream et Restriction_Heure
 
-Restriction_Extension::Restriction_Extension () :
-	Restriction (false)
+string Restriction_Heure::ClassToString () const
+{
+	return "Restriction_Heure";
+} //----- fin de ClassToString
+
+Restriction_Extension::Restriction_Extension ()
 {
 } //----- fin du constructeur de Restriction_Extension
 
@@ -135,7 +134,7 @@ bool Restriction_Extension::operator () (const Requete & req) const
 	return true;
 } //----- fin de Operator() pour Restriction_Extension
 
-void Restriction_Extension::Afficher (ostream & os) const
+ostream & Restriction_Extension::Aff (ostream & os) const
 {
 	os << "{Restriction: extension pas parmi : ";
 	for (unsigned int i=0; i<nbRF-1; ++i)
@@ -143,7 +142,8 @@ void Restriction_Extension::Afficher (ostream & os) const
 		os << restrictedFormats[i] << ", ";
 	}
 	os << restrictedFormats[nbRF-1] << '}';
-} //----- fin de Operator<< pour ostream et Restriction_Extension
+	return os;
+} //----- fin de Aff pour ostream et Restriction_Extension
 
 string Restriction_Extension::getExtension (const string & nomFichier) const
 {
@@ -151,7 +151,7 @@ string Restriction_Extension::getExtension (const string & nomFichier) const
   return nomFichier.substr(found+1);
 } //----- fin de getExtension
 
-istream & operator >> (istream & ifs, Requete & req)
+string Restriction_Extension::ClassToString () const
 {
-	return ifs;
-} //----- fin de Operator >> pour Requete.
+	return "Restriction_Extension";
+} //----- fin de ClassToString

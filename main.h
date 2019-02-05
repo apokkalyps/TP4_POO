@@ -23,7 +23,11 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
+enum Erreur_e
+{
+	OPTION,
+	FICHIER
+};
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
@@ -33,6 +37,20 @@ int main ( int argc, char * argv [] );
 // 	Toutes les autres fonctionnalités sont encapsulées.
 // Contrat :
 //	Aucun !
+
+bool StringIsNumeric (const string & s);
+// Mode d'emploi :
+//	Indique si une chaine de caractères contient des caractères autres que 
+//	'-' et '0-9'.
+// Mode d'emploi :
+//	Aucun.
+
+void Erreur (Erreur_e err, const string & message);
+// Mode d'emploi :
+//	Affiche un message d'erreur et arrête l'exécution avec 
+//	un code de retour non nul.
+// Contrat :
+//	Aucun.
 
 #endif // MAIN_H
 

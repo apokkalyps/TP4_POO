@@ -22,6 +22,7 @@
 #include <fstream>
 #include "RequeteTools.h"
 #include "CountingMap.h"
+#include "Main.h"
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -94,7 +95,7 @@ void LectureLogs(
 	}
 	else
 	{
-		// Erreur 2
+		Erreur(FICHIER, "Lecture du Logs.");
 	}
 } //----- fin de LectureLogs
 

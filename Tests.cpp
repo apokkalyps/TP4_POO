@@ -214,7 +214,7 @@ void LanceTest (const char * numTestArray)
     else
         numTest = -1;
 
-if (numTest == (unsigned int)-1)
+    if (numTest == (unsigned int)-1)
     {
         for (unsigned int i=0; i<nbr_procedures; i++)
         {

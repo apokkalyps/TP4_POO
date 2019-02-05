@@ -15,6 +15,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
+#include <sstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -52,7 +53,14 @@ static void LectureArguments ( char ** args, int nbr_args)
 	// Si oui, on doit aussi spécifier en option l'indice du test.
 	if ( ! strcmp (args[1], "--tests"))
 	{
-		nbr_args == 2 ? LanceTest() : LanceTest(args[2]);
+		if (nbr_args == 2 && StringIsNumeric (args[2]))
+		{
+			LanceTest (args[2]);
+		}
+		else
+		{
+			LanceTest();
+		}
 	}
 
 	// Lecture de la source
@@ -63,9 +71,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 	}
 	if ( nbr_args < 1 || nbr_args > 6 || source[0] == '-')
 	{
-		cerr << "Syntaxe d'appel incorrecte. Verifiez votre syntaxe avec";
-		cerr << " le manuel." << endl;
-		exit (1);
+		Erreur (OPTION, "Syntaxe d'appel incorrecte.");
 	}
 
 
@@ -73,33 +79,47 @@ static void LectureArguments ( char ** args, int nbr_args)
 	// Sinon analyse des options
 	for (int i=1; i<nbr_args; i++)
 	{
+		// Cas : restriction sur les extensions
 		if ( ! strcmp(args [i], "-e"))
 		{
 			restr.Ajouter(new Restriction_Extension);
-		} else if ( ! strcmp( args [i], "-g"))
+		}
+
+		// Cas : demande d'export en GraphViz
+		else if ( ! strcmp( args [i], "-g"))
 		{
 			if ( ! graphviz.empty () )
 			{
-				cerr << "Trop d'options : \"-g\" deja demande." << endl;
-				exit (1);
+				Erreur (OPTION, "\"-g\" deja demande.");
 			}
 
 			graphviz = args [i+1];
 			++i;
-		} else if ( ! strcmp( args [i], "-t"))
+		} 
+
+		// Cas : restriction sur le temps
+		else if ( ! strcmp( args [i], "-t"))
 		{
-			++i;
-			unsigned int h = (unsigned int) stoi (args[i]);
-			if (h > 23)
+			if (StringIsNumeric(args[i+1]))
 			{
-				cerr << "Heure demandee invalide." << endl;
-				exit (1);
+				++i;
+				unsigned int h = (unsigned int) stoi (args[i]);
+				if (h > 23)
+				{
+					Erreur (OPTION, "Heure demandee invalide.");
+				}
+				restr.Ajouter(new Restriction_Heure (h));
+			} else 
+			{
+				Erreur (OPTION, "Heure demandee invalide.");
 			}
-			restr.Ajouter(new Restriction_Heure (h));
+
+
 		} else
 		{
-			cerr << "Erreur, option invalide : \"" << args[i] << "\"." << endl;
-			exit(1);
+			ostringstream oss;
+			oss << "Option invalide : " << "\"" << args[i] << "\".";
+			Erreur (OPTION, oss.str());
 		}
 	}
 }
@@ -114,8 +134,7 @@ static void VerificationDroits ()
 	ifstream ifs (source.c_str());
 	if ( ! ifs)
 	{
-		cerr << "Echec de lecture du fichier log !" << endl;
-		exit (2);
+		Erreur (FICHIER, "Lecture du fichier Log");
 	}
 #ifdef MAP
 	else
@@ -130,8 +149,7 @@ static void VerificationDroits ()
 		ofstream ofs (graphviz.c_str(), ios_base::app);
 		if ( ! ofs )
 		{
-			cerr << "Echec d'ouverture du fichier " << graphviz << '.' << endl;
-			exit (2);
+			Erreur (FICHIER, "Ecriture impossible du .dot");
 		}
 #ifdef MAP
 		else
@@ -220,3 +238,41 @@ int main ( int argc, char *argv[])
 	return 0;
 } //----- fin de Main.
 
+bool StringIsNumeric (const string & s)
+// Algorithme : 
+// https://stackoverflow.com/questions/4654636/
+{
+	return (!s.empty() && std::find_if(s.begin(), 
+        s.end(), [](char c) { return !std::isdigit(c); }) == s.end());
+} //----- fin de StringIsNumeric
+
+void Erreur (Erreur_e err, const string & message)
+{
+	int exit_code;
+	switch (err)
+	{
+		case OPTION:
+		{
+			cerr << "Problème d'option : ";
+			exit_code = 1;
+			break;
+		}
+		case FICHIER:
+		{
+			cerr << "Problème de fichier : ";
+			exit_code = 2;
+			break;
+
+		}
+		default:
+		// Ce cas n'est pas sensé se produire.
+		{
+			cerr << "Problème inconnu : ";
+			exit_code = -1;
+			break;
+		}
+	}
+	cerr << "\033[31;1m" << message << "\033[0m" << " Arrêt." << endl;
+	exit (exit_code);
+
+} //----- fin de Erreur
