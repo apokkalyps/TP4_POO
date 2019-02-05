@@ -92,9 +92,23 @@ static void LectureArguments ( char ** args, int nbr_args)
 			{
 				Erreur (OPTION, "\"-g\" deja demande.");
 			}
+			else
+			{
+				if (i+1>=nbr_args)
+				{
+					Erreur (OPTION, "Syntaxe d'appel incorrecte.");
+				}
+				else
+				{
+					graphviz = args[i+1];
+					if (GetExtension(graphviz) != "dot")
+					{
+						graphviz += ".dot";
+						++i;
+					}
+				}
 
-			graphviz = args [i+1];
-			++i;
+			}
 		} 
 
 		// Cas : restriction sur le temps
@@ -175,6 +189,13 @@ static void AfficheTop10 ()
 	CountingMap <string> c_cibles; // Compteur des "hit" par cible
 	
 	vector<Paire<CourteRequete>> req = requetes->GetAll();
+	if (req.size() < 1)
+	{
+		cout << "Aucune requête à afficher." << endl;
+		return;
+	}
+
+
 	vector<Paire<CourteRequete>>::const_iterator 
 		debut (req.cbegin()), 
 		fin (req.cend());
