@@ -25,7 +25,7 @@ using namespace std;
 #include "RequeteTools.h"
 #include "Lecture.h"
 #include "CourteRequete.h"
-extern void GenerateGraph (const vector<Paire<CourteRequete>> & 
+extern void GenerateGraph (const vector<Paire<CourteRequete>> &
 	requetes, const string & nomFichier);
 
 
@@ -46,7 +46,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 //	Traite les options saisies par l'utilisateur lors de l'appel du programme.
 //	args : liste des paramètres tels que fournis lors de l'appel du main.
 // 	nbr_args : nombre de paramètres tel que fourni lors de l'appel du main.
-// Contrat : 
+// Contrat :
 //	nbr_args est compatible avec args.
 {
 	// Jeux de tests ?
@@ -104,12 +104,13 @@ static void LectureArguments ( char ** args, int nbr_args)
 					if (GetExtension(graphviz) != "dot")
 					{
 						graphviz += ".dot";
-						++i;
+
 					}
+					++i;
 				}
 
 			}
-		} 
+		}
 
 		// Cas : restriction sur le temps
 		else if ( ! strcmp( args [i], "-t"))
@@ -123,7 +124,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 					Erreur (OPTION, "Heure demandee invalide.");
 				}
 				restr.Ajouter(new Restriction_Heure (h));
-			} else 
+			} else
 			{
 				Erreur (OPTION, "Heure demandee invalide.");
 			}
@@ -187,7 +188,7 @@ static void AfficheTop10 ()
 //	Ensuite, on affiche les dix meilleures.
 {
 	CountingMap <string> c_cibles; // Compteur des "hit" par cible
-	
+
 	vector<Paire<CourteRequete>> req = requetes->GetAll();
 	if (req.size() < 1)
 	{
@@ -196,8 +197,8 @@ static void AfficheTop10 ()
 	}
 
 
-	vector<Paire<CourteRequete>>::const_iterator 
-		debut (req.cbegin()), 
+	vector<Paire<CourteRequete>>::const_iterator
+		debut (req.cbegin()),
 		fin (req.cend());
 	while (debut != fin)
 	{
@@ -205,7 +206,7 @@ static void AfficheTop10 ()
 		++debut;
 	}
 	vector<Paire<string>> dest (c_cibles.GetTop (10));
-	
+
 	cout << "Liste des " << dest.size() << " cible(s) les plus visitées :" << endl;
 	unsigned int compteur = 1;
 	vector<Paire<string>> :: const_iterator
@@ -226,7 +227,7 @@ static void AfficheTop10 ()
 //---------------------------------------------------- Fonctions publiques
 int main ( int argc, char *argv[])
 {
-	
+
 #ifdef MAP
 	AfficheArgs(argv, argc);
 #endif // MAP
@@ -260,10 +261,10 @@ int main ( int argc, char *argv[])
 } //----- fin de Main.
 
 bool StringIsNumeric (const string & s)
-// Algorithme : 
+// Algorithme :
 // https://stackoverflow.com/questions/4654636/
 {
-	return (!s.empty() && std::find_if(s.begin(), 
+	return (!s.empty() && std::find_if(s.begin(),
         s.end(), [](char c) { return !std::isdigit(c); }) == s.end());
 } //----- fin de StringIsNumeric
 

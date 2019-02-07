@@ -3,3 +3,8 @@ obj
 *.out
 *.o
 *.log
+makefile
+Makefile
+*.dot
+analog
+*.png
