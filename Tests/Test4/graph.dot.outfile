@@ -1,0 +1,26 @@
+digraph {
+        "/script.css";
+        "/pageTest.html";
+        "/page5.html";
+        "/page4.html";
+        "/page3.html";
+        "/page2.html";
+        "/page1.html";
+        "/page.html";
+        "/image.jpg";
+        "/blabla.pdf";
+        "/accueuil.html";
+        "/page.html" -> "/page4.html" [label="1"];
+        "/page4.html" -> "/accueuil.html" [label="1"];
+        "/accueuil.html" -> "/pageTest.html" [label="1"];
+        "/page4.html" -> "/page2.html" [label="1"];
+        "/page1.html" -> "/blabla.pdf" [label="1"];
+        "/page3.html" -> "/script.css" [label="1"];
+        "/page4.html" -> "/page5.html" [label="1"];
+        "/page2.html" -> "/page1.html" [label="1"];
+        "/page1.html" -> "/page2.html" [label="1"];
+        "/page3.html" -> "/page2.html" [label="1"];
+        "/page2.html" -> "/page3.html" [label="2"];
+        "/page1.html" -> "/page4.html" [label="1"];
+        "/page3.html" -> "/image.jpg" [label="1"];
+}

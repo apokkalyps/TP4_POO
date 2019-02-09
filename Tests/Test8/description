@@ -1,0 +1,3 @@
+Ce test permet de vérifier l'exécution avec plusieurs options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -t time puis -g fichier.

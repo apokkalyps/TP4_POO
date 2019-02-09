@@ -1,0 +1,1 @@
+./analog -g graph.dot -e -t 14 test12.log

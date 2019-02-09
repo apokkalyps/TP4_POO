@@ -1,0 +1,1 @@
+./analog -e -g graph.dot test7.log
