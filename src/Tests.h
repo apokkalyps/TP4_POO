@@ -1,20 +1,18 @@
 /*************************************************************************
-                           Main  -  description
+                           Tests  -  ensemble de tests +/- unitaires
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface du module <Main> (fichier Main.h) -------------------
-#if ! defined ( MAIN_H )
-#define MAIN_H
+//---------- Interface du module <Tests> (fichier Tests.h) ---------------
+#ifndef TESTS_H
+#define TESTS_H
 
 //------------------------------------------------------------------------
-// Rôle du module <Main>
-//	Module lancé au démarrage du programme.
-//	Il prend en compte les arguments puis appelle tour à tour les autres
-//	fonctionnalités.
+// Rôle du module <Tests>
+//	Fournit un ensemble de fonctions destinées au débogage et aux jeux de tests
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
@@ -23,34 +21,21 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-enum Erreur_e
-{
-	OPTION,
-	FICHIER
-};
+
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-int main ( int argc, char * argv [] );
+void AfficheArgs ( char * args [], int nbr_args );
 // Mode d'emploi :
-//	Fonction Main, porte d'entrée vers le programme depuis l'extérieur.
-// 	Toutes les autres fonctionnalités sont encapsulées.
+//	Affiche les arguments fournis au main.
 // Contrat :
-//	Aucun !
+//	Format des données fournies identique au main.
 
-bool StringIsNumeric (const string & s);
+void LanceTest (const char * numTestArray = "-1");
 // Mode d'emploi :
-//	Indique si une chaine de caractères contient des caractères autres que 
-//	'-' et '0-9'.
-// Mode d'emploi :
-//	Aucun.
-
-void Erreur (Erreur_e err, const string & message);
-// Mode d'emploi :
-//	Affiche un message d'erreur et arrête l'exécution avec 
-//	un code de retour non nul.
+//	Lance le test indexé par numTest.
+//	Si numTest n'est pas spécifié, exécute tous les tests.
 // Contrat :
 //	Aucun.
 
-#endif // MAIN_H
-
+#endif // TESTS_H

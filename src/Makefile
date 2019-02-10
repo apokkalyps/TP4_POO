@@ -2,18 +2,21 @@ COMPIL=g++
 EXT_SRC=cpp
 CFLAGS=-Wall -g -D MAP
 LDFLAGS=-lm
+SRC_FOLDER=src
 SRC=$(wildcard *.$(EXT_SRC))
 OBJ_FOLDER=./obj
 O_FILES=$(addprefix $(OBJ_FOLDER)/, $(SRC:.$(EXT_SRC)=.o))
-EXEC=ex.out
+EXEC_FOLDER_NAME=bin
+EXEC_FOLDER=../$(EXEC_FOLDER_NAME)
+EXEC=$(EXEC_FOLDER)/ex.out
 
 # On n'affiche pas leurs commandes
-.SILENT: $(EXEC) $(OBJ_FOLDER) valgrind clean cleanfull run
+.SILENT: $(EXEC) $(OBJ_FOLDER) $(EXEC_FOLDER) valgrind clean cleanfull run
 # On ne cree pas de fichier apres
 .PHONY: clean valgrind run
 
 #### --- EDITION DES LIENS --- ###
-$(EXEC) : $(OBJ_FOLDER) $(O_FILES)
+$(EXEC) : $(EXEC_FOLDER) $(OBJ_FOLDER) $(O_FILES)
 	echo "Edition des liens de <$@>"
 	$(COMPIL) -o $(EXEC) $(O_FILES) $(LDFLAGS)
 
@@ -26,6 +29,10 @@ $(OBJ_FOLDER) :
 	echo "Creation du dossier <$@> pour stocker les fichiers .o."
 	mkdir $(OBJ_FOLDER)
 
+$(EXEC_FOLDER) :
+	echo "Creation du dossier <$@> pour stocker l'executable $(EXEC)."
+	mkdir ../$(EXEC_FOLDER_NAME)
+
 ### --- OUTILS --- ###
 clean:
 	echo Nettoyage ...
@@ -34,8 +41,11 @@ clean:
 cleanfull:
 	echo Nettoyage complet...
 	rm -f $(O_FILES) $(EXEC)
-	rm ./obj/* -f
-	rmdir obj
+	rm $(OBJ_FOLDER)/* -f
+	rm $(EXEC_FOLDER)/* -f
+	rmdir $(OBJ_FOLDER)
+	rmdir $(EXEC_FOLDER)
+	
 
 valgrind: $(EXEC)
 	echo Lancement de Valgrind ...
