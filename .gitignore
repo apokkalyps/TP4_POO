@@ -1,6 +1,5 @@
-obj/*
-obj
-*.out
+./src/obj/*
+./src/obj
 *.o
 *.log
 *.dot
