@@ -74,10 +74,4 @@ void GenerateGraph (const liste & req, const string & nomFichier)
 
     monFlux << "}" << endl;
   }
-  else
-  {
-    cerr << "Echec d'ouverture du fichier " << nomFichier << '.' << endl;
-    exit (2);
-  }
-
 } //----- fin de GenerateGraph
