@@ -8,7 +8,8 @@ OBJ_FOLDER=./obj
 O_FILES=$(addprefix $(OBJ_FOLDER)/, $(SRC:.$(EXT_SRC)=.o))
 EXEC_FOLDER_NAME=bin
 EXEC_FOLDER=../$(EXEC_FOLDER_NAME)
-EXEC=$(EXEC_FOLDER)/ex.out
+EXEC_NAME=analog
+EXEC=$(EXEC_FOLDER)/$(EXEC_NAME)
 
 # On n'affiche pas leurs commandes
 .SILENT: $(EXEC) $(OBJ_FOLDER) $(EXEC_FOLDER) valgrind clean cleanfull run
