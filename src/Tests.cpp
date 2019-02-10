@@ -131,17 +131,18 @@ static void Test_CountingMap_String ()
 static void Test_CourteRequete ()
 {
 	typedef CourteRequete C;
-	C a ;
+    Requete r; 
+    r.URL_cible="la cible"; 
+    r.URL_source="la source";
+	
+    C a ;
 	cout << "CourteRequete vide : " << a << endl;
-	C b (string("Source_1"), string("Cible_1"));
+	C b (r);
 	cout << "CourteRequete : " << b << endl;
 	cout << "Egalite des deux ? " << boolalpha;
 	cout << (a == b) << endl;
-	C c ("Source_1", "Cible_1");
-	cout << "Egalite ? " << (a == c) << endl;
-	cout << "Construction par copie : ";
-	C d (c);
-	cout << ", egalite ? " << (c==d) << endl;
+	C d (b);
+	cout << ", egalite ? " << (a==d) << endl;
 	cout << "Creation par affectation : " << endl;
 	C e = C();
 }

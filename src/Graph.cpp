@@ -1,5 +1,5 @@
 /*************************************************************************
-                           Graph  -  description
+                           Graph  -  génération d'un graphe
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
@@ -10,14 +10,10 @@
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
-
-//------------------------------------------------------ Include personnel
-#include <iostream>
 #include <fstream>
 #include <set>
-#include <iterator>
-#include <algorithm>
 
+//------------------------------------------------------ Include personnel
 #include "Graph.h"
 
 
@@ -25,7 +21,6 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-typedef vector<Paire<CourteRequete>> liste;
 
 //---------------------------------------------------- Variables statiques
 
@@ -35,11 +30,9 @@ typedef vector<Paire<CourteRequete>> liste;
 //---------------------------------------------------- Fonctions publiques
 void GenerateGraph (const liste & req, const string & nomFichier)
 {
-  //Déclaration d'un flux permettant d'écrire dans un fichier.
-  ofstream monFlux(nomFichier.c_str());
+	//Déclaration d'un flux permettant d'écrire dans un fichier.
+	ofstream monFlux(nomFichier.c_str());
 
-  if(monFlux)
-  {
     set <string, greater <string> > nodes;
     //Recuperation des nodes uniques
     liste::const_iterator
@@ -73,5 +66,4 @@ void GenerateGraph (const liste & req, const string & nomFichier)
   	}
 
     monFlux << "}" << endl;
-  }
 } //----- fin de GenerateGraph

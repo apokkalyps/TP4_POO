@@ -81,8 +81,6 @@ struct RestrictionList
 // Contrat d'utilisation : pas de copie.
 {
 public:
-	forward_list<Restriction*> liste; 
-	// Liste simplement chaînée de restrictions en accès libre.
 	bool TesterTout (const Requete & req) const;
 	// Mode d'emploi :
 	//	Teste toutes les restrictions sur la requête fournie et renvoie 
@@ -109,6 +107,8 @@ public:
 	//	Aucun.
 protected:
 	unsigned int taille = 0; // Nombre d'éléments.
+	forward_list<Restriction*> liste; 
+	// Liste simplement chaînée de restrictions.
 };
 
 struct Restriction_Heure : public Restriction
@@ -132,14 +132,12 @@ public:
 	string ClassToString () const;
 protected:
 	ostream & Aff (ostream & os) const;
-	string getExtension (const string & nomFichier) const;
-	// Renvoie l'extension du fichier.
-	// Contrat : le fichier a bien une extension.
 	const static unsigned int nbRF = 9; // Nombre de restrictedFormats
-	const  string restrictedFormats[nbRF] = 
+	const string restrictedFormats[nbRF] = 
 	{
 		"TIFF", "JPEG", "GIF", "PNG", "RAW", "CSS", "JS",
-		 "JPG", "ICO"}; // Formats interdits.
+		"JPG", "ICO"
+	}; // Formats interdits.
 };
 
 //////////////////////////////////////////////////////////////////  PUBLIC

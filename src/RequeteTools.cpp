@@ -17,6 +17,7 @@
 #include <algorithm>
 #include "RequeteTools.h"
 #include "Main.h"
+#include "Lecture.h"
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -123,11 +124,9 @@ Restriction_Extension::Restriction_Extension ()
 bool Restriction_Extension::operator () (const Requete & req) const
 {
 	locale loc; // Pour utiliser toupper
-	//string extFichier (toupper(getExtension(req.URL_cible), loc));
-	string extFichier (getExtension(req.URL_cible));
+	string extFichier = GetExtension(req.URL_cible);
 	transform (extFichier.begin(), extFichier.end(), extFichier.begin(), ::toupper);
 
-	//to_upper(extFichier);
 	for (unsigned int i=0; i<nbRF; ++i)
 	{
 		if (extFichier.compare(restrictedFormats[i]) == 0)
@@ -148,12 +147,6 @@ ostream & Restriction_Extension::Aff (ostream & os) const
 	os << restrictedFormats[nbRF-1] << '}';
 	return os;
 } //----- fin de Aff pour ostream et Restriction_Extension
-
-string Restriction_Extension::getExtension (const string & nomFichier) const
-{
-  size_t found = nomFichier.find_last_of(".");
-  return nomFichier.substr(found+1);
-} //----- fin de getExtension
 
 string Restriction_Extension::ClassToString () const
 {

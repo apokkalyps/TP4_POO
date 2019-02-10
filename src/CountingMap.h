@@ -67,7 +67,7 @@ public:
     // Contrat :
     //  Aucun.
 
-    vector<Paire<Donnee>> GetTop (unsigned int nombre) const;
+    vector<Paire<Donnee>> GetTop (nbr_t nombre) const;
     // Mode d'emploi :
     //  Renvoie un vecteur des nombre éléments les plus décomptés.
     // Contrat :
@@ -191,7 +191,7 @@ size_t CountingMap <Donnee, HashF> :: GetTaille () const
 
 template <typename Donnee, class HashF>
 vector<Paire<Donnee>> CountingMap <Donnee, HashF> :: GetTop 
-    (unsigned int nombre) const
+    (nbr_t nombre) const
 // Algorithme :
 //  On commence par créer un vector de paires {Donnee, nbr_t}.
 //  On remplit ce vector avec tous les éléments de la CountingMap.

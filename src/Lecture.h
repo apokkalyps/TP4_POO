@@ -67,36 +67,29 @@ void LectureLogs(
 // Mode d'emploi :
 //	Parcourt le fichier de Logs et enregistre tout dans la CountingMap.
 // Contrat :
-//	Le pointeur de CountingMap est valide.
+//	Le pointeur de CountingMap est valide, le fichier peut être lu.
 {
 	ifstream monFlux(source.c_str());
 
-	if (monFlux.good())
-	{
 #ifdef MAP
-		cout << "Flux ouvert. " << endl;
-		unsigned int iLigne = 0;
+	cout << "Flux ouvert. " << endl;
+	unsigned int iLigne = 0;
 #endif // MAP
 
-		Requete nvx;
-		while (LireRequete(monFlux, &nvx))
-		{
-#ifdef MAP
-			cout << "Ligne " << iLigne++ << '.' << endl;
-#endif // MAP
-			if (ValideOption(restr, nvx))
-			{
-				liste->Ajouter (RequeteType(nvx));
-			}
-		}
-#ifdef MAP
-		cout << "Fin de la lecture, " << iLigne << " lignes lues." << endl;
-#endif // MAP
-	}
-	else
+	Requete nvx;
+	while (LireRequete(monFlux, &nvx))
 	{
-		Erreur(FICHIER, "Lecture du fichier Log.");
+#ifdef MAP
+		cout << "Ligne " << iLigne++ << '.' << endl;
+#endif // MAP
+		if (ValideOption(restr, nvx))
+		{
+			liste->Ajouter (RequeteType(nvx));
+		}
 	}
+#ifdef MAP
+	cout << "Fin de la lecture, " << iLigne << " lignes lues." << endl;
+#endif // MAP
 } //----- fin de LectureLogs
 
 #endif // LECTURE_H

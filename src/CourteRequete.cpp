@@ -78,16 +78,6 @@ CourteRequete::CourteRequete ( const CourteRequete & cr ) :
 #endif
 } //----- Fin de CourteRequete (constructeur de copie)
 
-CourteRequete::CourteRequete (  const string & URL_source, 
-                                const string & URL_cible) :
-    source (URL_source),
-    cible (URL_cible)
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <CourteRequete> par deux string" << endl;
-#endif
-}
-
 CourteRequete::CourteRequete ( const Requete & req ) :
     source (req.URL_source),
     cible (req.URL_cible)
@@ -97,8 +87,6 @@ CourteRequete::CourteRequete ( const Requete & req ) :
     cout << endl;
 #endif
 } //----- fin de CourteRequete (C par copie de Requete)
-
-
 
 CourteRequete::CourteRequete ( ) :
 	source(),
