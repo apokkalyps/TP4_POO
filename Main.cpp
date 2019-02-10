@@ -49,6 +49,11 @@ static void LectureArguments ( char ** args, int nbr_args)
 // Contrat :
 //	nbr_args est compatible avec args.
 {
+	if (nbr_args == 1)
+	{
+		Erreur (OPTION, "Syntaxe d'appel incorrecte.");
+	}
+
 	// Jeux de tests ?
 	// Si oui, on doit aussi spécifier en option l'indice du test.
 	if ( ! strcmp (args[1], "--tests"))
@@ -69,7 +74,7 @@ static void LectureArguments ( char ** args, int nbr_args)
 	{
 		source += ".log";
 	}
-	if ( nbr_args < 1 || nbr_args > 6 || source[0] == '-')
+	if (source[0] == '-')
 	{
 		Erreur (OPTION, "Syntaxe d'appel incorrecte.");
 	}
