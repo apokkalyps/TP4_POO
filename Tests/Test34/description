@@ -1,0 +1,4 @@
+Ce test permet de vérifier la réaction du logiciel lors de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log est spécifié sans extension mais le fichier
+avec le nom donné existe en .log

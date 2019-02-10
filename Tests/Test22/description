@@ -1,0 +1,2 @@
+Ce test permet de vérifier la réaction du logiciel lors de l'appel avec -t
+et une heure spécifié incorrecte (n'appartenant pas a [0,23])

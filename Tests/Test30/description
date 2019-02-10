@@ -1,0 +1,4 @@
+Ce test permet de vérifier la réaction du logiciel lors de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log n'est pas spécifié, mais le dernier appel
+est l'option -e
