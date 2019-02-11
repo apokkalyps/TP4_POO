@@ -25,6 +25,7 @@ using namespace std;
 
 //---------------------------------------------------- Variables statiques
 static const string localURL = "http://intranet-if.insa-lyon.fr";
+static int comp = 0;
 
 //------------------------------------------------------ Fonctions privées
 
@@ -71,6 +72,7 @@ bool LireRequete (ifstream & ifs, Requete * req)
 	req->protocole = req->protocole.substr(0,req->protocole.length()-1);
 	req->URL_source =
 		CheckURL(req->URL_source.substr(1,req->URL_source.length()-2));
+	req->URL_cible = CheckURL(req->URL_cible);
 	req->navigateur =
 		req->navigateur.substr(1,req->navigateur.length()-2);
 
@@ -92,15 +94,60 @@ string CheckURL(string s)
 // Algorithme :
 //	https://www.oreilly.com/library/view/c-cookbook/0596007612/ch04s12.html
 {
-	std::string::size_type i = s.find(localURL);
+	string localURL2 = "http://servif-web.insa-lyon.fr:90";
+	string localURL3 = "http://intranet-if:90";
+	string localURL4 = "http://intranet-if.insa-lyon.fr:90";
+	//cout << "- avant : " << s << endl;
+	std::string::size_type local1 = s.find("http://intranet-if.insa-lyon.fr");
+	std::string::size_type local2 = s.find("http://servif-web.insa-lyon.fr:90");
+	std::string::size_type local3 = s.find("http://intranet-if:90");
+	std::string::size_type local4 = s.find("http://intranet-if.insa-lyon.fr:90");
+
+	std::string::size_type i = s.find("jsessionid");
 	std::string::size_type j = s.find("google");
-	if (i != std::string::npos)
+	std::string::size_type k = s.find("php?");
+
+// Filtrage des URL locales
+	if (local1 != std::string::npos)
 	{
-		s.erase(i, localURL.length());
+		if (local4 != std::string::npos)
+		{
+			s.erase(local4, localURL4.length());
+		}
+		else
+		{
+			s.erase(local1, localURL.length());
+		}
 	}
-	else if(j != std::string::npos)
+	else if (local2 != std::string::npos)
 	{
-		return "www.google.com";
+		s.erase(local2, localURL2.length());
 	}
+	else if (local3 != std::string::npos)
+	{
+		s.erase(local3, localURL3.length());
+	}
+
+
+	if(j != std::string::npos)
+	{
+		s = "www.google.com";
+	}
+
+
+	if(k != std::string::npos)
+	{
+		//cout << comp <<" - avant : " << s << endl;
+		s = s.substr(0, k+3);
+		//cout << "- apres : " << s << endl;
+	}
+	if(i != std::string::npos)
+	{
+		s = s.substr(0, i);
+	}
+
+	comp++;
+
+	//cout << "- apres : " << s << endl;
 	return s;
 } //----- fin de CheckURL
