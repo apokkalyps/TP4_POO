@@ -1,1 +1,1 @@
-./analog -z -e test29.log
+../../bin/analog -z -e test29.log

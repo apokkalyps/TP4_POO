@@ -1,1 +1,1 @@
-./analog test18.log
+chmod 000 test18.log; ../../bin/analog test18.log

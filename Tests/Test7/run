@@ -1,1 +1,1 @@
-./analog -e -g graph.dot test7.log
+../../bin/analog -e -g graph.dot test7.log

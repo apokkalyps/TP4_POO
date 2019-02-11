@@ -1,0 +1,622 @@
+-----------------------------------------------------------
+| Test id : Test1
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution sans option du 
+programme
+-----------------------------------------------------------
+../../bin/analog test1.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test10
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -e, -t time puis -g fichier.
+-----------------------------------------------------------
+../../bin/analog -e -t 14 -g graph.dot test10.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test11
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -g fichier, -e puis -t time.
+-----------------------------------------------------------
+../../bin/analog -g graph.dot -e -t 14 test11.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test12
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier les conséquences quand les 
+options ignorent
+toutes les requetes du log et qu'un fichier graphviz est 
+créé
+-----------------------------------------------------------
+../../bin/analog -g graph.dot -e -t 14 test12.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test13
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier les conséquences quand les 
+options ignorent
+toutes les requetes du log
+-----------------------------------------------------------
+../../bin/analog -e -t 14 test13.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test14
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'effet d'un fichier log avec 
+moins de 10 requetes
+-----------------------------------------------------------
+../../bin/analog test14.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test15
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'effet d'un fichier log vide
+-----------------------------------------------------------
+../../bin/analog test15.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test16
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'effet d'un fichier log vide 
+lors de la création d'un fichier graphviz
+-----------------------------------------------------------
+../../bin/analog test16.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : FAILED
+                                       File #1     : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test17
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la création d'un fichier 
+graphviz lorsque un fichier
+du meme nom existe deja
+-----------------------------------------------------------
+../../bin/analog -g graph.dot test17.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test18
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'erreur lors de la lecture du 
+fichier log restreint en lecture.
+-----------------------------------------------------------
+chmod 000 test18.log; ../../bin/analog test18.log 2>temperr.txt
+Liste des 10 cible(s) les plus visitées :
+1. "/page2.html" avec 3 visites.
+2. "/image.jpg" avec 2 visites.
+3. "/page3.html" avec 2 visites.
+4. "/blabla.pdf" avec 1 visites.
+5. "/script.css" avec 1 visites.
+6. "/page5.html" avec 1 visites.
+7. "/pageTest.html" avec 1 visites.
+8. "/accueuil.html" avec 1 visites.
+9. "/page1.html" avec 1 visites.
+10. "/page4.html" avec 1 visites.
+Fini.
+                                       Return Code : FAILED
+                                       Stderr      : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test19
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'erreur lors de la lecture 
+d'un fichier log inexistant.
+-----------------------------------------------------------
+../../bin/analog test19.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test2
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec l'option -e 
+(sans fichiers média) du programme
+-----------------------------------------------------------
+../../bin/analog -e test2.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test20
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'écriture d'un fichier
+graphviz avec le meme nom qu'un fichier existant et 
+vérouillé en écriture
+-----------------------------------------------------------
+../../bin/analog -g graph.dot test20.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test21
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'écriture d'un fichier
+graphviz donné avec la mauvaise extension
+-----------------------------------------------------------
+../../bin/analog -g graph.txt test21.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+0a1,24
+> digraph {
+> 	"/script.css";
+> 	"/pageTest.html";
+> 	"/page5.html";
+> 	"/page4.html";
+> 	"/page3.html";
+> 	"/page2.html";
+> 	"/page1.html";
+> 	"/image.jpg";
+> 	"/blabla.pdf";
+> 	"/accueuil.html";
+> 	"/page3.html" -> "/image.jpg" [label="2"];
+> 	"/page4.html" -> "/accueuil.html" [label="1"];
+> 	"/accueuil.html" -> "/pageTest.html" [label="1"];
+> 	"/page4.html" -> "/page2.html" [label="1"];
+> 	"/page1.html" -> "/blabla.pdf" [label="1"];
+> 	"/page3.html" -> "/script.css" [label="1"];
+> 	"/page4.html" -> "/page5.html" [label="1"];
+> 	"/page2.html" -> "/page1.html" [label="1"];
+> 	"/page1.html" -> "/page2.html" [label="1"];
+> 	"/page3.html" -> "/page2.html" [label="1"];
+> 	"/page2.html" -> "/page3.html" [label="2"];
+> 	"/page1.html" -> "/page4.html" [label="1"];
+> }
+                                       File #1     : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test22
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec -t
+et une heure spécifié incorrecte (n'appartenant pas a 
+[0,23])
+-----------------------------------------------------------
+../../bin/analog -t 77 test22.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test23
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec plusieurs -g nomfichier
+-----------------------------------------------------------
+../../bin/analog -g graph.dot -g graph.dot test23.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test24
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec des restriction (format ou heure) en double
+-----------------------------------------------------------
+../../bin/analog -e -e test24.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test25
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec des restriction (format ou heure) en double
+-----------------------------------------------------------
+../../bin/analog -t 5 -t 5 test25.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test26
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec des restriction (format ou heure) en double
+-----------------------------------------------------------
+../../bin/analog -t 5 -t 5 -e test26.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test27
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou on a trop d'options
+-----------------------------------------------------------
+../../bin/analog -t 5 -t 5 -e -e test27.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test28
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou l'option appelée est invalide
+-----------------------------------------------------------
+../../bin/analog -z test28.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test29
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou l'option appelée est invalide et 
+accompagnée d'une option valide
+-----------------------------------------------------------
+../../bin/analog -z -e test29.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test3
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec l'option -t 
+time
+(reqeutes uniquement entre time et time+1) du programme
+-----------------------------------------------------------
+../../bin/analog -t 01 test3.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test30
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log n'est pas spécifié, 
+mais le dernier appel
+est l'option -e
+-----------------------------------------------------------
+../../bin/analog -e 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test31
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log n'est pas spécifié, 
+mais le dernier appel
+est l'option -t time
+-----------------------------------------------------------
+../../bin/analog -t 14 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test32
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log n'est pas spécifié, 
+mais le dernier appel
+est l'option -g fichiergraph
+-----------------------------------------------------------
+../../bin/analog -g graph.dot 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test33
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log est spécifié avec la 
+mauvaise extension
+-----------------------------------------------------------
+../../bin/analog test33.txt 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test34
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log est spécifié sans 
+extension mais le fichier
+avec le nom donné existe en .log
+-----------------------------------------------------------
+../../bin/analog test34 >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test35
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log est spécifié sans 
+extension et le fichier
+dont le nom est donné est inexistant, peut importe le 
+format
+-----------------------------------------------------------
+../../bin/analog test35 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test36
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier la réaction du logiciel lors 
+de l'appel avec
+une syntaxe incorrecte
+Ici le cas ou le nom du fichier log n'est pas spécifié 
+-----------------------------------------------------------
+../../bin/analog 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test4
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec l'option -g 
+fichier
+(génération d'un fichier graphviz) du programme
+-----------------------------------------------------------
+../../bin/analog -g graph.dot test4.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+9d8
+<         "/page.html";
+13c12
+<         "/page.html" -> "/page4.html" [label="1"];
+---
+> 	"/page3.html" -> "/page4.html" [label="1"];
+                                       File #1     : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test5
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme
+Ici on test -e et -t time.
+-----------------------------------------------------------
+../../bin/analog -e -t 14 test5.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test6
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -t time puis -e.
+-----------------------------------------------------------
+../../bin/analog -e -t 14 test6.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test7
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -e puis -g fichier.
+-----------------------------------------------------------
+../../bin/analog -e -g graph.dot test7.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test8
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -t time puis -g fichier.
+-----------------------------------------------------------
+../../bin/analog -t 14 -g graph.dot test8.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+2,4d1
+<         "/page.html";
+<         "/image.jpg";
+<         "/page.html" -> "/image.jpg" [label="1"];
+                                       File #1     : FAILED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test9
+-----------------------------------------------------------
+Description :
+Ce test permet de vérifier l'exécution avec plusieurs 
+options du programme et
+vérifier que l'ordre n'a pas d'importance
+Ici on test -t time puis -g fichier puis -e.
+-----------------------------------------------------------
+../../bin/analog -t 14 -g graph.dot -e test9.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+Passed tests     : 29
+Failed tests     : 7
+Misformed tests  : 0
+-----------------------
+Total            : 36

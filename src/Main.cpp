@@ -299,7 +299,7 @@ void Erreur (Erreur_e err, const string & message)
 			break;
 		}
 	}
-	cerr << "\033[31;1m" << message << "\033[0m" << " Arrêt." << endl;
+	cerr /*<< "\033[31;1m"*/ << message /*<< "\033[0m"*/ << " Arrêt." << endl;
 	exit (exit_code);
 
 } //----- fin de Erreur

@@ -1,5 +1,5 @@
 digraph {
-        "/page.html";
-        "/image.jpg";
-        "/page.html" -> "/image.jpg" [label="1"];
+	"/page3.html";
+	"/image.jpg";
+	"/page3.html" -> "/image.jpg" [label="1"];
 }

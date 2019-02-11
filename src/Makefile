@@ -1,6 +1,6 @@
 COMPIL=g++
 EXT_SRC=cpp
-CFLAGS=-Wall -g -D MAP
+CFLAGS=-Wall -g
 LDFLAGS=-lm
 SRC_FOLDER=src
 SRC=$(wildcard *.$(EXT_SRC))
@@ -46,7 +46,7 @@ cleanfull:
 	rm $(EXEC_FOLDER)/* -f
 	rmdir $(OBJ_FOLDER)
 	rmdir $(EXEC_FOLDER)
-	
+
 
 valgrind: $(EXEC)
 	echo Lancement de Valgrind ...

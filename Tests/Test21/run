@@ -1,1 +1,1 @@
-./analog -g graph.txt test21.log
+../../bin/analog -g graph.txt test21.log
