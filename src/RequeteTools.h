@@ -115,12 +115,12 @@ struct Restriction_Heure : public Restriction
 // Restriction sur l'heure.
 {
 public:
-	Restriction_Heure (unsigned char h);
+	Restriction_Heure (unsigned int h);
 	bool operator () (const Requete & req) const;
 	virtual string ClassToString () const;
 protected:
 	ostream & Aff (ostream & os) const;
-	unsigned char heure = 0;
+	unsigned int heure = 0;
 };
 
 struct Restriction_Extension : public Restriction

@@ -95,14 +95,16 @@ RestrictionList::~RestrictionList ()
 	}
 } //----- fin du destructeur de RestrictionList.
 
-Restriction_Heure::Restriction_Heure (unsigned char h) :
+Restriction_Heure::Restriction_Heure (unsigned int h) :
 	heure (h)
 {
 } //----- fin du constructeur de Restriction_Heure
 
 bool Restriction_Heure::operator () (const Requete & req) const
 {
-	return req.heure.compare(to_string(heure)) == 0;
+	int heure_requete = stoi(req.heure);
+	return heure_requete == int(heure);
+//	return req.heure.compare(to_string(heure)) == 0;
 } //----- fin de Operator() pour Restriction_Heure
 
 ostream & Restriction_Heure::Aff (ostream & os) const
